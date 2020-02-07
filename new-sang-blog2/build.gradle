@@ -1,35 +1,49 @@
-plugins {
-	id 'org.springframework.boot' version '2.2.4.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
+buildscript {
+	ext {
+		// ext는 build.gradle에서 사용하는 전역변수 설정
+		springBootVersion = '2.1.7.RELEASE'
+		hibernateVersion = '5.2.11.Final'
+	}
+	
+	repositories {
+		mavenCentral()
+	}
+	
+	dependencies {
+		// 스프링 부트 그레이들 플러그인의 2.1.7.RELEASE를 의존성으로 받는다.
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		/**
+		SpringDataJpa에서 LocalDate와 LocalDateTime 저장 시 DB에 제대로 전환 안되는 이슈가 있는데,
+		이 문제를 Hibernate core 5.2.10부터는 해결
+		따라서 추가 의존성 (1)
+		*/
+		classpath("io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE")
+	}
+
 }
+
+// 자바와 스프링 부트를 사용하기 위한 필수 플러그인 
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+// 스프링 부트의 의존성을 관리해주는 플러그인
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.blog'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
 repositories {
+	// 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 지정
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.projectlombok:lombok')
+	compile('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-test {
-	useJUnitPlatform()
-}
