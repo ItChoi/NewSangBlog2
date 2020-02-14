@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ManagerController {
 	
+	@RequestMapping(value= {"/", ""})
 	public String managerMainPage() {
-		
+		System.out.println("ASdasdasdasd");
 		return "manager/index";
 	}
 	
