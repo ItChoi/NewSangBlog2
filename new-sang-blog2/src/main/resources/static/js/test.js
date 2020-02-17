@@ -1,8 +1,8 @@
-var test = {
+/*var test = {
 	init : function() {
 		
 	}
 		
 };
 
-test.init();
+test.init();*/

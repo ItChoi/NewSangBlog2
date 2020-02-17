@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Test;
@@ -14,26 +15,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
 
-import lombok.NoArgsConstructor;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ManagerRepositoryTest {
 	
 	@Autowired
-	ManagerRepository ManagerRepository;
+	ManagerRepository managerRepository;
 
 	@After
 	public void cleanUp() {
-		ManagerRepository.deleteAll();
+		managerRepository.deleteAll();
 	}
 	
 	@Test
 	public void 유저저장_불러오기() {
 		// given
-		ManagerRepository.save(
+		managerRepository.save(
 				Manager.builder()
-					.loginId("로그인 아이디")
+					.loginId("enffl")
 					.password("패뜨워드")
 					.phoneNumber("010-0000-0000")
 					.name("최쌍씨")
@@ -43,11 +42,14 @@ public class ManagerRepositoryTest {
 		);
 		
 		// when
-		List<Manager> managerList = ManagerRepository.findAll();
+		List<Manager> managerList = managerRepository.findAll();
+		Optional<Manager> managerInfo = managerRepository.findByLoginId("enffl");
+		
+		
 		
 		// then
-		Manager manager = managerList.get(0);
-		assertThat(manager.getLoginId(), is("로그인 아이디"));
+		assertThat(managerInfo.get().getLoginId(), is("enffl"));
+		assertThat(managerInfo.isPresent(), is(true));
 	}
 
 }

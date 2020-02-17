@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum UserInto {
+public enum UserInfo {
 	LOGIN_ID("loginId");
 	
 	private String loginId;

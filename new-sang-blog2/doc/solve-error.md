@@ -72,4 +72,38 @@
 6. 해결
     - 경로 제대로 지정!
     
+#### 3. 스프링 시큐리티 적용하면서 발생한 에러
+1. 발생 상황
+    - 스프링 설정 클래스 추가 
+    - @Configuration 코드 추가
+    - @EnableWebSecurity 코드 추가
+    - configure(WebSecurity web) 오버라이드
+    - configure(HttpSecurity http) 오버라라이드
+    - 서버 실행 시 에러 발생
+2. 발생 에러
+    - org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'springSecurityFilterChain' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.servlet.Filter]: Factory method 'springSecurityFilterChain' threw exception; nested exception is java.lang.NullPointerException
+3. 발생 원인 추측
+    - 접근 경로에 필요한 접근 권한을 제대로 주지 못한 거 같음. HttpSecurty http를 파라미터로 받는 오버라이드에 경로를 재설정하는 것이 필요할 거 같다.
+4. 시도한 방법
+    - 내 경로에 적합하게 경로 설정
+5. 발생 원인
+    - WebSecurityConfigurerAdapter를 상속받아 스프링 시큐리티 설정을 할 때 setAuthenticationConfiguration(AuthenticationConfiguration
+	 * authenticationConfiguration)도 오버라이드 해놓고 아무 코드도 안 써놓고 있었다 흙흙....
+6. 해결
+    - 주석처리 해놓으니 정상 작동.........................................
     
+#### 4. application.yml 등 설정 파일에 민감한 정보를 암호화하기 위해 오픈 소스인 jasypt 사용하면서 막힘.
+1. 발생 상황
+    - build.gradle에 jasypt 의존성을 추가 했는데, @EnableEncryptableProperties 애노테이션이 안 뜬다.
+2. 발생 에러
+    - X
+3. 발생 원인 추측
+    - 의존성이 제대로 추가되지 않았나?
+4. 시도한 방법
+    - jasypt 의존성 제대로 추가 되었는 지 확인 필요 
+    - 최신 버전을 의존성으로 추가
+       - [https://javalibs.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter](https://javalibs.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter)
+5. 발생 원인
+    - 그래들에 추가한 jasypt 버전이 현재 사용하고 있는 스프링이나 그래들 버전에 호환이 되지 않았던 거 같다. 최신 버전으로 하니 추가됌
+6. 해결
+    - jasypt 의존성 최신 버전으로 추가    

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.blog.newsangblog2.common.enumeration.UserInto;
+import com.blog.newsangblog2.common.enumeration.UserInfo;
 import com.blog.newsangblog2.exception.UserNotFoundException;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class UserUtils {
 	public static String getLoginId() {
 		HttpSession session = getHttpServletRequest().getSession();
 		return Optional.ofNullable(
-					(String) session.getAttribute(UserInto.LOGIN_ID.getLoginId())
+					(String) session.getAttribute(UserInfo.LOGIN_ID.getLoginId())
 				).orElseThrow(() -> new UserNotFoundException("세션에 등록된 아이디가 없습니다."));
 	}
 	

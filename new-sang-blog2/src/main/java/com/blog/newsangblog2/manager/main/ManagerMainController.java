@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("manager")
 @Controller
-public class ManagerController {
+public class ManagerMainController {
 	
 	@RequestMapping(value= {"/", ""})
 	public String managerMainPage() {
 		System.out.println("ASdasdasdasd");
-		return "manager/index";
+		return "/manager/main/index";
 	}
 	
 }

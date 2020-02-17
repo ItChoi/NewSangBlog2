@@ -140,6 +140,17 @@
            - permitAll: 모두 허용
            - denyAll: 모두 거부  
 
+### 스프링 부트 - 스프링 시큐리티 적용
+- 의존성 추가
+    - spring security 의존성 뿐만 아니라, Thymeleaf에서 Spring Security 통합 모듈을 사용하기 위한 의존성도 필요
+    - 'org.springframework.boot:spring-boot-starter-security'
+    - 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+- Spring Security 설정
+    - Spring Security는 FilterChainProxy를 통해 여러 내부 Filter들이 동작하고 있다.
+      - Client -> Filter -> FilterChainProxy(Spring Security Filters) -> Filter -> Servlet
+    - 따라서 구현 단계에서 별도의 로직을 작성하지 않아도 설정만으로 로그인 / 로그아웃 등의 처리가 가능
+    - WebSecurityConfigurerAdapter라는 클래스를 상속받은 클래스에서 메서드를 오버라이딩하여 조정할 수 있다.
+
 
 #### 참조
 1. [https://sjh836.tistory.com/165](https://sjh836.tistory.com/165)

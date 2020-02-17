@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.exception.UserNotFoundException;
 
 public class TestCode {
@@ -17,4 +18,18 @@ public class TestCode {
 		System.out.println("result: " + loginId);
 		
 	}
+	
+	@Test
+	public void 이넘_테스트() {
+		for (UserRoleType a : UserRoleType.values()) {
+			String b = a.toString();
+			System.out.println("result: " + b);
+		}
+	}
+	
+	@Test
+	public void ROLE_확인() {
+		
+	}
+	
 }
