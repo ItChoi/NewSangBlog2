@@ -1,4 +1,4 @@
-package com.blog.newsangblog2.config;
+package com.blog.newsangblog2.config.jasypt;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
@@ -11,10 +11,9 @@ public class JasptConfig {
 	
 	@Bean("jasyptStringEncryptor")
 	public StringEncryptor stringEncryptor() {
-		String salt = System.getProperty("spring.datasource");
 		
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-		config.setPassword("passwordTest");
+		config.setPassword("m2js");
 		config.setAlgorithm("PBEWithMD5AndDES");
 		config.setKeyObtentionIterations("1000");
 		config.setPoolSize("1");

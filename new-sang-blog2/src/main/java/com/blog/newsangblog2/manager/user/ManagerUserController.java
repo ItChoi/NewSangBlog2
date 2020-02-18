@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
-import com.blog.newsangblog2.manager.user.repository.ManagerRepository;
+import com.blog.newsangblog2.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.manager.user.support.ManagerDto;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/manager/user")
 public class ManagerUserController {
 
-	private ManagerRepository managerRepository;
+	private ManagerUserRepository managerRepository;
 	
 	@GetMapping("/list")
 	public String managerList(Model model) {

@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
-import com.blog.newsangblog2.manager.user.repository.ManagerRepository;
+import com.blog.newsangblog2.manager.user.repository.ManagerUserRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
 	
-	private ManagerRepository managerRepository;
+	private ManagerUserRepository managerRepository;
 
 	/**
 	 * 상세 정보 조회 메서드

@@ -1,4 +1,4 @@
-package com.blog.newsangblog2.config;
+package com.blog.newsangblog2.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

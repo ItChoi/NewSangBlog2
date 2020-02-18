@@ -20,7 +20,7 @@ import com.blog.newsangblog2.manager.user.domain.Manager;
 public class ManagerRepositoryTest {
 	
 	@Autowired
-	ManagerRepository managerRepository;
+	ManagerUserRepository managerRepository;
 
 	@After
 	public void cleanUp() {
