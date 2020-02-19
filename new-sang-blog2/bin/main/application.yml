@@ -10,7 +10,6 @@ spring:
       enabled: true
 
   jpa:
-  
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     # DDL 정의시 DB 고유 기능 사용, ex) 테이블 생성 삭제 등
     generate-ddl: true
@@ -25,24 +24,17 @@ spring:
 ---
 
 datasource:
-  type: com.zaxxer.hikari.HikariDataSource
-  hikari:
-    maximum-pool-size: 10
-    max-lifetime: 30
   driver-class-name: com.mysql.cj.jdbc.Driver
   url: jdbc:mysql://localhost:3306/sangblog?serverTimezone=UTC
   username: root
   #password: ENC(6qflBiVkNBfNw4n2SKvl9Qjxxq7bjb3M)
   password: Tkatjd1818
+  type: com.zaxxer.hikari.HikariDataSource
+  hikari:
+    maximum-pool-size: 10
+    max-lifetime: 30
 
 ---
-
-jasypt:
-  encryptor:
-    bean: jasyptStringEncryptor
-    password: ENC(d7EnaNuzbWKrTtWfj6LslA==)
-    
----    
     
 logging:
   level:
@@ -54,4 +46,3 @@ logging:
             sql:
               BasicBinder: TRACE
 ---
-

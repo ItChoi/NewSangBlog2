@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class JasptConfig {
+public class JasyptConfig {
 	
 	@Bean("jasyptStringEncryptor")
 	public StringEncryptor stringEncryptor() {
