@@ -2,7 +2,6 @@ buildscript {
 	ext {
 		// ext는 build.gradle에서 사용하는 전역변수 설정
 		springBootVersion = '2.1.7.RELEASE'
-		hibernateVersion = '5.2.11.Final'
 	}
 	
 	repositories {
@@ -17,7 +16,7 @@ buildscript {
 		이 문제를 Hibernate core 5.2.10부터는 해결
 		따라서 추가 의존성 (1)
 		*/
-		classpath("io.spring.gradle:dependency-management-plugin")
+		classpath("io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE")
 	}
 
 }
@@ -36,6 +35,8 @@ sourceCompatibility = '1.8'
 repositories {
 	// 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 지정
 	mavenCentral()
+	// 오라클 의존성을 추가하기 위함
+	maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
 }
 
 dependencies {
@@ -51,5 +52,6 @@ dependencies {
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
 	compile('mysql:mysql-connector-java')
 	compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.2')
+	compile('com.oracle:ojdbc6:11.2.0.1.0')
 }
 

@@ -1,5 +1,7 @@
 package com.blog.newsangblog2.config.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.AllArgsConstructor;
@@ -90,7 +94,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 403 예외 처리 핸들링
 				// 예외 발생 시 이를 통해 핸들링 ex) 접근 권한 없을 시 로그인 페이지 이동
 				.exceptionHandling()
-				.accessDeniedPage("/user/denied");
+				.accessDeniedPage("/user/denied")
+			.and()
+				.csrf()
+				.ignoringAntMatchers("/h2-console/**")
+			.and()
+				.headers()
+				.frameOptions()
+				.disable()
+			;
 	}
 	
 	/**

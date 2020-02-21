@@ -106,4 +106,29 @@
 5. 발생 원인
     - 그래들에 추가한 jasypt 버전이 현재 사용하고 있는 스프링이나 그래들 버전에 호환이 되지 않았던 거 같다. 최신 버전으로 하니 추가됌
 6. 해결
-    - jasypt 의존성 최신 버전으로 추가    
+    - jasypt 의존성 최신 버전으로 추가
+    
+#### 5. 스프링 부트 mysql 연동 에러
+1. 발생 상황
+    - build.gradle에 mysql 의존성 추가
+    - .yml에 mysql 관련 프로퍼티 추가
+2. 발생 에러
+    - java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+    - org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data; nested exception is org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+    - Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+    - org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.GenericJDBCException: Unable to open JDBC Connection for DDL execution
+    - Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.GenericJDBCException: Unable to open JDBC Connection for DDL execution
+    - Caused by: org.hibernate.exception.GenericJDBCException: Unable to open JDBC Connection for DDL execution
+3. 발생 원인 추측
+    - 패스워드 불일치 (해시태그 미적용, 비밀번호 손상)
+    - 원격 접속 권한 허용?
+    - .yml에 설정한 DB 정보가 연결이 되지 않는다? -> 아마 이건듯....
+      - db 정보들로 db 툴 접속 가능
+    - 3306 port 중복 사용되고 있는지 여부?
+4. 시도한 방법
+    - mysql 계정 비밀번호 재 설정 -> 해결 X
+    - mysql root 계정 모든 권한을 줘도 안된다.
+    - javassist 의존성 추가 -> 새로운 에러 생김 -> 없앰
+    
+5. 발생 원인
+6. 해결
