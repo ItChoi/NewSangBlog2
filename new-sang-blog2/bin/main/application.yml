@@ -32,8 +32,3 @@ jasypt:
     bean: jasyptEncryptorBean
 
 ---
-    
-encrypted:
-  property: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
-  
----
