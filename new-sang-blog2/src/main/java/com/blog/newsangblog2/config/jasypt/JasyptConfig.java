@@ -9,11 +9,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JasyptConfig {
 	
-	@Bean("jasyptStringEncryptor")
+	@Bean("jasyptEncryptorBean")
 	public StringEncryptor stringEncryptor() {
 		
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-		config.setPassword("m2js");
+		// setPassword도 암호화 필요 -> VM Arguments를 이용하던가 등등등..
+		config.setPassword("m2sj");
 		config.setAlgorithm("PBEWithMD5AndDES");
 		config.setKeyObtentionIterations("1000");
 		config.setPoolSize("1");

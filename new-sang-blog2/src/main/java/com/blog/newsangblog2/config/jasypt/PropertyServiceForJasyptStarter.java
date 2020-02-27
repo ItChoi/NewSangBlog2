@@ -1,30 +1,22 @@
 package com.blog.newsangblog2.config.jasypt;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service 
 public class PropertyServiceForJasyptStarter {
 	
-	@Value("${datasource.url}")
-	private String url;
 	
-	@Value("${datasource.username}")
-	private String username;
+	@Value("${spring.datasource.password}") 
+	private String property;
 	
-	@Value("${datasource.password}")
-	private String password;
-
-	public String getUrl() {
-		return url;
+	public String getProperty() { 
+		return property; 
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-	
+  
+	public String getPasswordUsingEnvironment(Environment env) { 
+		return env.getProperty("spring.datasource.password"); 
+	} 
 }
+ 
