@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Login</title>
+  <title>SangBlog - Login</title>
 
   <!-- Custom fonts for this template-->
   <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,12 +36,22 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user">
+                  
+                  
+                  <form class="user" action="/manager/user/login" method="post">
+                  	<!-- 
+                  		Spring Security가 적용되면 POST 방식으로 보내는 모든 데이터는 CSRF 토큰 값이 필요하다.
+                  		  - 토큰 값이 없는 상태에서 form 전송 시 컨트롤러에 POST 메소드를 매핑할 수 없다는 에러 발생
+                  		  - error : HttpRequestMethodNotSupportedException: Request method 'POST'
+                  		타임리프의 th:action 사용 시 타임리프가 csrf 토큰 값을 자동으로 추가해준다.
+                  	 -->
+                  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                  	
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="text" name="loginId" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" name="" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -49,6 +59,7 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">로그인</button>
                     <a href="index.html" class="btn btn-primary btn-user btn-block">
                       Login
                     </a>
@@ -60,6 +71,8 @@
                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                     </a>
                   </form>
+                  
+                  
                   <hr>
                   <div class="text-center">
                     <a class="small" href="forgot-password.html">Forgot Password?</a>

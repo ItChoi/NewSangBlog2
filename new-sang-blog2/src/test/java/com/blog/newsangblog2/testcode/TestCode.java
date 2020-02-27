@@ -29,7 +29,7 @@ public class TestCode {
 	
 	@Test
 	public void ROLE_확인() {
-		
+		System.out.println("test: " + UserRoleType.ADMIN.name());
 	}
 	
 }

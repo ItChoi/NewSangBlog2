@@ -5,12 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.blog.newsangblog2.common.enumeration.UserRoleType;
+import com.blog.newsangblog2.exception.UserNotFoundException;
 import com.blog.newsangblog2.manager.user.domain.Manager;
+import com.blog.newsangblog2.manager.user.domain.UserRole;
 import com.blog.newsangblog2.manager.user.repository.ManagerUserRepository;
 
 import lombok.AllArgsConstructor;
@@ -38,19 +44,19 @@ public class UserService implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-		Optional<Manager> managerInfo = managerRepository.findByLoginId(loginId);
+		Manager managerInfo = managerRepository.findByLoginId(loginId)
+								.orElseThrow(() -> new UserNotFoundException(""));
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		
-		if (managerInfo.isPresent()) {
-			
-			
-			
-			
+		if (!StringUtils.isEmpty(managerInfo)) {
+			List<UserRole> userRoleList= managerInfo.getUserRoles();
+			userRoleList.stream().forEach(
+				role -> authorities.add(new SimpleGrantedAuthority(role.getAuthority().name()))
+			);
 		}
 		
-		// Manager manager = Optional.ofNullable(value)
-		return null;
+		return new User(managerInfo.getLoginId(), managerInfo.getPassword(), authorities);
 	}
 
 }

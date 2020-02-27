@@ -2,6 +2,7 @@ package com.blog.newsangblog2.manager.user;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
+import com.blog.newsangblog2.manager.user.domain.UserRole;
 import com.blog.newsangblog2.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.manager.user.support.ManagerDto;
 
@@ -16,6 +18,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RequestMapping("/manager/user")
+@Controller
 public class ManagerUserController {
 
 	private ManagerUserRepository managerRepository;
@@ -42,7 +45,7 @@ public class ManagerUserController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) {
 		
 		return "/manager/user/login";
 	}

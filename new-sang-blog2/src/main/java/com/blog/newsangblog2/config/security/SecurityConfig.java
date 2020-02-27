@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/h2-console/**").permitAll()
 				.antMatchers("/").permitAll()
 				.antMatchers("/manager").permitAll()
+				.antMatchers("/manager/user/login").permitAll()
 				.antMatchers("/manager/**").hasRole("ADMIN")
 				.antMatchers("user/myinfo").hasRole("MEMBER")
 			.and()
@@ -73,16 +74,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/manager/user/login")
 				// 로그인 성공 시 이동되는 페이지
 				.defaultSuccessUrl("/manager")
+				// 로그인 form에서 기본 적으로 name=username 이지만, 이를 통해 파라미터명 변경 가능
 				.usernameParameter("loginId")
-				// .usernameParameter("파라미터명") - 로그인 form에서 기본 적으로 name=username 이지만, 이를 통해 파라미터명 변경 가능
 				.permitAll()
 			.and()
 				// 로그아웃 설정 WebSecurityConfigurerAdapter 사용 시 자동 적용
 				// 기본적으로 /logout 에 접근하면 HTTP 세션 제거
 				.logout()
 				// 로그아웃 기본 URL을 다른 URL로 재정의
-				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-				.logoutSuccessUrl("/user/logout/result")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/manager/user/logout"))
+				.logoutSuccessUrl("/manager/user/login")
 				// HTTP 세션 초기화 작업
 				.invalidateHttpSession(true)
 				// .deleteCookies("Key") - 로그아웃 시 특정 쿠키 제거하고 싶을 때 사용
@@ -90,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 403 예외 처리 핸들링
 				// 예외 발생 시 이를 통해 핸들링 ex) 접근 권한 없을 시 로그인 페이지 이동
 				.exceptionHandling()
-				.accessDeniedPage("/user/denied")
+				.accessDeniedPage("/manager/user/login")
 			.and()
 				.csrf()
 				.ignoringAntMatchers("/h2-console/**")
