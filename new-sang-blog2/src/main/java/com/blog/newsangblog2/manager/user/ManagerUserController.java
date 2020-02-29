@@ -46,7 +46,6 @@ public class ManagerUserController {
 	
 	@GetMapping("/login")
 	public String login(Model model) {
-		
 		return "/manager/user/login";
 	}
 	

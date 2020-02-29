@@ -2,7 +2,6 @@ package com.blog.newsangblog2.manager.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,13 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.exception.UserNotFoundException;
 import com.blog.newsangblog2.manager.user.domain.Manager;
 import com.blog.newsangblog2.manager.user.domain.UserRole;
 import com.blog.newsangblog2.manager.user.repository.ManagerUserRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * 스프링 시큐리티 서비스 클래스
@@ -28,6 +27,7 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserService implements UserDetailsService {
 	
 	private ManagerUserRepository managerRepository;
@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
 		Manager managerInfo = managerRepository.findByLoginId(loginId)
-								.orElseThrow(() -> new UserNotFoundException(""));
+								.orElseThrow(() -> new UserNotFoundException("해당 유저를 찾을 수 없습니다."));
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		

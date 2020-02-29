@@ -2,6 +2,7 @@ package com.blog.newsangblog2.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.blog.newsangblog2.manager.user.service.UserService;
 
 import lombok.AllArgsConstructor;
 
@@ -30,6 +33,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private UserService userService;
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -43,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// static 디렉토리의 하위 파일 목록은 인증 무시 (항상 통과)
 		web.ignoring().antMatchers(
 			"/css/**", "/js/**", "/img/**", 
-			"/lib/**", "/bootstrap/**", "/front/**",
-			"/manager/**"
+			"/lib/**", "/bootstrap/**", "/front/**"
+			//, "/manager/**"
 		);
 	}
 	
@@ -59,11 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// antMatchers: 특정 경로 지정
 				// hasRole: 역할에 따른 접근 설정
 				.antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/").permitAll()
-				.antMatchers("/manager").permitAll()
 				.antMatchers("/manager/user/login").permitAll()
+				//.antMatchers("/manager/user/login").permitAll()
 				.antMatchers("/manager/**").hasRole("ADMIN")
-				.antMatchers("user/myinfo").hasRole("MEMBER")
+				//.antMatchers("/").permitAll()
+				//.antMatchers("user/myinfo").hasRole("MEMBER")
 			.and()
 				// 로그인 설정
 				// form 기반으로 인증을 하고, 로그인 정보는 기본적으로 HttpSession을 이용
@@ -71,11 +76,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()
 				// 기본 제공 form 말고, 커스텀 로그인 폼 사용을 원할 시 loginPage() 메서드 사용
 				// 이 때 form의 action과 loginPage()의 경로가 일치해야 인증 처리 가능 (login.html)
-				.loginPage("/manager/user/login")
+				// .loginPage("/manager/user/login")
+				// HTTP POST 로그인 시 매개변수가 전달되는 URL 지정, 스프링 시큐리티는 사용자 인증 시도
+				// .loginProcessingUrl("/login")
 				// 로그인 성공 시 이동되는 페이지
-				.defaultSuccessUrl("/manager")
-				// 로그인 form에서 기본 적으로 name=username 이지만, 이를 통해 파라미터명 변경 가능
 				.usernameParameter("loginId")
+				.passwordParameter("password")
+				.defaultSuccessUrl("/manager")
+				.failureUrl("/aaaaaaaaaaaaaaaaaaa")
+				// 로그인 form에서 기본 적으로 name=username 이지만, 이를 통해 파라미터명 변경 가능
 				.permitAll()
 			.and()
 				// 로그아웃 설정 WebSecurityConfigurerAdapter 사용 시 자동 적용
@@ -83,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout()
 				// 로그아웃 기본 URL을 다른 URL로 재정의
 				.logoutRequestMatcher(new AntPathRequestMatcher("/manager/user/logout"))
-				.logoutSuccessUrl("/manager/user/login")
+				.logoutSuccessUrl("/manager/user/login/success")
 				// HTTP 세션 초기화 작업
 				.invalidateHttpSession(true)
 				// .deleteCookies("Key") - 로그아웃 시 특정 쿠키 제거하고 싶을 때 사용
@@ -91,7 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 403 예외 처리 핸들링
 				// 예외 발생 시 이를 통해 핸들링 ex) 접근 권한 없을 시 로그인 페이지 이동
 				.exceptionHandling()
-				.accessDeniedPage("/manager/user/login")
+				.accessDeniedPage("/manager/user/login/fail")
 			.and()
 				.csrf()
 				.ignoringAntMatchers("/h2-console/**")
@@ -109,6 +118,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 *  - 서비스 클래스에서 UserDetailService 인터페이스를 implements하여 loadUserByUsername() 메소드 구현
 	 * 비밀번호 암호화를 위해 passwordEncoder 사용
 	 */
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+	}
+	
 	/*
 	 * @Override public void
 	 * setAuthenticationConfiguration(AuthenticationConfiguration
@@ -116,6 +130,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 * }
 	 */
+	
 
 
 }

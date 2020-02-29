@@ -134,3 +134,20 @@
     - 알고 보니 패스워드가 진짜 틀렸었네..............ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
 6. 해결
     - 정확한 패스워드 입력! 
+
+#### 6. 스프링 시큐리티 적용 - 로그인 클릭 시 csrf 값을 못 찾는지 설정한 post로그인 페이지 not found
+1. 발생 상황
+    - csrf 값을 hidden으로 주고 있는데, 타임리프 속성을 적용하면 로그인 페이지 접속 에러가 뜨고, 속성을 없애면 로그인 버튼 클릭 시 스프링 시큐리티에서 제공하는 로그인 post를 못 찾는다. 그리고 csrf 값도 제대로 들어오는 듯 한데... 흠
+2. 발생 에러
+    - org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "_csrf.parameterName" (template: "/manager/user/login" - line 50, col 41)
+    - Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property or field 'parameterName' cannot be found on null
+3. 발생 원인 추측
+    - 타임리프 문제인가? 타임 리프로 데이터 뿌려주는 건 제대로 뿌려지고 있다. 그런데 왜 th: 속성으로 csrf를 주면 에러 페이지가 나올까, 속성 잘못 넣었나
+    - csrf 값도 제대로 나오는 거 같은데, 스프링 시큐리티 테스트하기 위한 프론트 페이지 진입을 잘못하고 있나?
+    - login.html의 form의 action의 경로 문제인가?
+    - 스프링 시큐리티 설정 파일(SecurityConfig)에서 설정 정보를 잘못 입력했나?? ...흠
+    - .and().csrf().disable() ... 이거 하든 안하든 결과는 비슷 흐음
+    - 405 에러가 뜨는데, 스프링 시큐리티가 제대로 적용이 안된듯.... 
+4. 시도한 방법
+5. 발생 원인
+6. 해결
