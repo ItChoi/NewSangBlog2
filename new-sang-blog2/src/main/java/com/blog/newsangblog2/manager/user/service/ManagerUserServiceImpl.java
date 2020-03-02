@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
+import com.blog.newsangblog2.manager.user.domain.UserRole;
 import com.blog.newsangblog2.manager.user.repository.ManagerUserRepository;
+import com.blog.newsangblog2.manager.user.repository.UserRoleRepository;
 
 @Service
 public class ManagerUserServiceImpl implements ManagerUserService {
@@ -15,10 +17,9 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 	ManagerUserRepository managerUserRepository;
 
 	@Override
-	public Optional<Manager> findByLoginId(String loginId) {
-		return managerUserRepository.findByLoginId(loginId);
+	public Optional<Manager> findManagerBy(String loginId) {
+		return managerUserRepository.findManagerByLoginId(loginId);
 	}
-	
-	
+
 
 }

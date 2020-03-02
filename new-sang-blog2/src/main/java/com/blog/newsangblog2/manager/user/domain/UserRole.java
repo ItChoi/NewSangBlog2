@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,9 +30,6 @@ public class UserRole extends BaseDateTimeEntity {
 	@ManyToOne
 	@JoinColumn(name = "MANAGER_ID")
 	private Manager manager;
-	
-//	@Column(length = 30)
-//	private String authority;
 	
 	@Column(length = 30)
 	@Enumerated(EnumType.STRING)

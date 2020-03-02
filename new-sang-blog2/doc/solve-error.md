@@ -151,3 +151,21 @@
 4. 시도한 방법
 5. 발생 원인
 6. 해결
+
+### JPA 다대일 매핑 지연로딩 에러
+1. 발생 상황
+    - UserRole(N) : Manager(1) -> 다대일
+    - 외래키는 @ManyToOne에서 Many에 있어야 한다. (다)를 기준으로 조회
+    - USER_ROLE 기준으로 MANAGER 참조 시 지연로딩 된다.
+    - MANAGER 기준으로 USER_ROLE 참조 시 지연로딩 안된다.
+2. 발생 에러
+    - org.springframework.security.authentication.InternalAuthenticationServiceException: failed to lazily initialize a collection of role: com.blog.newsangblog2.manager.user.domain.Manager.userRoles, could not initialize proxy - no Session
+3. 발생 원인 추측
+    - Manager 조회 후 getUserRole했을 시 지연로딩이 안된다. 
+    - Manager(1) 기준으로 양방향 매핑 조회 시 UserRole을 가져올 수 있는 방법이 필요할듯....
+    - 다대일 관계를 다른 관계로 매핑해야 되나? -> Manager 한명은 여러 UserRole을 갖고, UserRole도 여러 Manager를 가질 수 있으나, 현업에서 다대다는 사용하지 않는다고 한다. 
+        - 현재는 UserRole(N) - (1)Manager 인데, Manager(N) - (1)UserAuthority(1) - (N)UserRole로 바꿔야 하나? 아닌듯... 암튼 다른 매핑 관계로 만들어야 하는 걸 수도...
+4. 시도한 방법
+
+5. 발생 원인
+6. 해결

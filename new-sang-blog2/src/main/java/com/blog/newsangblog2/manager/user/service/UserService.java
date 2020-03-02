@@ -3,6 +3,7 @@ package com.blog.newsangblog2.manager.user.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -27,10 +28,14 @@ import lombok.NoArgsConstructor;
  */
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
+// @NoArgsConstructor
 public class UserService implements UserDetailsService {
 	
+	// @Autowired
 	private ManagerUserRepository managerRepository;
+	
+	// @Autowired
+	private ManagerUserService managerUserService;
 
 	/**
 	 * 상세 정보 조회 메서드
@@ -44,10 +49,17 @@ public class UserService implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-		Manager managerInfo = managerRepository.findByLoginId(loginId)
+		System.out.println("test load user 1----");
+		System.out.println("loginId: " + loginId);
+		System.out.println("managerRepository: " + managerRepository);
+		System.out.println("managerUserService: " + managerUserService);
+		System.out.println("test load user 2----");
+		
+		Manager managerInfo = managerUserService.findManagerBy(loginId)
 								.orElseThrow(() -> new UserNotFoundException("해당 유저를 찾을 수 없습니다."));
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();
+		
 		
 		if (!StringUtils.isEmpty(managerInfo)) {
 			List<UserRole> userRoleList= managerInfo.getUserRoles();
