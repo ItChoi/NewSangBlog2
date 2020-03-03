@@ -128,7 +128,7 @@
 4. 시도한 방법
     - mysql 계정 비밀번호 재 설정 -> 해결 X
     - mysql root 계정 모든 권한을 줘도 안된다.
-    - javassist 의존성 추가 -> 새로운 에러 생김 -> 없앰
+    - javassist 의존성 추가 -> 새로운 에러 생김 -> 없앰	
     - 다른 코드를 구글링하여 적용해봄
 5. 발생 원인
     - 알고 보니 패스워드가 진짜 틀렸었네..............ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ
@@ -166,6 +166,13 @@
     - 다대일 관계를 다른 관계로 매핑해야 되나? -> Manager 한명은 여러 UserRole을 갖고, UserRole도 여러 Manager를 가질 수 있으나, 현업에서 다대다는 사용하지 않는다고 한다. 
         - 현재는 UserRole(N) - (1)Manager 인데, Manager(N) - (1)UserAuthority(1) - (N)UserRole로 바꿔야 하나? 아닌듯... 암튼 다른 매핑 관계로 만들어야 하는 걸 수도...
 4. 시도한 방법
-
 5. 발생 원인
+    - 아마 JPA 원리에서 영속성 컨텍스트에서 저 연관관계에서 지연로딩을 제대로 가져오지 못하는 거 같다. 정확히는 모르겠지만.... 아무튼 @OneToMany은 기본 값이 지연 로딩으로 되어 있어서, 이것을 즉시 로딩으로 가져오도록 설장하니까 가져오긴 하는데, 원리를 더 알아야 할 필요가 있다.
 6. 해결
+    - Manager.java
+        - @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
+	private List<UserRole> userRoles = new ArrayList<>();
+	- UserRole.java
+	    - @ManyToOne
+	@JoinColumn(name = "MANAGER_ID")
+	private Manager manager;

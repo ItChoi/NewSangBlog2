@@ -31,7 +31,7 @@ public class Manager extends BaseDateTimeEntity {
 	@Column(nullable = false, length = 50)
 	private String loginId;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 100)
 	private String password;
 	
 	@Column(nullable = false, length = 50)
@@ -49,7 +49,7 @@ public class Manager extends BaseDateTimeEntity {
 	@Column(nullable = false)
 	private String imageUseStatus;
 	
-	@OneToMany(mappedBy = "manager")
+	@OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
 	private List<UserRole> userRoles = new ArrayList<>();
 	
 	@Builder

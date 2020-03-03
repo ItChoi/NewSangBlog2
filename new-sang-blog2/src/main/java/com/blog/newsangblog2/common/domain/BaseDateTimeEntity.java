@@ -17,7 +17,7 @@ import lombok.Getter;
 @MappedSuperclass
 // BaseDateTimeEntity 클래스에 Auditing 기능 포함
 @EntityListeners(AuditingEntityListener.class)
-public class BaseDateTimeEntity {
+public abstract class BaseDateTimeEntity {
 	
 	@CreatedBy
 	private String createdLoginId;

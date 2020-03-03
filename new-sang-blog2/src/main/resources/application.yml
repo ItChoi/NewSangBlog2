@@ -6,7 +6,11 @@ spring:
     password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
   jpa:
     generate-ddl: true
-    show-sql: true
+    #show-sql: true
+    
+    
+    
+    
     properties:
       hibernate:
         format_sql: true

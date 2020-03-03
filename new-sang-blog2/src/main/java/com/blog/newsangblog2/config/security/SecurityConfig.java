@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 로그인 성공 시 이동되는 페이지
 				.usernameParameter("loginId")
 				.passwordParameter("password")
-				.defaultSuccessUrl("/manager")
+				.defaultSuccessUrl("/manager/")
 				.failureUrl("/aaaaaaaaaaaaaaaaaaa")
 				// 로그인 form에서 기본 적으로 name=username 이지만, 이를 통해 파라미터명 변경 가능
 				.permitAll()

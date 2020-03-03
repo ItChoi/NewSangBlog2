@@ -32,7 +32,6 @@ import lombok.NoArgsConstructor;
 public class UserService implements UserDetailsService {
 	
 	// @Autowired
-	private ManagerUserRepository managerRepository;
 	
 	// @Autowired
 	private ManagerUserService managerUserService;
@@ -49,12 +48,6 @@ public class UserService implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-		System.out.println("test load user 1----");
-		System.out.println("loginId: " + loginId);
-		System.out.println("managerRepository: " + managerRepository);
-		System.out.println("managerUserService: " + managerUserService);
-		System.out.println("test load user 2----");
-		
 		Manager managerInfo = managerUserService.findManagerBy(loginId)
 								.orElseThrow(() -> new UserNotFoundException("해당 유저를 찾을 수 없습니다."));
 		

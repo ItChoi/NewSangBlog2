@@ -89,5 +89,10 @@ public class ManagerRepositoryTest {
 		
 		System.out.println("mmmmm: " + userRole.getManager().getLoginId());
 	}
+	
+	@Test
+	public void testtest() {
+		System.out.println("test");
+	}
 
 }
