@@ -78,11 +78,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 이 때 form의 action과 loginPage()의 경로가 일치해야 인증 처리 가능 (login.html)
 				// .loginPage("/manager/user/login")
 				// HTTP POST 로그인 시 매개변수가 전달되는 URL 지정, 스프링 시큐리티는 사용자 인증 시도
-				// .loginProcessingUrl("/login")
+				// .loginProcessingUrl("/manager")
 				// 로그인 성공 시 이동되는 페이지
 				.usernameParameter("loginId")
 				.passwordParameter("password")
-				.defaultSuccessUrl("/manager/")
+				.defaultSuccessUrl("/manager")
 				.failureUrl("/aaaaaaaaaaaaaaaaaaa")
 				// 로그인 form에서 기본 적으로 name=username 이지만, 이를 통해 파라미터명 변경 가능
 				.permitAll()

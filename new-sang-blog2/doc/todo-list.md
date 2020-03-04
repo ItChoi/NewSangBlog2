@@ -4,7 +4,8 @@
     - 실행 시 JPA Entity - DB 연동..
     - jasypt 암호화 적용...
 #### 스프링 시큐리티
-    - 로그인 시 입력 비밀번호와 DB에 저장된 패스워드 불일치..ㅜㅜ
+    - 로그인 시 입력 비밀번호와 DB에 저장된 패스워드 불일치..ㅜㅜ // 해결
+    - 스프링 시큐리티 로그인 시 권한 유지?? 로그인 성공 시 url 이동이 제대로 안되는거 같다.
 #### @MappedSuperclass 이용해서 User -> Manager, Customer 객체지향적으로 짜기.
 #### Oauth2 적용
 #### SNS - Naver, Google, Facebook 연동

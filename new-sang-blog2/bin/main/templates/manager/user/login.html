@@ -39,7 +39,7 @@
                   </div>
                   
                   
-                  <form class="user" action="/login" method="POST">
+                  <form class="user" action="/manager/user/login" method="POST">
                   <!-- <form class="user" th:action="@{/manager/user/login}" method="post"> -->
                   	<!-- TODO::: 시큐리티, 타임리프 분석 및 로그인 되도록 하기!@@~!#!@#
                   		Spring Security가 적용되면 POST 방식으로 보내는 모든 데이터는 CSRF 토큰 값이 필요하다.
@@ -47,7 +47,7 @@
                   		  - error : HttpRequestMethodNotSupportedException: Request method 'POST'
                   		타임리프의 th:action 사용 시 타임리프가 csrf 토큰 값을 자동으로 추가해준다.
                   	 -->
-                  	<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+                  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                   	
                     <div class="form-group">
                       <input type="text" name="loginId" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">

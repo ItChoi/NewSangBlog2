@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -23,7 +25,21 @@ public class UserServiceTest {
 	@Test
 	public void test() {
 		UserDetails userDetails = userService.loadUserByUsername("enffl18");
-		assertTrue(passwordEncoder.matches("qwe123", userDetails.getPassword()));
+		String password = userDetails.getPassword();
+		assertTrue(passwordEncoder.matches("qwe123", password));
 	}
+	
+	@Test
+	public void passwordEncoder_test() {
+		PasswordEncoder passwordEncoder1 = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		
+		String password1 = passwordEncoder1.encode("aaabbb123");
+		String password2 = passwordEncoder.encode("aaabbb123");
+		
+		System.out.println("11111: " + password1);
+		System.out.println("22222: " + password2);
+	}
+	
+	
 
 }

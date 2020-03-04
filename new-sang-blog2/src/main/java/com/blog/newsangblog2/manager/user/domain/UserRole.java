@@ -34,7 +34,5 @@ public class UserRole extends BaseDateTimeEntity {
 	@Column(length = 30)
 	@Enumerated(EnumType.STRING)
 	private UserRoleType authority;
-	
-	
-	
+
 }

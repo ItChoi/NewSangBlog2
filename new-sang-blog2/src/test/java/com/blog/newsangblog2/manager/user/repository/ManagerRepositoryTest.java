@@ -69,10 +69,13 @@ public class ManagerRepositoryTest {
 	@Test
 	public void JPA_지연로딩_테스트() {
 		Manager manager = managerUserService.findManagerBy("enffl18").get();
+		System.out.println("------------------1: " + manager.getClass());
 		assertEquals("enffl18", manager.getLoginId());
 		
 		System.out.println("1111111111111111111111111");
 		for (UserRole ur : manager.getUserRoles()) {
+			System.out.println("------------------2: " + ur.getClass());
+			System.out.println("------------------3: " + manager.getClass());
 			System.out.println("result: " + ur.getAuthority());
 		}
 		System.out.println("2222222222222222222222222");
