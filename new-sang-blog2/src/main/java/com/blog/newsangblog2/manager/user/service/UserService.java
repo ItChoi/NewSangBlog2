@@ -2,7 +2,9 @@ package com.blog.newsangblog2.manager.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.blog.newsangblog2.exception.UserNotFoundException;
@@ -26,15 +29,12 @@ import lombok.NoArgsConstructor;
  * @author itcho
  *
  */
+@Transactional
+@RequiredArgsConstructor
 @Service
-@AllArgsConstructor
-// @NoArgsConstructor
 public class UserService implements UserDetailsService {
 	
-	// @Autowired
-	
-	// @Autowired
-	private ManagerUserService managerUserService;
+	private final ManagerUserService managerUserService;
 
 	/**
 	 * 상세 정보 조회 메서드
@@ -53,8 +53,8 @@ public class UserService implements UserDetailsService {
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		
-		
 		if (!StringUtils.isEmpty(managerInfo)) {
+			
 			List<UserRole> userRoleList= managerInfo.getUserRoles();
 			userRoleList.stream().forEach(
 				role -> authorities.add(new SimpleGrantedAuthority(role.getAuthority().getRole()))

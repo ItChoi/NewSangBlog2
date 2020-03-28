@@ -1,24 +1,23 @@
 package com.blog.newsangblog2.manager.user.repository;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
 import com.blog.newsangblog2.manager.user.domain.UserRole;
 import com.blog.newsangblog2.manager.user.service.ManagerUserService;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class ManagerRepositoryTest {
 	
@@ -31,7 +30,7 @@ public class ManagerRepositoryTest {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	
-	@After
+	@AfterAll
 	public void cleanUp() {
 		//managerRepository.deleteAll();
 	}
@@ -57,8 +56,8 @@ public class ManagerRepositoryTest {
 		
 		
 		// then
-		assertThat(managerInfo.get().getLoginId(), is("enffl"));
-		assertThat(managerInfo.isPresent(), is(true));
+		Assertions.assertEquals(managerInfo.get().getLoginId(), is("enffl"));
+		Assertions.assertEquals(managerInfo.isPresent(), is(true));
 	}
 	
 	@Test
@@ -70,7 +69,7 @@ public class ManagerRepositoryTest {
 	public void JPA_지연로딩_테스트() {
 		Manager manager = managerUserService.findManagerBy("enffl18").get();
 		System.out.println("------------------1: " + manager.getClass());
-		assertEquals("enffl18", manager.getLoginId());
+		Assertions.assertEquals("enffl18", manager.getLoginId());
 		
 		System.out.println("1111111111111111111111111");
 		for (UserRole ur : manager.getUserRoles()) {

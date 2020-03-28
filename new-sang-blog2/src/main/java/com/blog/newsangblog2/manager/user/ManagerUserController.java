@@ -2,12 +2,15 @@ package com.blog.newsangblog2.manager.user;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blog.newsangblog2.manager.user.domain.Manager;
 import com.blog.newsangblog2.manager.user.domain.UserRole;
@@ -16,20 +19,18 @@ import com.blog.newsangblog2.manager.user.support.ManagerDto;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/manager/user")
 @Controller
 public class ManagerUserController {
 
-	private ManagerUserRepository managerRepository;
+	private final ManagerUserRepository managerRepository;
 	
 	@GetMapping("/list")
 	public String managerList(Model model) {
-		// TODO::: JPA 리스트 / https://jojoldu.tistory.com/251 / 2-3. Controller & DTO 구현				
 		List<Manager> list = managerRepository.findAll();
-		
+		model.addAttribute("list", list);
 		return "/manager/user/list";
-		
 	}
 	
 	@GetMapping("/create")
@@ -45,7 +46,12 @@ public class ManagerUserController {
 	}
 	
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(Model model, String error) {
+		
+		if (!StringUtils.isEmpty(error)) {
+			model.addAttribute("error", error);
+		}
+		
 		return "/manager/user/login";
 	}
 	
@@ -63,9 +69,10 @@ public class ManagerUserController {
 	}
 	
 	// 접근 거부 페이지
-	@GetMapping("/denied")
+	@GetMapping("/access-denied")
 	public String accessDeny() {
-		return "/denied";
+		System.out.println("access-denied page!!!!");
+		return "/manager/user/access-denied";
 	}
 	
 	// 내 정보 상세 페이지

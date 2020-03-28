@@ -2,7 +2,7 @@ package com.blog.newsangblog2.testcode;
 
 import java.util.Optional;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.exception.UserNotFoundException;

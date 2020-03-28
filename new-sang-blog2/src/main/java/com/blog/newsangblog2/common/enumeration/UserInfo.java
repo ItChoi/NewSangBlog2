@@ -9,6 +9,6 @@ public enum UserInfo {
 	LOGIN_ID("loginId");
 	
 	private String loginId;
-	
-	
+
+
 }

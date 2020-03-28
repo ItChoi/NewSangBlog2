@@ -14,10 +14,12 @@ import javax.persistence.OneToMany;
 
 import com.blog.newsangblog2.common.domain.BaseDateTimeEntity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -49,7 +51,7 @@ public class Manager extends BaseDateTimeEntity {
 	@Column(nullable = false)
 	private String imageUseStatus;
 	
-	@OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "manager")
 	private List<UserRole> userRoles = new ArrayList<>();
 	
 	@Builder

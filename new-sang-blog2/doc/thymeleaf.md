@@ -9,5 +9,5 @@
     - 
 
 #### 타임리프 사용 방식
-
-[https://eblo.tistory.com/54](https://eblo.tistory.com/54)
+- [https://eblo.tistory.com/54](https://eblo.tistory.com/54)
+- [https://cyberx.tistory.com/132](https://cyberx.tistory.com/132)

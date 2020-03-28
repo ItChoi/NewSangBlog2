@@ -27,7 +27,7 @@ public class UserRole extends BaseDateTimeEntity {
 	@Column(name = "USER_ROLE_ID")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MANAGER_ID")
 	private Manager manager;
 	

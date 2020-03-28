@@ -2,6 +2,8 @@ buildscript {
 	ext {
 		// ext는 build.gradle에서 사용하는 전역변수 설정
 		springBootVersion = '2.1.7.RELEASE'
+		//junitJupiterVersion = '5.5.2'
+
 	}
 	
 	repositories {
@@ -17,6 +19,8 @@ buildscript {
 		따라서 추가 의존성 (1)
 		*/
 		classpath("io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE")
+		//classpath("org.junit.jupiter:")
+		
 	}
 
 }
@@ -36,7 +40,11 @@ repositories {
 	// 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 지정
 	mavenCentral()
 	// 오라클 의존성을 추가하기 위함
-	maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
+	//maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
+	
+	test {
+    	useJUnitPlatform()
+	}
 }
 
 dependencies {
@@ -45,14 +53,24 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.projectlombok:lombok')
+	annotationProcessor("org.projectlombok:lombok:1.18.8")
 	compile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	//compile('org.junit.jupiter:junit-jupiter-api:5.5.2')
+    //compile('org.junit.jupiter:junit-jupiter-params:5.5.2')
+    //compile('org.junit.jupiter:junit-jupiter-engine:5.5.2')
+    //compile('org.junit.platform:junit-platform-launcher:1.5.2')
+    //compile('org.junit.platform:junit-platform-commons:1.5.2')
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testCompile 'junit:junit:4.12'
+	testCompile 'org.junit.vintage:junit-vintage-engine:5.5.2'
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
 	compile('mysql:mysql-connector-java')
 	compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.2')
 	compile('com.github.ulisesbocchio:jasypt-spring-boot:3.0.2')
-	compile('com.oracle:ojdbc6:11.2.0.1.0')
+	//compile('com.oracle:ojdbc6:11.2.0.1.0')
 }
 
