@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class ManagerMenuDto {
+public class ManagerMenuDto extends ManagerMenuSearch {
 
     private Long parentId;
     private String menuLevel;

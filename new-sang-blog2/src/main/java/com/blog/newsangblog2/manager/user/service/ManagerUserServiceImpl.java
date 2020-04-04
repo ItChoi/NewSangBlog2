@@ -13,7 +13,7 @@ import com.blog.newsangblog2.manager.user.repository.UserRoleRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class ManagerUserServiceImpl implements ManagerUserService {
 	

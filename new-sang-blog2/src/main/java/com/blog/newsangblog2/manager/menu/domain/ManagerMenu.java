@@ -1,12 +1,20 @@
 package com.blog.newsangblog2.manager.menu.domain;
 
+import com.blog.newsangblog2.common.domain.BaseDateTimeEntity;
 import com.blog.newsangblog2.common.enumeration.ResourceType;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Getter @Setter
+@NoArgsConstructor
 @Entity
-public class ManagerMenu {
+public class ManagerMenu extends BaseDateTimeEntity {
 
     @Id @GeneratedValue
     private Long id;
@@ -37,6 +45,13 @@ public class ManagerMenu {
 
     @Enumerated(EnumType.STRING)
     private ResourceType menuType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_menu_parent_id")
+    private ManagerMenu parent;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<ManagerMenu> child = new ArrayList<>();
+
 
     @Builder
     public ManagerMenu(Long parentId, String menuLevel, String menuCode, String menuName, int ordering, String url, String uri, String menuDisplay, ResourceType menuType) {

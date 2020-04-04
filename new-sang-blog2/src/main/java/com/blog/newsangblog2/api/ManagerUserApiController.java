@@ -20,7 +20,7 @@ public class ManagerUserApiController {
 
     private final ManagerUserRepository managerRepository;
 
-    @GetMapping("/list")
+    /*@GetMapping("/list")
     public ResponseEntity managerList(Model model) {
         List<Manager> list = managerRepository.findAll();
 
@@ -37,7 +37,7 @@ public class ManagerUserApiController {
     public ResponseEntity createManager(@RequestBody ManagerDto managerDto) {
         managerRepository.save(managerDto.toEntity());
         return new ResponseEntity(HttpStatus.OK);
-    }
+    }*/
 
     /*@GetMapping("/login")
     public String login(Model model, String error) {
