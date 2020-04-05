@@ -58,15 +58,11 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.projectlombok:lombok')
 	annotationProcessor("org.projectlombok:lombok:1.18.8")
 	compile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	//compile('org.junit.jupiter:junit-jupiter-api:5.5.2')
-    //compile('org.junit.jupiter:junit-jupiter-params:5.5.2')
-    //compile('org.junit.jupiter:junit-jupiter-engine:5.5.2')
-    //compile('org.junit.platform:junit-platform-launcher:1.5.2')
-    //compile('org.junit.platform:junit-platform-commons:1.5.2')
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testCompile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     testCompile 'junit:junit:4.12'

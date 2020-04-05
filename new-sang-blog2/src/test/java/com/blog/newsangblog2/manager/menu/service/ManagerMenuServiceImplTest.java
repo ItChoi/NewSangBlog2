@@ -35,9 +35,11 @@ class ManagerMenuServiceImplTest {
         List<ManagerMenu> findManagerMenu = managerMenuRepository.findByParentIdAndMenuLevel(null, "1");
 
         for (ManagerMenu managerMenu : findManagerMenu) {
-            System.out.println("testParent: " + managerMenu.getParent());
-            System.out.println("1차 메뉴: " + managerMenu.getMenuCode());
-            System.out.println("testChild: " + managerMenu.getChild().size());
+            System.out.println("1차 메뉴: " + managerMenu.getMenuName());
+
+            for (ManagerMenu menu : managerMenu.getChild()) {
+                System.out.println("2차 메뉴: " + menu.getMenuName());
+            }
         }
 
 
