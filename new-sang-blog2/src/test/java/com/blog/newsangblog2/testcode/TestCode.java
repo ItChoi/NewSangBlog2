@@ -2,11 +2,16 @@ package com.blog.newsangblog2.testcode;
 
 import java.util.Optional;
 
+import com.blog.newsangblog2.common.enumeration.PreNumber;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.exception.UserNotFoundException;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@Slf4j
+@SpringBootTest
 public class TestCode {
 
 	@Test
@@ -25,6 +30,16 @@ public class TestCode {
 			String b = a.toString();
 			System.out.println("result: " + b);
 		}
+	}
+
+	@Test
+	public void 이넘_테스트1() {
+
+		for (String test : PreNumber.PHONE.getPreNumber()) {
+			log.info("result::::::: " + test);
+		}
+
+
 	}
 	
 	@Test

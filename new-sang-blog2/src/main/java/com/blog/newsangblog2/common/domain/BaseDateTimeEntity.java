@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 
+
 @Getter
 // JPA @Entity들이 BaseDateTimeEntity를 상속할 경우 필드들을 컬럼으로 인식하도록 설정
 @MappedSuperclass
@@ -25,6 +26,7 @@ public abstract class BaseDateTimeEntity {
 	@CreatedBy
 	private String updatedLoginId;
 
+	// TODO: OAuth, Session을 통해 아이디 넣어주는 로직 추가
 	@CreatedDate
 	private LocalDateTime createdDate;
 	

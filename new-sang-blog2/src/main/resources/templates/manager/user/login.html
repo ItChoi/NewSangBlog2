@@ -16,6 +16,7 @@
   <!-- Custom styles for this template-->
   <link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -66,7 +67,7 @@
                     <div th:if="${error}" class="font-weight-bold text-success">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>
 
                     <button type="submit" class="btn btn-primary btn-user btn-block">Sign In</button>
-                    <button type="button" class="btn btn-primary btn-user btn-block">Sign Up</button>
+                    <button type="button" id="sign_up_button" class="btn btn-primary btn-user btn-block">Sign Up</button>
                     <hr>
                     
                     <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -107,7 +108,7 @@
   <!-- Custom scripts for all pages-->
   <script src="/bootstrap/js/sb-admin-2.min.js"></script>
 
-
+  <script src="/js/user/login.js"></script>
 
 
 </body></html>

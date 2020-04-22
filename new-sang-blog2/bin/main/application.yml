@@ -4,10 +4,10 @@ spring:
     url: jdbc:mysql://localhost:3306/sangblog?serverTimezone=UTC
     username: root
     password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
+
   jpa:
     generate-ddl: true
     #show-sql: true
-    
     properties:
       hibernate:
         format_sql: true
@@ -21,10 +21,10 @@ logging:
     org:
       hibernate:
         SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
 
 ---
 

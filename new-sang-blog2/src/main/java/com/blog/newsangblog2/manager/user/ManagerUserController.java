@@ -2,6 +2,8 @@ package com.blog.newsangblog2.manager.user;
 
 import java.util.List;
 
+import com.blog.newsangblog2.common.enumeration.PreNumber;
+import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,15 +34,20 @@ public class ManagerUserController {
 		model.addAttribute("list", list);
 		return "/manager/user/list";
 	}
-	
+
+	// 회원 가입 페이지
 	@GetMapping("/create")
-	public String createManager() {
-		
-		return "";
+	public String createManager(Model model) {
+
+		model.addAttribute("prePhoneNumber", PreNumber.PHONE.getPreNumber());
+
+		model.addAttribute("userRoles", UserRoleType.values());
+
+		return "/manager/user/form";
 	}
 	
 	@PostMapping("/create")
-	public String createManager(@RequestBody ManagerDto managerDto) {
+	public String createManager(ManagerDto managerDto) {
 		managerRepository.save(managerDto.toEntity());
 		return "redirect:/manager/user/login";
 	}
@@ -61,7 +68,7 @@ public class ManagerUserController {
 		
 		return "/loginSuccess";
 	}
-	
+
 	// 로그아웃 결과 페이지
 	@GetMapping("/logout/result")
 	public String logoutResult() {
@@ -80,6 +87,6 @@ public class ManagerUserController {
 	public String managerInfo() {
 		return "/manager/user/info";
 	}
-	
-	
+
+
 }

@@ -35,27 +35,30 @@ public class Manager extends BaseDateTimeEntity {
 	
 	@Column(nullable = false, length = 100)
 	private String password;
-	
-	@Column(nullable = false, length = 50)
+
+	@Column(length = 50)
 	private String phoneNumber;
-	
+
 	@Column(nullable = false, length = 50)
 	private String name;
+
+	@Column(nullable = false, length = 50)
+	private String email;
 	
-	@Column(nullable = false, length = 500)
+	@Column(length = 500)
 	private String introduce;
 	
-	@Column(nullable = false, length = 14)
+	@Column(length = 14)
 	private String lastLoginDate;
 	
-	@Column(nullable = false)
-	private String imageUseStatus;
+	@Column(length = 100)
+	private String imageFileName;
 	
 	@OneToMany(mappedBy = "manager")
 	private List<UserRole> userRoles = new ArrayList<>();
 	
 	@Builder
-	public Manager(String loginId, String password, String phoneNumber, String name, String introduce, String imageUse, String lastLoginDate, String createdLoginId, String updatedLoginId) {
+	public Manager(String loginId, String password, String phoneNumber, String name, String introduce, String lastLoginDate, String createdLoginId, String updatedLoginId) {
 		this.loginId = loginId;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
