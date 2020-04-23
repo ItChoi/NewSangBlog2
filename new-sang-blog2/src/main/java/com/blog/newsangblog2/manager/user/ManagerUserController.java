@@ -38,9 +38,7 @@ public class ManagerUserController {
 	// 회원 가입 페이지
 	@GetMapping("/create")
 	public String createManager(Model model) {
-
 		model.addAttribute("prePhoneNumber", PreNumber.PHONE.getPreNumber());
-
 		model.addAttribute("userRoles", UserRoleType.values());
 
 		return "/manager/user/form";
@@ -48,7 +46,8 @@ public class ManagerUserController {
 	
 	@PostMapping("/create")
 	public String createManager(ManagerDto managerDto) {
-		managerRepository.save(managerDto.toEntity());
+		// TODO 폼 html에서 submit 하고, dto 재조정 하기
+		// managerRepository.save(managerDto.toEntity());
 		return "redirect:/manager/user/login";
 	}
 	

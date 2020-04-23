@@ -31,13 +31,13 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <form class="user" enctype="multipart/form-data">
+                        <form th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" onsubmit="javascript:Form.submitClick();">
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="loginId" name="loginId" placeholder="로그인 아이디 입력">
+                                    <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
                                 </div>
                                 <div class="col-sm-6">
-                                    <select id="userRoles" name="userRoles" class="form-control" style="height: 50px">
+                                    <select id="userRoles" name="userRoles" class="form-control required" style="height: 50px" title="계정 권한">
                                         <option th:text="선택" disabled></option>
                                         <option th:each="userRole : ${userRoles}"
                                                 th:text="${userRole.key}"
@@ -48,18 +48,18 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user" id="password" placeholder="비밀번호 입력">
+                                    <input type="password" class="form-control form-control-user required password" id="password" placeholder="비밀번호 (필수 입력)" title="비밀번호">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user" id="re_password" placeholder="비밀번호 재입력">
+                                    <input type="password" class="form-control form-control-user required password" id="re_password" placeholder="비밀번호 재입력 (필수 입력)" title="비밀번호 재입력">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="이름 입력">
+                                <input type="text" class="form-control form-control-user required" id="name" name="name" placeholder="이름 (필수 입력)" title="이름">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <select id="phoneNumber1" class="form-control" style="height: 50px">
+                                    <select id="phoneNumber1" class="form-control" style="height: 50px" title="앞 번호">
                                         <option th:each="preNumber : ${prePhoneNumber}"
                                                 th:text="${preNumber}"
                                                 th:value="${preNumber}">
@@ -67,30 +67,30 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control form-control-user" id="phoneNumber2" maxlength="4" placeholder="가운데 번호">
+                                    <input type="text" class="form-control form-control-user" id="phoneNumber2" maxlength="4" placeholder="가운데 번호" title="가운데 번호">
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control form-control-user" id="phoneNumber3" maxlength="4" placeholder="끝 번호">
+                                    <input type="text" class="form-control form-control-user" id="phoneNumber3" maxlength="4" placeholder="끝 번호" title="끝 번호">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="이메일 입력">
+                                <input type="email" class="form-control form-control-user required email" id="exampleInputEmail" placeholder="이메일 (필수 입력)" title="이메일">
                             </div>
 
                             <div class="form-group">
-                                <textarea class="form-control form-control-user" id="introduce" name="introduce" placeholder="소개 글 입력">
+                                <textarea class="form-control form-control-user" id="introduce" name="introduce" placeholder="소개 글" title="소개">
 
                                 </textarea>
                             </div>
                             <div class="form-group">
-                                <input type="file" id="imageFileName" name="imageFileName">
+                                <input type="file" id="file" name="file" title="파일">
                             </div>
 
-                            <a href="login.html" class="btn btn-primary btn-user btn-block">
+                            <button type="submit" id="submit_button" class="btn btn-primary btn-user btn-block">
                                 Register Account
-                            </a>
+                            </button>
                             <hr>
-                            <a href="index.html" class="btn btn-google btn-user btn-block">
+                            <a href="javascript:Form.submitClick();" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Register with Google
                             </a>
                             <a href="index.html" class="btn btn-facebook btn-user btn-block">
@@ -122,7 +122,7 @@
 <!-- Custom scripts for all pages-->
 <script src="/bootstrap/js/sb-admin-2.min.js"></script>
 
-
-
+<script src="/js/common/validator.js"></script>
+<script src="/js/user/form.js"></script>
 
 </body></html>

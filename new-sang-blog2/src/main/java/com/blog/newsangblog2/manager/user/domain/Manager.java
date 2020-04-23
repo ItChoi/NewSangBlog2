@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -58,13 +59,15 @@ public class Manager extends BaseDateTimeEntity {
 	private List<UserRole> userRoles = new ArrayList<>();
 	
 	@Builder
-	public Manager(String loginId, String password, String phoneNumber, String name, String introduce, String lastLoginDate, String createdLoginId, String updatedLoginId) {
+	public Manager(String loginId, String password, String phoneNumber, String name, String introduce, String lastLoginDate, String createdLoginId, String updatedLoginId, String email, String imageFileName) {
 		this.loginId = loginId;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
 		this.name = name;
 		this.introduce = introduce;
 		this.lastLoginDate = lastLoginDate;
+		this.email = email;
+		this.imageFileName = imageFileName;
 	}
 	
 }

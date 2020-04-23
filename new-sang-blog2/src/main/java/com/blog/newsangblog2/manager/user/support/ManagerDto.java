@@ -5,6 +5,7 @@ import com.blog.newsangblog2.manager.user.domain.Manager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -16,20 +17,9 @@ public class ManagerDto {
 	private String name;
 	private String introduce;
 	private String lastLoginDate;
-	 
-	private String createdLoginId;
-	private String updatedLoginId;
-	
-	/*
-	 * @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMddHHmmss")
-	 * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	 * @JsonSerialize(using = LocalDateTimeSerializer.class) private LocalDateTime
-	 * createdDate;
-	 * @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMddHHmmss")
-	 * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	 * @JsonSerialize(using = LocalDateTimeSerializer.class) private LocalDateTime
-	 * updatedDate;
-	 */
+	private String email;
+	private String imageFileName;
+	private MultipartFile file;
 	
 	public Manager toEntity() {
 		return Manager.builder()
@@ -39,8 +29,8 @@ public class ManagerDto {
 				.name(name)
 				.introduce(introduce)
 				.lastLoginDate(lastLoginDate)
-				.createdLoginId(createdLoginId)
-				.updatedLoginId(updatedLoginId)
+				.email(email)
+				.imageFileName(imageFileName)
 				.build();
 	}
 }
