@@ -31,14 +31,14 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                         </div>
-                        <form th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" onsubmit="javascript:Form.submitClick();">
+                        <form th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" onsubmit="return Form.submitClick();">
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
                                 </div>
                                 <div class="col-sm-6">
                                     <select id="userRoles" name="userRoles" class="form-control required" style="height: 50px" title="계정 권한">
-                                        <option th:text="선택" disabled></option>
+                                        <option th:text="선택" value="" disabled selected></option>
                                         <option th:each="userRole : ${userRoles}"
                                                 th:text="${userRole.key}"
                                                 th:value="${userRole}">
@@ -90,7 +90,7 @@
                                 Register Account
                             </button>
                             <hr>
-                            <a href="javascript:Form.submitClick();" class="btn btn-google btn-user btn-block">
+                            <a href="" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Register with Google
                             </a>
                             <a href="index.html" class="btn btn-facebook btn-user btn-block">

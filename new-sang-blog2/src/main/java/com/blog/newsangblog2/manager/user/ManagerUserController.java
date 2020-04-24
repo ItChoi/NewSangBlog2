@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.blog.newsangblog2.common.enumeration.PreNumber;
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
+import com.blog.newsangblog2.manager.user.service.ManagerUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import lombok.AllArgsConstructor;
 public class ManagerUserController {
 
 	private final ManagerUserRepository managerRepository;
+	private final ManagerUserService managerUserService;
 	
 	@GetMapping("/list")
 	public String managerList(Model model) {
@@ -46,8 +48,9 @@ public class ManagerUserController {
 	
 	@PostMapping("/create")
 	public String createManager(ManagerDto managerDto) {
-		// TODO 폼 html에서 submit 하고, dto 재조정 하기
-		// managerRepository.save(managerDto.toEntity());
+
+		managerUserService.createManager(managerDto);
+
 		return "redirect:/manager/user/login";
 	}
 	

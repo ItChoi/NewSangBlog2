@@ -2,6 +2,7 @@ package com.blog.newsangblog2.manager.user.service;
 
 import java.util.Optional;
 
+import com.blog.newsangblog2.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,13 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 		return managerUserRepository.findManagerByLoginId(loginId);
 	}
 
+	@Transactional
+	@Override
+	public Long createManager(ManagerDto managerDto) {
 
+
+		managerUserRepository.save()
+
+		return null;
+	}
 }

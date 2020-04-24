@@ -16,7 +16,6 @@ function validator() {
         return false;
     }
 
-
     if (!Validator.passwordRegExp()) {
         return false;
     }
@@ -29,6 +28,8 @@ function validator() {
         return false;
     }
 
+    alert("??");
+    return true;
 }
 
 Form.init();
