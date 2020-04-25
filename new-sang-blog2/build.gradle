@@ -79,6 +79,8 @@ dependencies {
 
 	compile('com.querydsl:querydsl-jpa')
 	compile('com.querydsl:querydsl-apt')
+
+	compile('org.modelmapper:modelmapper:2.3.7')
 }
 
 def querydslDir = "$buildDir/generated/querydsl"

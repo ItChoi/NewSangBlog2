@@ -48,7 +48,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user required password" id="password" placeholder="비밀번호 (필수 입력)" title="비밀번호">
+                                    <input type="password" name="password" class="form-control form-control-user required password" id="password" placeholder="비밀번호 (필수 입력)" title="비밀번호">
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user required password" id="re_password" placeholder="비밀번호 재입력 (필수 입력)" title="비밀번호 재입력">
@@ -58,6 +58,7 @@
                                 <input type="text" class="form-control form-control-user required" id="name" name="name" placeholder="이름 (필수 입력)" title="이름">
                             </div>
                             <div class="form-group row">
+                                <input type="hidden" name="phoneNumber" id="phoneNumber">
                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                     <select id="phoneNumber1" class="form-control" style="height: 50px" title="앞 번호">
                                         <option th:each="preNumber : ${prePhoneNumber}"
@@ -122,6 +123,7 @@
 <!-- Custom scripts for all pages-->
 <script src="/bootstrap/js/sb-admin-2.min.js"></script>
 
+<script src="/js/common/utils.js"></script>
 <script src="/js/common/validator.js"></script>
 <script src="/js/user/form.js"></script>
 

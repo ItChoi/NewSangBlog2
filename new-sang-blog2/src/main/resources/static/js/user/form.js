@@ -4,8 +4,16 @@ let Form = {
     },
 
     submitClick : function() {
-        return validator();
-    }
+        let isSuccessed = validator();
+
+        if (isSuccessed) {
+            let phoneNumber = document.getElementById('phoneNumber');
+            phoneNumber.value = Utils.getPhoneNumber();
+        }
+
+        return isSuccessed;
+    },
+
 
 };
 
@@ -28,7 +36,6 @@ function validator() {
         return false;
     }
 
-    alert("??");
     return true;
 }
 

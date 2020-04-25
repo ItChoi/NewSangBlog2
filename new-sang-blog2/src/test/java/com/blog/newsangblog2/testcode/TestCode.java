@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
-import com.blog.newsangblog2.exception.UserNotFoundException;
+import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
