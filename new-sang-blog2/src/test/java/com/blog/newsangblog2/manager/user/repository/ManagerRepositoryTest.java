@@ -1,10 +1,10 @@
 package com.blog.newsangblog2.manager.user.repository;
 
-import static org.hamcrest.CoreMatchers.is;
-
-import java.util.List;
-import java.util.Optional;
-
+import com.blog.newsangblog2.web.manager.user.domain.Manager;
+import com.blog.newsangblog2.web.manager.user.domain.UserRole;
+import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
+import com.blog.newsangblog2.web.manager.user.repository.UserRoleRepository;
+import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,14 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.blog.newsangblog2.manager.user.domain.Manager;
-import com.blog.newsangblog2.manager.user.domain.UserRole;
-import com.blog.newsangblog2.manager.user.service.ManagerUserService;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hamcrest.CoreMatchers.is;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class ManagerRepositoryTest {
-	
+
 	@Autowired
 	ManagerUserRepository managerRepository;
 	
@@ -72,11 +73,9 @@ public class ManagerRepositoryTest {
 		Assertions.assertEquals("enffl18", manager.getLoginId());
 		
 		System.out.println("1111111111111111111111111");
-		for (UserRole ur : manager.getUserRoles()) {
-			System.out.println("------------------2: " + ur.getClass());
-			System.out.println("------------------3: " + manager.getClass());
-			System.out.println("result: " + ur.getAuthority());
-		}
+			System.out.println("------------------2: " + manager.getUserRole().getClass());
+			System.out.println("------------------3: " + manager.getUserRole().getClass());
+			System.out.println("result: " + manager.getUserRole().getAuthority());
 		System.out.println("2222222222222222222222222");
 		//System.out.println("roleTest: " + role);
 	}

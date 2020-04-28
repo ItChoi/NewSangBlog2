@@ -23,9 +23,8 @@ public class ManagerDto {
 	private String lastLoginDate;
 	private String imageFileName;
 	private MultipartFile file;
-	private List<UserRole> userRoles = new ArrayList<>();
+	private UserRole userRole;
 
-	
 	public Manager toEntity() {
 		return Manager.builder()
 				.loginId(loginId)
@@ -36,6 +35,7 @@ public class ManagerDto {
 				.lastLoginDate(lastLoginDate)
 				.email(email)
 				.imageFileName(imageFileName)
+				.userRole(userRole)
 				.build();
 	}
 }

@@ -5,6 +5,7 @@ import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @Service
 public class ManagerUserServiceImpl implements ManagerUserService {
-	
+
 	private final ManagerUserRepository managerUserRepository;
 
 	private final ModelMapper modelMapper;

@@ -13,9 +13,9 @@ let Utils = {
     },
 
     getPhoneNumber : function() {
-        let phoneNumber1 = document.getElementById('phoneNumber1');
-        let phoneNumber2 = document.getElementById('phoneNumber2');
-        let phoneNumber3 = document.getElementById('phoneNumber3');
+        let phoneNumber1 = document.getElementById('phoneNumber1').value;
+        let phoneNumber2 = document.getElementById('phoneNumber2').value;
+        let phoneNumber3 = document.getElementById('phoneNumber3').value;
 
         return Utils.concatValue(phoneNumber1, phoneNumber2, phoneNumber3);
     }

@@ -70,7 +70,7 @@ let Validator = {
     },
 
     // 핸드폰 번호 체크
-    phonNumberRegExp : function() {
+    phoneNumberRegExp : function() {
         let phoneNumber1 = document.getElementById('phoneNumber1').value;
         let phoneNumber2 = document.getElementById('phoneNumber2').value;
         let phoneNumber3 = document.getElementById('phoneNumber3').value;
@@ -79,21 +79,21 @@ let Validator = {
         let regExp2 = /^\d{3,4}$/;
         let regExp3 = /^\d{4}$/;
 
-        if (phoneNumber1.length > 0) {
+        if (phoneNumber1.length != 3) {
             if (!regExp1.test(phoneNumber1)) {
                 alert("휴대폰 앞 자리를 정확히 입력해주세요.");
                 return false;
             }
         }
 
-        if (phoneNumber2.length > 0) {
+        if (phoneNumber2.length != 4) {
             if (!regExp2.test(phoneNumber2)) {
                 alert("휴대폰 가운데 자리를 정확히 입력해주세요.");
                 return false;
             }
         }
 
-        if (phoneNumber3.length > 0) {
+        if (phoneNumber3.length != 4) {
             if (!regExp3.test(phoneNumber3)) {
                 alert("휴대폰 끝 자리를 정확히 입력해주세요.");
                 return false;

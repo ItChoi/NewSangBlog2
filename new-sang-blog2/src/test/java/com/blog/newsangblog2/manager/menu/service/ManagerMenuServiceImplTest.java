@@ -1,7 +1,8 @@
 package com.blog.newsangblog2.manager.menu.service;
 
-import com.blog.newsangblog2.manager.menu.domain.ManagerMenu;
-import com.blog.newsangblog2.manager.menu.repository.ManagerMenuRepository;
+import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
+import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepository;
+import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)

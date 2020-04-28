@@ -32,7 +32,7 @@ function validator() {
         return false;
     }
 
-    if (!Validator.phonNumberRegExp()) {
+    if (!Validator.phoneNumberRegExp()) {
         return false;
     }
 

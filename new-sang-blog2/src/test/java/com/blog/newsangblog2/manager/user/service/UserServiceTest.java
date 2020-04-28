@@ -3,6 +3,7 @@ package com.blog.newsangblog2.manager.user.service;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.blog.newsangblog2.web.manager.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -45,11 +45,11 @@ public class Manager extends BaseDateTimeEntity {
 	@Column(length = 100)
 	private String imageFileName;
 	
-	@OneToMany(mappedBy = "manager")
-	private List<UserRole> userRoles = new ArrayList<>();
+	@OneToOne(mappedBy = "manager", fetch = FetchType.LAZY)
+	private UserRole userRole;
 	
 	@Builder
-	public Manager(String loginId, String password, String phoneNumber, String name, String introduce, String lastLoginDate, String createdLoginId, String updatedLoginId, String email, String imageFileName) {
+	public Manager(String loginId, String password, String phoneNumber, String name, String introduce, String lastLoginDate, String createdLoginId, String updatedLoginId, String email, String imageFileName, UserRole userRole) {
 		this.loginId = loginId;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
@@ -58,6 +58,7 @@ public class Manager extends BaseDateTimeEntity {
 		this.lastLoginDate = lastLoginDate;
 		this.email = email;
 		this.imageFileName = imageFileName;
+		this.userRole = userRole;
 	}
 	
 }

@@ -48,10 +48,13 @@ public class UserService implements UserDetailsService {
 		
 		if (!StringUtils.isEmpty(managerInfo)) {
 			
-			List<UserRole> userRoleList= managerInfo.getUserRoles();
+			/*List<UserRole> userRoleList= managerInfo.getUserRoles();
 			userRoleList.stream().forEach(
 				role -> authorities.add(new SimpleGrantedAuthority(role.getAuthority().getRole()))
-			);
+			);*/
+
+			authorities.add(new SimpleGrantedAuthority(managerInfo.getUserRole().getAuthority().getRole()));
+
 		}
 		
 		return new User(managerInfo.getLoginId(), managerInfo.getPassword(), authorities);
