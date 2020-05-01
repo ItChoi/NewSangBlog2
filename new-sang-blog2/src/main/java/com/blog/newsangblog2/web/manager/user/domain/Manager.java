@@ -1,10 +1,7 @@
 package com.blog.newsangblog2.web.manager.user.domain;
 
 import com.blog.newsangblog2.common.domain.BaseDateTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class Manager extends BaseDateTimeEntity {
 	

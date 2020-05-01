@@ -1,6 +1,7 @@
 package com.blog.newsangblog2.web.manager.user.service;
 
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
+import com.blog.newsangblog2.web.manager.user.domain.UserRole;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,15 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 	@Override
 	public Long createManager(ManagerDto managerDto) {
 		Manager manager = modelMapper.map(managerDto, Manager.class);
+		manager.setUserRole(
+				UserRole.builder()
+					.userRoleType(managerDto.getAuthority())
+					.build()
+		);
+
 		managerUserRepository.save(manager);
 
 		return manager.getId();
 	}
+
 }

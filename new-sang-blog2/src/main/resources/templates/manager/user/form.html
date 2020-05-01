@@ -36,8 +36,8 @@
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
                                 </div>
-                                <div class="col-sm-6">
-                                    <select id="userRoles" name="userRoles" class="form-control required" style="height: 50px" title="계정 권한">
+                                    <div class="col-sm-6">
+                                    <select id="userRole" name="authority" class="form-control required" style="height: 50px" title="계정 권한">
                                         <option th:text="선택" value="" disabled selected></option>
                                         <option th:each="userRole : ${userRoles}"
                                                 th:text="${userRole.key}"
