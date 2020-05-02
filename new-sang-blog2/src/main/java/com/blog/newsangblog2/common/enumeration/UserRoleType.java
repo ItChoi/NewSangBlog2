@@ -6,8 +6,8 @@ import lombok.Getter;
 public enum UserRoleType {
 	SUPERVISOR("최고관리자", "ROLE_SUPERVISOR"),
 	ADMIN("관리자", "ROLE_ADMIN"),
-	MEMBER("회원", "ROLE_MEMBER");
-	//ANONYMOUS("방문자", "ANONYMOUS")
+	MEMBER("회원", "ROLE_MEMBER"),
+	ANONYMOUS("방문자", "ANONYMOUS");
 	
 	private String key;
 	private String role;

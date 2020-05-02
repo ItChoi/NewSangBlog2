@@ -6,7 +6,6 @@ import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,13 +31,14 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 		Manager manager = modelMapper.map(managerDto, Manager.class);
 		manager.setUserRole(
 				UserRole.builder()
-					.userRoleType(managerDto.getAuthority())
-					.build()
+					.manager(manager)
+					.authority(manager.)
 		);
 
 		managerUserRepository.save(manager);
 
 		return manager.getId();
 	}
+
 
 }

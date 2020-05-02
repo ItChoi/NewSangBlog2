@@ -4,8 +4,6 @@ import com.blog.newsangblog2.common.domain.BaseDateTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

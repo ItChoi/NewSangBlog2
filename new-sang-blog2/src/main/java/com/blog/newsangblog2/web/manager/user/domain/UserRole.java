@@ -29,7 +29,7 @@ public class UserRole extends BaseDateTimeEntity {
 	private UserRoleType authority;
 
 	@Builder
-	public UserRole(UserRoleType userRoleType) {
+	public UserRole(Manager manager, UserRoleType authority) {
 		this.authority = authority;
 	}
 

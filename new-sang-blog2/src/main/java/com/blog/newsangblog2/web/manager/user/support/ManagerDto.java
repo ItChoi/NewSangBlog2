@@ -1,6 +1,7 @@
 package com.blog.newsangblog2.web.manager.user.support;
 
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
+import com.blog.newsangblog2.web.manager.user.UserRoleDto;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.domain.UserRole;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class ManagerDto {
 	private String imageFileName;
 	private MultipartFile file;
 	//private UserRole userRole;
-	private UserRoleType authority;
+	//private UserRoleType authority;
+	private UserRoleDto userRole;
 
 }
