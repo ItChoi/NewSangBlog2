@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface ManagerUserService {
 	public Optional<Manager> findManagerBy(String loginId);
     public Long createManager(ManagerDto managerDto);
+    public void checkDuplicationValue(ManagerDto managerDto);
 }

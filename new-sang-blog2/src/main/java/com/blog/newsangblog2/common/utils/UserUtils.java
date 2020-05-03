@@ -19,7 +19,7 @@ public class UserUtils {
 	public static String getLoginId() {
 		HttpSession session = getHttpServletRequest().getSession();
 		return Optional.ofNullable(
-					(String) session.getAttribute(UserInfo.LOGIN_ID.getLoginId())
+					(String) session.getAttribute(UserInfo.LOGIN_ID.getCode())
 				).orElseThrow(() -> new UserNotFoundException("세션에 등록된 아이디가 없습니다."));
 	}
 	

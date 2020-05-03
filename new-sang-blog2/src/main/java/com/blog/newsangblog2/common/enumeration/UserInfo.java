@@ -6,9 +6,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UserInfo {
-	LOGIN_ID("loginId");
+	LOGIN_ID("loginId"),
+	EMAIL("email");
 	
-	private String loginId;
+	private String code;
+
 
 
 }

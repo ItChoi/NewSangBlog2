@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//.antMatchers("/manager/user/login").permitAll()
 
 				// .antMatchers("/manager/**").hasRole("ADMIN")
-				.antMatchers("/manager/user/create").permitAll()
+				.antMatchers("/manager/user/create", "/manager/user/check-duplication").permitAll()
 				//.antMatchers("/manager/**").hasRole("ADMIN")
 				.antMatchers("/manager/**").hasAnyRole("ADMIN", "SUPERVISOR")
 				//.antMatchers("/").permitAll()

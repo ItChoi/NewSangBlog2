@@ -7,13 +7,15 @@ import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -84,5 +86,19 @@ public class ManagerUserController {
 		return "/manager/user/info";
 	}
 
+
+	@PostMapping("/check-duplication")
+	public ResponseEntity<Boolean> checkDuplication(@RequestBody ManagerDto managerDto, BindingResult bindingResult) {
+		ResponseEntity entity = null;
+		managerUserService.checkDuplicationValue(managerDto);
+
+		if (bindingResult.hasErrors()) {
+			entity = new ResponseEntity(false, HttpStatus.BAD_REQUEST);
+		} else {
+			entity = new ResponseEntity(true, HttpStatus.OK);
+		}
+
+		return entity;
+	}
 
 }

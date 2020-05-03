@@ -1,17 +1,13 @@
 package com.blog.newsangblog2.web.manager.user.support;
 
-import com.blog.newsangblog2.common.enumeration.UserRoleType;
-import com.blog.newsangblog2.web.manager.user.UserRoleDto;
-import com.blog.newsangblog2.web.manager.user.domain.Manager;
-import com.blog.newsangblog2.web.manager.user.domain.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 
 @Getter
@@ -20,10 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 public class ManagerDto {
 	private Long id;
+	@NotEmpty(message = "로그인 아이디를 입력해주세요.")
 	private String loginId;
 	private String password;
 	private String phoneNumber;
 	private String name;
+	@NotEmpty(message = "이메일을 입력해주세요.")
 	private String email;
 	private String introduce;
 	private String lastLoginDate;
