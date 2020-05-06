@@ -16,12 +16,10 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class ManagerDto {
 	private Long id;
-	@NotEmpty(message = "로그인 아이디를 입력해주세요.")
 	private String loginId;
 	private String password;
 	private String phoneNumber;
 	private String name;
-	@NotEmpty(message = "이메일을 입력해주세요.")
 	private String email;
 	private String introduce;
 	private String lastLoginDate;

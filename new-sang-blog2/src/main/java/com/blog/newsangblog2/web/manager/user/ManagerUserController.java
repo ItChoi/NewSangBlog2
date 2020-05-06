@@ -5,6 +5,7 @@ import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
+import com.blog.newsangblog2.web.manager.user.service.UserService;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class ManagerUserController {
 
 	private final ManagerUserRepository managerRepository;
 	private final ManagerUserService managerUserService;
+	private final UserService userService;
 	
 	@GetMapping("/list")
 	public String managerList(Model model) {
@@ -43,9 +46,12 @@ public class ManagerUserController {
 	}
 	
 	@PostMapping("/create")
-	public String createManager(ManagerDto managerDto) {
+	public String createManager(@Valid ManagerDto managerDto, BindingResult bindingResult) {
 
-		managerUserService.createManager(managerDto);
+		if (!bindingResult.hasErrors()) {
+			userService.createManager(managerDto);
+			//managerUserService.createManager(managerDto);
+		}
 
 		return "redirect:/manager/user/login";
 	}
@@ -87,8 +93,8 @@ public class ManagerUserController {
 	}
 
 
-	@PostMapping("/check-duplication")
-	public ResponseEntity<Boolean> checkDuplication(@RequestBody ManagerDto managerDto, BindingResult bindingResult) {
+	/*@PostMapping("/check-duplication")
+	public ResponseEntity<Boolean> checkDuplication(@RequestBody @Valid ManagerDto managerDto, BindingResult bindingResult) {
 		ResponseEntity entity = null;
 		managerUserService.checkDuplicationValue(managerDto);
 
@@ -99,6 +105,6 @@ public class ManagerUserController {
 		}
 
 		return entity;
-	}
+	}*/
 
 }

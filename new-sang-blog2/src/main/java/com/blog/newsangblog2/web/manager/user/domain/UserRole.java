@@ -16,12 +16,11 @@ import javax.persistence.*;
 public class UserRole extends BaseDateTimeEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name = "USER_ROLE_ID")
 	private Long id;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MANAGER_ID")
+	@OneToOne(mappedBy = "userRole", fetch = FetchType.LAZY)
 	private Manager manager;
 
 	@Column(length = 30)

@@ -1,15 +1,20 @@
 package com.blog.newsangblog2.web.manager.user.service;
 
+import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.domain.UserRole;
+import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
+import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -29,6 +34,29 @@ public class UserService implements UserDetailsService {
 	
 	private final ManagerUserService managerUserService;
 
+	private final ModelMapper modelMapper;
+
+	private final ManagerUserRepository managerUserRepository;
+
+	public Long createManager(ManagerDto managerDto) {
+		checkDuplicationValue(managerDto);
+
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		managerDto.setPassword(passwordEncoder.encode(managerDto.getPassword()));
+
+		Manager manager = modelMapper.map(managerDto, Manager.class);
+		manager.setUserRole(
+				UserRole.builder()
+						.manager(manager)
+						.authority(managerDto.getUserRole().getAuthority())
+						.build()
+		);
+
+		managerUserRepository.save(manager);
+
+		return manager.getId();
+	}
+
 	/**
 	 * 상세 정보 조회 메서드
 	 *  - 사용자의 계정 정보와 권한을 갖는 UserDetails 인터페이스 반환
@@ -47,17 +75,20 @@ public class UserService implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		
 		if (!StringUtils.isEmpty(managerInfo)) {
-			
-			/*List<UserRole> userRoleList= managerInfo.getUserRoles();
-			userRoleList.stream().forEach(
-				role -> authorities.add(new SimpleGrantedAuthority(role.getAuthority().getRole()))
-			);*/
-
 			authorities.add(new SimpleGrantedAuthority(managerInfo.getUserRole().getAuthority().getRole()));
-
 		}
 		
 		return new User(managerInfo.getLoginId(), managerInfo.getPassword(), authorities);
+	}
+
+	public void checkDuplicationValue(ManagerDto managerDto) {
+		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getLoginId()) && managerUserRepository.existsByLoginId(managerDto.getLoginId())) {
+			throw new DuplicationException("아이디: " + managerDto.getLoginId() + "은 이미 존재 합니다.");
+		}
+
+		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getEmail()) && managerUserRepository.existsByEmail(managerDto.getEmail())) {
+			throw new DuplicationException("이메일: " + managerDto.getEmail() + "은 이미 존재 합니다.");
+		}
 	}
 
 }

@@ -6,17 +6,7 @@ let Form = {
     submitClick : function() {
         let isSuccessed = validator();
 
-
-        if (isSuccessed) {
-            let phoneNumber = document.getElementById('phoneNumber');
-            phoneNumber.value = Utils.getPhoneNumber();
-        }
-
-        return isSuccessed;
-    },
-
-    axiosFunction : function() {
-        axios({
+        /*axios({
             method: 'post',
             url: '/manager/user/check-duplication',
             headers: {
@@ -28,17 +18,28 @@ let Form = {
                 'loginId' : document.getElementById('loginId').value
             }
         }).then(function (response) {
+            alert("test: " + response.data);
             if (response.data) {
+                alert("1111");
                 return true;
             } else {
+                alert("2222");
                 return false;
             }
 
         }).catch(function (error) {
             alert(error.response.data.message);
             return false;
-        });
-    }
+        });*/
+
+        if (isSuccessed) {
+            let phoneNumber = document.getElementById('phoneNumber');
+            phoneNumber.value = Utils.getPhoneNumber();
+        }
+
+        return isSuccessed;
+    },
+
 
 
 };
@@ -46,8 +47,10 @@ let Form = {
 function validator() {
 
     if (!Form.axiosFunction()) {
+        alert("1: " + Form.axiosFunction());
         return false;
     }
+    alert("2");
 
     // 필수 입력 값
     if (!Validator.requiredValue()) {

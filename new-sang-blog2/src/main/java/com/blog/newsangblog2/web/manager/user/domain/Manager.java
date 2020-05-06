@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Manager extends BaseDateTimeEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name = "MANAGER_ID")
 	private Long id;
 	
@@ -41,7 +41,8 @@ public class Manager extends BaseDateTimeEntity {
 	@Column(length = 100)
 	private String imageFileName;
 	
-	@OneToOne(mappedBy = "manager", fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "USER_ROLE_ID")
 	private UserRole userRole;
 	
 	@Builder

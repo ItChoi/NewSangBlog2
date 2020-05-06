@@ -63,15 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// antMatchers: 특정 경로 지정
 				// hasRole: 역할에 따른 접근 설정
 				.antMatchers("/h2-console/**").permitAll()
-				//.antMatchers("/manager/user/login").permitAll()
-				//.antMatchers("/manager/user/login").permitAll()
-
-				// .antMatchers("/manager/**").hasRole("ADMIN")
 				.antMatchers("/manager/user/create", "/manager/user/check-duplication").permitAll()
-				//.antMatchers("/manager/**").hasRole("ADMIN")
 				.antMatchers("/manager/**").hasAnyRole("ADMIN", "SUPERVISOR")
-				//.antMatchers("/").permitAll()
-				//.antMatchers("user/myinfo").hasRole("MEMBER")
 				.and()
 				// 로그인 설정
 				// form 기반으로 인증을 하고, 로그인 정보는 기본적으로 HttpSession을 이용
