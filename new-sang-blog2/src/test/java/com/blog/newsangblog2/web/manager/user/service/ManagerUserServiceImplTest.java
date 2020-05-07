@@ -47,8 +47,8 @@ class ManagerUserServiceImplTest {
 
         managerUserRepository.save(manager);
 
-
-
+        System.out.println("result1: " + manager.getId());
+        System.out.println("result2: " + manager.getUserRole().getId());
 
     }
 

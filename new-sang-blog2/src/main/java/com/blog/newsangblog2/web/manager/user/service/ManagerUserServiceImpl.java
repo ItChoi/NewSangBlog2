@@ -23,36 +23,12 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 
 	private final ManagerUserRepository managerUserRepository;
 
-	private final ModelMapper modelMapper;
-
-	private PasswordEncoder passwordEncoder;
-
 	@Override
 	public Optional<Manager> findManagerBy(String loginId) {
 		return managerUserRepository.findManagerByLoginId(loginId);
 	}
 
-	/*@Transactional
-	@Override
-	public Long createManager(ManagerDto managerDto) {
-		checkDuplicationValue(managerDto);
-
-		//managerDto.setPassword(passwordEncoder.encode(managerDto.getPassword()));
-
-		Manager manager = modelMapper.map(managerDto, Manager.class);
-		manager.setUserRole(
-				UserRole.builder()
-					.manager(manager)
-					.authority(managerDto.getUserRole().getAuthority())
-					.build()
-		);
-
-		managerUserRepository.save(manager);
-
-		return manager.getId();
-	}*/
-
-	/*public void checkDuplicationValue(ManagerDto managerDto) {
+	public void checkDuplicationValue(ManagerDto managerDto) {
 		if (StringUtils.isNotEmpty(managerDto.getLoginId()) && managerUserRepository.existsByLoginId(managerDto.getLoginId())) {
 			throw new DuplicationException("아이디: " + managerDto.getLoginId() + "은 이미 존재 합니다.");
 		}
@@ -60,7 +36,5 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 		if (StringUtils.isNotEmpty(managerDto.getEmail()) && managerUserRepository.existsByEmail(managerDto.getEmail())) {
 			throw new DuplicationException("이메일: " + managerDto.getEmail() + "은 이미 존재 합니다.");
 		}
-	}*/
-
-
+	}
 }

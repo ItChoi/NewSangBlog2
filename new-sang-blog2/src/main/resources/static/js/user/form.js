@@ -4,7 +4,7 @@ let Form = {
     },
 
     submitClick : function() {
-        let isSuccessed = validator();
+        let isSucceed = validator();
 
         /*axios({
             method: 'post',
@@ -32,12 +32,12 @@ let Form = {
             return false;
         });*/
 
-        if (isSuccessed) {
+        if (isSucceed) {
             let phoneNumber = document.getElementById('phoneNumber');
             phoneNumber.value = Utils.getPhoneNumber();
         }
 
-        return isSuccessed;
+        return isSucceed;
     },
 
 
@@ -45,12 +45,6 @@ let Form = {
 };
 
 function validator() {
-
-    if (!Form.axiosFunction()) {
-        alert("1: " + Form.axiosFunction());
-        return false;
-    }
-    alert("2");
 
     // 필수 입력 값
     if (!Validator.requiredValue()) {

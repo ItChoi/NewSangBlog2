@@ -1,9 +1,7 @@
 buildscript {
 	ext {
 		// ext는 build.gradle에서 사용하는 전역변수 설정
-		// springBootVersion = '2.1.7.RELEASE'
-		springBootVersion = '2.2.5.RELEASE'
-		//junitJupiterVersion = '5.5.2'
+		springBootVersion = '2.2.6.RELEASE'
 
 	}
 
@@ -13,7 +11,6 @@ buildscript {
 	}
 
 	dependencies {
-		// 스프링 부트 그레이들 플러그인의 2.1.7.RELEASE를 의존성으로 받는다.
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		/**
 		SpringDataJpa에서 LocalDate와 LocalDateTime 저장 시 DB에 제대로 전환 안되는 이슈가 있는데,
@@ -21,7 +18,6 @@ buildscript {
 		따라서 추가 의존성 (1)
 		*/
 		classpath("io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE")
-		//classpath("org.junit.jupiter:")
 
 		// querydsl
 		classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
@@ -75,7 +71,7 @@ dependencies {
 	compile('com.github.ulisesbocchio:jasypt-spring-boot:3.0.2')
 	//compile('com.oracle:ojdbc6:11.2.0.1.0')
 
-	compile('com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6')
+	compile('com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8')
 
 	compile('com.querydsl:querydsl-jpa')
 	compile('com.querydsl:querydsl-apt')

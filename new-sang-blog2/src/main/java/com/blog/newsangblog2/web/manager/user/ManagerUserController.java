@@ -50,7 +50,6 @@ public class ManagerUserController {
 
 		if (!bindingResult.hasErrors()) {
 			userService.createManager(managerDto);
-			//managerUserService.createManager(managerDto);
 		}
 
 		return "redirect:/manager/user/login";
@@ -91,20 +90,5 @@ public class ManagerUserController {
 	public String managerInfo() {
 		return "/manager/user/info";
 	}
-
-
-	/*@PostMapping("/check-duplication")
-	public ResponseEntity<Boolean> checkDuplication(@RequestBody @Valid ManagerDto managerDto, BindingResult bindingResult) {
-		ResponseEntity entity = null;
-		managerUserService.checkDuplicationValue(managerDto);
-
-		if (bindingResult.hasErrors()) {
-			entity = new ResponseEntity(false, HttpStatus.BAD_REQUEST);
-		} else {
-			entity = new ResponseEntity(true, HttpStatus.OK);
-		}
-
-		return entity;
-	}*/
 
 }

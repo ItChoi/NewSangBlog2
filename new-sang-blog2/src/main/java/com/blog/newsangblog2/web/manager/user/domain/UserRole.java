@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class UserRole extends BaseDateTimeEntity {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ROLE_ID")
 	private Long id;
 	

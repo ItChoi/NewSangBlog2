@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
 	private final ManagerUserRepository managerUserRepository;
 
 	public Long createManager(ManagerDto managerDto) {
-		checkDuplicationValue(managerDto);
+		managerUserService.checkDuplicationValue(managerDto);
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		managerDto.setPassword(passwordEncoder.encode(managerDto.getPassword()));
@@ -81,14 +81,5 @@ public class UserService implements UserDetailsService {
 		return new User(managerInfo.getLoginId(), managerInfo.getPassword(), authorities);
 	}
 
-	public void checkDuplicationValue(ManagerDto managerDto) {
-		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getLoginId()) && managerUserRepository.existsByLoginId(managerDto.getLoginId())) {
-			throw new DuplicationException("아이디: " + managerDto.getLoginId() + "은 이미 존재 합니다.");
-		}
-
-		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getEmail()) && managerUserRepository.existsByEmail(managerDto.getEmail())) {
-			throw new DuplicationException("이메일: " + managerDto.getEmail() + "은 이미 존재 합니다.");
-		}
-	}
 
 }
