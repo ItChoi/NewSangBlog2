@@ -6,32 +6,6 @@ let Form = {
     submitClick : function() {
         let isSucceed = validator();
 
-        /*axios({
-            method: 'post',
-            url: '/manager/user/check-duplication',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN' : document.querySelector('input[name="_csrf"]').value
-            },
-            data: {
-                'email' : document.getElementById('email').value,
-                'loginId' : document.getElementById('loginId').value
-            }
-        }).then(function (response) {
-            alert("test: " + response.data);
-            if (response.data) {
-                alert("1111");
-                return true;
-            } else {
-                alert("2222");
-                return false;
-            }
-
-        }).catch(function (error) {
-            alert(error.response.data.message);
-            return false;
-        });*/
-
         if (isSucceed) {
             let phoneNumber = document.getElementById('phoneNumber');
             phoneNumber.value = Utils.getPhoneNumber();
@@ -41,8 +15,33 @@ let Form = {
     },
 
 
-
 };
+
+    let loginId = document.getElementById('loginId');
+    loginId.onkeyup = function() {
+        axios({
+            method: 'post',
+            url: '/manager/user/duplicate-loginid-check',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN' : document.querySelector('input[name="_csrf"]').value
+            },
+            data: {
+                'loginId' : loginId.value
+            }
+
+        }).then(function (response) {
+            let duplicateText = document.getElementById('duplicate-text');
+
+            if (response.data) {
+                duplicateText.innerHTML = '이미 존재 하는 아이디 입니다..';
+                return false;
+            } else {
+                duplicateText.innerHTML = '사용 가능한 아이디 입니다.';
+                return true;
+            }
+        });
+    };
 
 function validator() {
 

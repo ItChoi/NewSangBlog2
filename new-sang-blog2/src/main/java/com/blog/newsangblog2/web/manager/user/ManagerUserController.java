@@ -2,12 +2,14 @@ package com.blog.newsangblog2.web.manager.user;
 
 import com.blog.newsangblog2.common.enumeration.PreNumber;
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
+import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
 import com.blog.newsangblog2.web.manager.user.service.UserService;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -89,6 +90,14 @@ public class ManagerUserController {
 	@GetMapping("/info")
 	public String managerInfo() {
 		return "/manager/user/info";
+	}
+
+	@PostMapping("/duplicate-loginid-check")
+	public ResponseEntity<Boolean> duplicateLoginIdCheck(@RequestBody ManagerDto managerDto) {
+		boolean isDuplicated = managerRepository.existsByLoginId(managerDto.getLoginId());
+
+		return new ResponseEntity<>(isDuplicated, HttpStatus.OK);
+
 	}
 
 }

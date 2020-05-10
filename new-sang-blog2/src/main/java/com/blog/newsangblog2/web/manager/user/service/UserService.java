@@ -7,6 +7,7 @@ import com.blog.newsangblog2.web.manager.user.domain.UserRole;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.support.ManagerDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author itcho
  *
  */
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -39,20 +41,26 @@ public class UserService implements UserDetailsService {
 	private final ManagerUserRepository managerUserRepository;
 
 	public Long createManager(ManagerDto managerDto) {
-		managerUserService.checkDuplicationValue(managerDto);
-
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		managerDto.setPassword(passwordEncoder.encode(managerDto.getPassword()));
-
 		Manager manager = modelMapper.map(managerDto, Manager.class);
-		manager.setUserRole(
-				UserRole.builder()
-						.manager(manager)
-						.authority(managerDto.getUserRole().getAuthority())
-						.build()
-		);
 
-		managerUserRepository.save(manager);
+		try {
+			checkDuplicationValue(managerDto);
+
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			managerDto.setPassword(passwordEncoder.encode(managerDto.getPassword()));
+
+			manager.setUserRole(
+					UserRole.builder()
+							.manager(manager)
+							.authority(managerDto.getUserRole().getAuthority())
+							.build()
+			);
+
+			managerUserRepository.save(manager);
+
+		} catch (DuplicationException e) {
+			log.info(e.getMessage());
+		}
 
 		return manager.getId();
 	}
@@ -81,5 +89,14 @@ public class UserService implements UserDetailsService {
 		return new User(managerInfo.getLoginId(), managerInfo.getPassword(), authorities);
 	}
 
+	private void checkDuplicationValue(ManagerDto managerDto) throws DuplicationException {
+		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getLoginId()) && managerUserRepository.existsByLoginId(managerDto.getLoginId())) {
+			throw new DuplicationException("아이디: " + managerDto.getLoginId() + "은 이미 존재 합니다.");
+		}
+
+		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getEmail()) && managerUserRepository.existsByEmail(managerDto.getEmail())) {
+			throw new DuplicationException("이메일: " + managerDto.getEmail() + "은 이미 존재 합니다.");
+		}
+	}
 
 }

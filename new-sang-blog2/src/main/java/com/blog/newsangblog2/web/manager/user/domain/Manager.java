@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Manager extends BaseDateTimeEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MANAGER_ID")
 	private Long id;
 	
