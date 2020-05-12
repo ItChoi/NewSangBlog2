@@ -11,40 +11,38 @@ let Form = {
             phoneNumber.value = Utils.getPhoneNumber();
         }
 
+        /*if (!Form.duplicateInfoCheck(document.getElementById('loginId')) || !Form.duplicateInfoCheck(document.getElementById('email'))) {
+            alert("중복되는 정보가 없는지 확인해 주세요.")
+            isSucceed = false;
+        }*/
+
         return isSucceed;
     },
 
-
-};
-
-    let loginId = document.getElementById('loginId');
-    loginId.onkeyup = function() {
+    duplicateInfoCheck : function(that) {
         axios({
-            method: 'post',
-            url: '/manager/user/duplicate-loginid-check',
+            method: 'get',
+            url: '/manager/user/duplicate-info-check?' + that.name + "=" + that.value,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN' : document.querySelector('input[name="_csrf"]').value
             },
-            data: {
-                'loginId' : loginId.value
-            }
-
         }).then(function (response) {
-            let duplicateText = document.getElementById('duplicate-text');
-
-            if (response.data) {
-                duplicateText.innerHTML = '이미 존재 하는 아이디 입니다..';
-                return false;
-            } else {
-                duplicateText.innerHTML = '사용 가능한 아이디 입니다.';
+            if (response.status === 200) {
+                that.nextElementSibling.innerHTML = '사용 가능한 ' + that.name + ' 입니다.';
                 return true;
             }
+        }).catch(function (error) {
+            that.nextElementSibling.innerHTML = '이미 존재 하는 ' + that.name + ' 입니다.';
+            return false;
         });
-    };
+    }
+
+};
+
+
 
 function validator() {
-
     // 필수 입력 값
     if (!Validator.requiredValue()) {
         return false;

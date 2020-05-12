@@ -39,8 +39,8 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
-                                    <div class="text-danger" id="duplicate-text"></div>
+                                    <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" onkeyup="Form.duplicateInfoCheck(this)" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
+                                    <div class="text-danger duplicate-text"></div>
                                     <!--<sec:authorize access="isAnonymous()">
                                         <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
                                     </sec:authorize>
@@ -89,7 +89,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="email" class="form-control form-control-user required email" id="email" placeholder="이메일 (필수 입력)" title="이메일">
+                                <input type="text" name="email" class="form-control form-control-user required email" id="email" onkeyup="Form.duplicateInfoCheck(this)" placeholder="이메일 (필수 입력)" title="이메일">
+                                <div class="text-danger duplicate-text"></div>
                             </div>
 
                             <div class="form-group">
@@ -102,6 +103,11 @@
                             <button type="submit" id="submit_button" class="btn btn-primary btn-user btn-block">
                                 Register Account
                             </button>
+
+                            <button type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager/user/login'">
+                                Cancel
+                            </button>
+
                             <hr>
 
 

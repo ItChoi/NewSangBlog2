@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
 			checkDuplicationValue(managerDto);
 
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			managerDto.setPassword(passwordEncoder.encode(managerDto.getPassword()));
+			manager.setPassword(passwordEncoder.encode(managerDto.getPassword()));
 
 			manager.setUserRole(
 					UserRole.builder()
@@ -89,7 +89,7 @@ public class UserService implements UserDetailsService {
 		return new User(managerInfo.getLoginId(), managerInfo.getPassword(), authorities);
 	}
 
-	private void checkDuplicationValue(ManagerDto managerDto) throws DuplicationException {
+	public void checkDuplicationValue(ManagerDto managerDto) throws DuplicationException {
 		if (io.micrometer.core.instrument.util.StringUtils.isNotEmpty(managerDto.getLoginId()) && managerUserRepository.existsByLoginId(managerDto.getLoginId())) {
 			throw new DuplicationException("아이디: " + managerDto.getLoginId() + "은 이미 존재 합니다.");
 		}

@@ -1,8 +1,10 @@
 package com.blog.newsangblog2.web.manager.user;
 
+import com.blog.newsangblog2.common.enumeration.CommonMessage;
 import com.blog.newsangblog2.common.enumeration.PreNumber;
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.common.exception.DuplicationException;
+import com.blog.newsangblog2.common.utils.UserUtils;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/manager/user")
 @Controller
@@ -48,13 +51,19 @@ public class ManagerUserController {
 	
 	@PostMapping("/create")
 	public String createManager(@Valid ManagerDto managerDto, BindingResult bindingResult) {
-
 		if (!bindingResult.hasErrors()) {
 			userService.createManager(managerDto);
 		}
 
 		return "redirect:/manager/user/login";
 	}
+
+	@GetMapping("/edit")
+	public String editManager(Model model) {
+
+
+	}
+
 	
 	@GetMapping("/login")
 	public String login(Model model, String error) {
@@ -92,11 +101,21 @@ public class ManagerUserController {
 		return "/manager/user/info";
 	}
 
-	@PostMapping("/duplicate-loginid-check")
-	public ResponseEntity<Boolean> duplicateLoginIdCheck(@RequestBody ManagerDto managerDto) {
-		boolean isDuplicated = managerRepository.existsByLoginId(managerDto.getLoginId());
+	@GetMapping("/duplicate-info-check")
+	public ResponseEntity<String> duplicateLoginIdCheck(ManagerDto managerDto) {
 
-		return new ResponseEntity<>(isDuplicated, HttpStatus.OK);
+		ResponseEntity entity;
+
+		try {
+			userService.checkDuplicationValue(managerDto);
+			entity = new ResponseEntity<>(CommonMessage.ID_IS_AVAILABLE, HttpStatus.OK);
+		} catch (DuplicationException e) {
+			log.error("error: {}", e.getMessage());
+			entity = new ResponseEntity<>(CommonMessage.ALREADY_EXISTS_ID, HttpStatus.BAD_REQUEST);
+		}
+
+
+		return entity;
 
 	}
 
