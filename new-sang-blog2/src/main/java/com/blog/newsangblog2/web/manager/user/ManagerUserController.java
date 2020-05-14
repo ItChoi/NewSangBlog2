@@ -4,6 +4,7 @@ import com.blog.newsangblog2.common.enumeration.CommonMessage;
 import com.blog.newsangblog2.common.enumeration.PreNumber;
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.common.exception.DuplicationException;
+import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
@@ -35,7 +36,8 @@ public class ManagerUserController {
 	
 	@GetMapping("/list")
 	public String managerList(Model model) {
-		List<Manager> list = managerRepository.findAll();
+		List<Manager> list = managerUserService.findAll();
+
 		model.addAttribute("list", list);
 		return "/manager/user/list";
 	}
@@ -45,6 +47,8 @@ public class ManagerUserController {
 	public String createManager(Model model) {
 		model.addAttribute("prePhoneNumber", PreNumber.PHONE.getPreNumber());
 		model.addAttribute("userRoles", UserRoleType.values());
+
+
 
 		return "/manager/user/form";
 	}
@@ -60,8 +64,9 @@ public class ManagerUserController {
 
 	@GetMapping("/edit")
 	public String editManager(Model model) {
-
-
+		Manager managerInfo = managerUserService.findManagerBy(UserUtils.getLoginId()).orElseThrow(() -> new UserNotFoundException());
+		model.addAttribute("managerInfo", managerInfo);
+		return "/manager/user/form";
 	}
 
 	

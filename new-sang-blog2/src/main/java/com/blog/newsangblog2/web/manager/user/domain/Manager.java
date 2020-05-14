@@ -56,5 +56,7 @@ public class Manager extends BaseDateTimeEntity {
 		this.imageFileName = imageFileName;
 		this.userRole = userRole;
 	}
+
+
 	
 }
