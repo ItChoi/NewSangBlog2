@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ManagerMenuRepository extends JpaRepository<ManagerMenu, Long> {
-    public List<ManagerMenu> findByParentIdAndMenuLevel(Long parentId, String menuLevel);
+public interface ManagerMenuRepository extends JpaRepository<ManagerMenu, Long>, ManagerMenuRepositoryCustom {
+    List<ManagerMenu> findByParentIdAndMenuLevel(Long parentId, String menuLevel);
 }

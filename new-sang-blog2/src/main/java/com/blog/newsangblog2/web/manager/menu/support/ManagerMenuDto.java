@@ -13,10 +13,10 @@ import lombok.Setter;
 public class ManagerMenuDto extends ManagerMenuSearch {
 
     private Long parentId;
-    private String menuLevel;
+    private Integer menuLevel;
     private String menuCode;
     private String menuName;
-    private int ordering;
+    private Integer ordering;
     private String url;
     private String uri;
     private String menuDisplay;
@@ -24,7 +24,6 @@ public class ManagerMenuDto extends ManagerMenuSearch {
 
     public ManagerMenu toEntity() {
         return ManagerMenu.builder()
-                .parentId(parentId)
                 .menuLevel(menuLevel)
                 .menuCode(menuCode)
                 .menuName(menuName)

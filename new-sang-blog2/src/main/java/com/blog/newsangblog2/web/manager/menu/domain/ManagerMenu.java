@@ -19,11 +19,14 @@ public class ManagerMenu extends BaseDateTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Long parentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentId")
+    private ManagerMenu parent;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<ManagerMenu> child = new ArrayList<>();
 
     @Column(length = 10)
-    private String menuLevel;
+    private Integer menuLevel;
 
     @Column(length = 100)
     private String menuCode;
@@ -32,7 +35,7 @@ public class ManagerMenu extends BaseDateTimeEntity {
     private String menuName;
 
     @Column
-    private int ordering;
+    private Integer ordering;
 
     @Column(length = 100)
     private String url;
@@ -46,16 +49,10 @@ public class ManagerMenu extends BaseDateTimeEntity {
     @Enumerated(EnumType.STRING)
     private ResourceType menuType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_menu_parent_id")
-    private ManagerMenu parent;
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private List<ManagerMenu> child = new ArrayList<>();
 
 
     @Builder
-    public ManagerMenu(Long parentId, String menuLevel, String menuCode, String menuName, int ordering, String url, String uri, String menuDisplay, ResourceType menuType) {
-        this.parentId = parentId;
+    public ManagerMenu(Integer menuLevel, String menuCode, String menuName, int ordering, String url, String uri, String menuDisplay, ResourceType menuType) {
         this.menuLevel = menuLevel;
         this.menuCode = menuCode;
         this.menuName = menuName;

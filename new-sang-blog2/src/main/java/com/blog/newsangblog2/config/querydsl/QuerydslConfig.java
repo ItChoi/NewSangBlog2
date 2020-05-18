@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 @Configuration
 public class QuerydslConfig {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     @Bean
     public JPAQueryFactory jpaQueryFactory() {

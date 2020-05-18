@@ -6,6 +6,8 @@ import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
+import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
+import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
@@ -33,6 +35,8 @@ public class ManagerUserController {
 	private final ManagerUserRepository managerRepository;
 	private final ManagerUserService managerUserService;
 	private final UserService userService;
+
+	private final ManagerMenuService managerMenuService;
 	
 	@GetMapping("/list")
 	public String managerList(Model model) {
@@ -47,8 +51,6 @@ public class ManagerUserController {
 	public String createManager(Model model) {
 		model.addAttribute("prePhoneNumber", PreNumber.PHONE.getPreNumber());
 		model.addAttribute("userRoles", UserRoleType.values());
-
-
 
 		return "/manager/user/form";
 	}
