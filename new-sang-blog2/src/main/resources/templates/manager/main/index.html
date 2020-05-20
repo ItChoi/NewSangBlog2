@@ -15,6 +15,7 @@
 
   <!-- Custom styles for this template-->
   <link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/css/manager/main/index.css" rel="stylesheet">
 
 <style type="text/css">/* Chart.js */
 	@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
@@ -54,18 +55,29 @@
         Menu
       </div>
       <!-- Nav Item - Pages Collapse Menu -->
-      <li th:each="menu : ${managerMenuList}" class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <li th:each="menu, i : ${managerMenuList}" class="nav-item">
+        <a class="nav-link collapsed no-margin" href="#" th:id="@{menuLevel-} + ${i.index}" onclick="Index.test(this);">
           <i class="fas fa-fw fa-cog"></i>
           <span th:text="${menu.menuName}"></span>
         </a>
-        <div th:if="${menu.child != null}" th:each="menuChild : ${menu.child}" id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
+
+        <ul class="menu-toggle">
+            <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
+                <a class="nav-link collapsed no-margin" href="#" th:id="@{menuLevel-} + ${i.index} + ${j.index}" onclick="Index.test(this);">
+                    <span th:text="${menuChild2.menuName}"></span>
+                </a>
+
+                <ul class="menu-toggle">
+                    <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
+                        <a class="nav-link collapsed no-margin" href="#" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}" onclick="Index.test(this);">
+                            <span th:text="${menuChild3.menuName}"></span>
+                        </a>
+                    </li>
+                </ul>
+
+
+            </li>
+        </ul>
       </li>
 
 
@@ -698,7 +710,7 @@
   <script src="/bootstrap/js/demo/chart-area-demo.js"></script>
   <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
-
+  <script src="/js/manager/main/index.js"></script>
 
 
 </body>
