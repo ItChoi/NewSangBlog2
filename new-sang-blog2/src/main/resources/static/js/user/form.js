@@ -11,11 +11,6 @@ let Form = {
             phoneNumber.value = Utils.getPhoneNumber();
         }
 
-        /*if (!Form.duplicateInfoCheck(document.getElementById('loginId')) || !Form.duplicateInfoCheck(document.getElementById('email'))) {
-            alert("중복되는 정보가 없는지 확인해 주세요.")
-            isSucceed = false;
-        }*/
-
         return isSucceed;
     },
 

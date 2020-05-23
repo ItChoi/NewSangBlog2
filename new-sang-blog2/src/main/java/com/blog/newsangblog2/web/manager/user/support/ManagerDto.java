@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-
 
 @Getter
 @Setter
@@ -25,8 +22,6 @@ public class ManagerDto {
 	private String lastLoginDate;
 	private String imageFileName;
 	private MultipartFile file;
-	//private UserRole userRole;
-	//private UserRoleType authority;
 	private UserRoleDto userRole;
 
 }

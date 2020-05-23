@@ -1,11 +1,14 @@
 package com.blog.newsangblog2.web.manager.user.service;
 
+import com.blog.newsangblog2.common.enumeration.PreNumber;
+import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,4 +33,12 @@ public class ManagerUserServiceImpl implements ManagerUserService {
 
 		return null;
 	}
+
+	@Override
+	public void settingBaseInfo(Model model) {
+		model.addAttribute("prePhoneNumber", PreNumber.PHONE.getPreNumber());
+		model.addAttribute("userRoles", UserRoleType.values());
+	}
+
+
 }

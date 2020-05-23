@@ -12,11 +12,9 @@
 
     <title>SB Admin 2 - Register</title>
 
-    <!-- Custom fonts for this template-->
     <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template-->
     <link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
@@ -27,30 +25,26 @@
 
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
             <div class="row">
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 th:if="${managerInfo}" class="h4 text-gray-900 mb-4">정보 수정</h1>
-                            <h1 th:unless="${managerInfo}" class="h4 text-gray-900 mb-4">계정 생성</h1>
+                            <h1 th:if="${managerInfo.id}" class="h4 text-gray-900 mb-4">정보 수정</h1>
+                            <h1 th:unless="${managerInfo.id}" class="h4 text-gray-900 mb-4">계정 생성</h1>
                         </div>
-                        <form th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">
+                        <form th:action="@{/manager/user/(${managerInfo.id} ? 'edit' : 'create')}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">
+                        <!--<form th:if="${managerInfo.id}" th:action="@{/manager/user/edit}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">-->
+                        <!--<form th:unless="${managerInfo.id}" th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">-->
 
                             <div class="form-group row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" onkeyup="Form.duplicateInfoCheck(this)" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
+                                    <input type="text" class="form-control form-control-user required" th:field="*{loginId}" onkeyup="Form.duplicateInfoCheck(this)"
+                                           placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
                                     <div class="text-danger duplicate-text"></div>
-                                    <!--<sec:authorize access="isAnonymous()">
-                                        <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
-                                    </sec:authorize>
-                                    <sec:authorize access="isAuthenticated()">
-                                        <input type="text" class="form-control form-control-user required" id="loginId" name="loginId" placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
-                                    </sec:authorize>-->
                                 </div>
                                 <div class="col-sm-6">
-                                    <select id="userRole" name="userRole.authority" class="form-control required" style="height: 50px" title="계정 권한">
+                                    <select th:field="*{userRole.authority}"  class="form-control required" style="height: 50px" title="계정 권한">
                                         <option th:text="선택" value="" disabled selected></option>
                                         <option th:each="userRole : ${userRoles}"
                                                 th:text="${userRole.key}"
@@ -62,17 +56,17 @@
 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" name="password" class="form-control form-control-user required password" id="password" placeholder="비밀번호 (필수 입력)" title="비밀번호">
+                                    <input type="password" th:field="*{password}" class="form-control form-control-user required password" placeholder="비밀번호 (필수 입력)" title="비밀번호">
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user required password" id="re_password" placeholder="비밀번호 재입력 (필수 입력)" title="비밀번호 재입력">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user required" id="name" name="name" placeholder="이름 (필수 입력)" title="이름">
+                                <input type="text" class="form-control form-control-user required" th:field="*{name}" placeholder="이름 (필수 입력)" title="이름">
                             </div>
                             <div class="form-group row">
-                                <input type="hidden" name="phoneNumber" id="phoneNumber">
+                                <input type="hidden" th:field="*{phoneNumber}">
                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                     <select id="phoneNumber1" class="form-control" style="height: 50px" title="앞 번호">
                                         <option th:each="preNumber : ${prePhoneNumber}"
@@ -89,25 +83,23 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="email" class="form-control form-control-user required email" id="email" onkeyup="Form.duplicateInfoCheck(this)" placeholder="이메일 (필수 입력)" title="이메일">
+                                <input type="text" th:field="*{email}" class="form-control form-control-user required email" onkeyup="Form.duplicateInfoCheck(this)" placeholder="이메일 (필수 입력)" title="이메일">
                                 <div class="text-danger duplicate-text"></div>
                             </div>
 
                             <div class="form-group">
-                                <textarea class="form-control form-control-user" id="introduce" name="introduce" placeholder="소개 글" title="소개"></textarea>
+                                <textarea class="form-control form-control-user" th:field="*{introduce}" placeholder="소개 글" title="소개"></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="file" id="file" name="file" title="파일">
+                                <input type="file" th:field="*{file}" title="파일">
                             </div>
 
                             <button type="submit" id="submit_button" class="btn btn-primary btn-user btn-block">
                                 Register Account
                             </button>
 
-                            <button type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager/user/login'">
-                                Cancel
-                            </button>
-
+                            <button th:if="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager'">Cancel</button>
+                            <button th:unless="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager/user/login'">Cancel</button>
                             <hr>
 
 
@@ -134,16 +126,11 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
 <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
 <script src="/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Core plugin JavaScript-->
 <script src="/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- Custom scripts for all pages-->
 <script src="/bootstrap/js/sb-admin-2.min.js"></script>
-<!-- Axios Using unpkg CDN -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<!-- Axios Using jsDelivr CDN:  -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="/js/common/utils.js"></script>

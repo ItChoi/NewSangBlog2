@@ -56,30 +56,27 @@
       </div>
       <!-- Nav Item - Pages Collapse Menu -->
       <li th:each="menu, i : ${managerMenuList}" class="nav-item">
-        <a class="nav-link collapsed no-margin" href="#" th:id="@{menuLevel-} + ${i.index}" onclick="Index.test(this);">
+        <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index}" onclick="Index.menuToggle(this);">
           <i class="fas fa-fw fa-cog"></i>
           <span th:text="${menu.menuName}"></span>
         </a>
 
-        <ul class="menu-toggle">
+        <ul th:class="@{menuLevel-} + ${i.index} + ' ' + menu-toggle">
             <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
-                <a class="nav-link collapsed no-margin" href="#" th:id="@{menuLevel-} + ${i.index} + ${j.index}" onclick="Index.test(this);">
+                <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index}">
                     <span th:text="${menuChild2.menuName}"></span>
                 </a>
 
-                <ul class="menu-toggle">
+                <ul th:class="@{menuLevel-} + ${i.index} + ' ' + menu-toggle">
                     <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
-                        <a class="nav-link collapsed no-margin" href="#" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}" onclick="Index.test(this);">
+                        <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}">
                             <span th:text="${menuChild3.menuName}"></span>
                         </a>
                     </li>
                 </ul>
-
-
             </li>
         </ul>
       </li>
-
 
       <!-- Divider -->
       <hr class="sidebar-divider">

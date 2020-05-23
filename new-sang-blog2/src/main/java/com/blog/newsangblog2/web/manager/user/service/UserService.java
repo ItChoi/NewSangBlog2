@@ -99,4 +99,10 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
+	public Long updateManager(ManagerDto managerDto) {
+
+
+
+		return 1L;
+	}
 }
