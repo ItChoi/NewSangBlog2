@@ -10,7 +10,9 @@ public class ManagerMainController {
 	@RequestMapping(value= {"/", ""})
 	public String managerMainPage() {
 		
-		return "/manager/main/index";
+		//return "/manager/main/index";
+		//return "/layouts/default";
+		return "/manager/main/include/board";
 	}
 	
 }

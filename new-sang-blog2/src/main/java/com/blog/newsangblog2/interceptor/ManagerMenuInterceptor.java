@@ -1,8 +1,11 @@
 package com.blog.newsangblog2.interceptor;
 
+import com.blog.newsangblog2.common.enumeration.UserRoleType;
+import com.blog.newsangblog2.common.utils.UserUtils;
 import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
 import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepository;
 import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepositoryCustom;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +35,9 @@ public class ManagerMenuInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        List<ManagerMenu> managerMenuList = managerMenuRepository.findAllByFirstLevel();
-
-        modelAndView.addObject("managerMenuList", managerMenuList);
+        if (!UserRoleType.ANONYMOUS.getRole().equals(UserUtils.getLoginId())) {
+            List<ManagerMenu> managerMenuList = managerMenuRepository.findAllByFirstLevel();
+            modelAndView.addObject("managerMenuList", managerMenuList);
+        }
     }
 }

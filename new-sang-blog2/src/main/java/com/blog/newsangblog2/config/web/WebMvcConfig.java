@@ -16,6 +16,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ManagerMenuInterceptor(managerMenuRepository))
+                .excludePathPatterns(
+                        "/manager/user/create",
+                        "/manager/user/edit",
+                        "/manager/user/duplicate-info-check"
+                )
                 .addPathPatterns("/manager/**");
     }
 }

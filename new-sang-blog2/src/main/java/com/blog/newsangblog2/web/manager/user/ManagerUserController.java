@@ -74,7 +74,9 @@ public class ManagerUserController {
 	public String editManager(Model model) {
 		managerUserService.settingBaseInfo(model);
 		Manager managerInfo = managerUserService.findManagerBy(UserUtils.getLoginId()).orElseThrow(() -> new UserNotFoundException());
-		model.addAttribute("managerInfo", modelMapper.map(managerInfo, ManagerDto.class));
+		ManagerDto responseDto = modelMapper.map(managerInfo, ManagerDto.class);
+		responseDto.settingPhonNumber();
+		model.addAttribute("managerInfo", responseDto);
 		return "/manager/user/form";
 	}
 
@@ -84,7 +86,7 @@ public class ManagerUserController {
 			userService.updateManager(managerDto);
 		}
 
-		return "redirect:/manager/user/login";
+		return "redirect:/manager/user/edit";
 	}
 
 	

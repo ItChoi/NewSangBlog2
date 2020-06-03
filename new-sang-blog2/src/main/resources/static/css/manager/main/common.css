@@ -1,0 +1,61 @@
+.no-margin {
+    margin: 0px !important;
+    padding: 0px !important;;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+/* SCROLL */
+::-webkit-scrollbar { width: 20px; }
+/* 스크롤바의 width */
+::-webkit-scrollbar-track { background-color: #f0f0f0; }
+/* 스크롤바의 전체 배경색 */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #1697bf, #62b7ac);
+}
+/* 스크롤바 색 */
+::-webkit-scrollbar-button { display: none; }
+/* 위 아래 버튼 (버튼 없애기를 함) */
+
+.main_content {
+    width: 100%;
+}
+
+.content_area {
+    overflow-y: scroll;
+    margin-top: 50px;
+}
+
+
+.page_area {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.search_frame {
+    width: 100%;
+}
+
+
+.search_area, .content_area {
+    width: 100%;
+}
+
+.board_table {
+    width: 100%;
+}
+
+thead > tr td {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+thead {
+    border-bottom: 1px solid black;
+}
+
+tbody > tr > td {
+    margin-top: 20px;
+}

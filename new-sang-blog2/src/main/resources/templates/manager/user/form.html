@@ -68,7 +68,7 @@
                             <div class="form-group row">
                                 <input type="hidden" th:field="*{phoneNumber}">
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <select id="phoneNumber1" class="form-control" style="height: 50px" title="앞 번호">
+                                    <select th:field="*{phoneNumber1}" class="form-control" style="height: 50px" title="앞 번호">
                                         <option th:each="preNumber : ${prePhoneNumber}"
                                                 th:text="${preNumber}"
                                                 th:value="${preNumber}">
@@ -76,10 +76,10 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control form-control-user" id="phoneNumber2" maxlength="4" placeholder="가운데 번호" title="가운데 번호">
+                                    <input type="text" class="form-control form-control-user" th:field="*{phoneNumber2}" maxlength="4" placeholder="가운데 번호" title="가운데 번호">
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control form-control-user" id="phoneNumber3" maxlength="4" placeholder="끝 번호" title="끝 번호">
+                                    <input type="text" class="form-control form-control-user" th:field="*{phoneNumber3}" maxlength="4" placeholder="끝 번호" title="끝 번호">
                                 </div>
                             </div>
                             <div class="form-group">

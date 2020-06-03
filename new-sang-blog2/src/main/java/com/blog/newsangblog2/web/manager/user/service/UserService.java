@@ -2,6 +2,7 @@ package com.blog.newsangblog2.web.manager.user.service;
 
 import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
+import com.blog.newsangblog2.common.utils.UserUtils;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.domain.UserRole;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
@@ -100,9 +101,14 @@ public class UserService implements UserDetailsService {
 	}
 
 	public Long updateManager(ManagerDto managerDto) {
+		String loginId = UserUtils.getLoginId();
+		Manager findManager = managerUserRepository.findManagerByLoginId(loginId).orElseThrow(() -> new UserNotFoundException(loginId + " 가 존재하지 않습니다."));
 
+		findManager.setName(managerDto.getName());
+		findManager.setPhoneNumber(managerDto.getPhoneNumber());
+		findManager.setEmail(managerDto.getEmail());
+		findManager.setIntroduce(managerDto.getIntroduce());
 
-
-		return 1L;
+		return findManager.getId();
 	}
 }

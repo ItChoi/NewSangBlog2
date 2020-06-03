@@ -16,10 +16,14 @@ public class UserUtils {
 	public static String getLoginId() {
 		// 스프링 시큐리티 세션 정보를 가져온다.
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) auth.getPrincipal();
 
-		return Optional.ofNullable(user.getUsername())
-				.orElseThrow(() -> new UserNotFoundException("세션에 등록된 아이디가 없습니다."));
+		if ("anonymousUser".equals(auth.getPrincipal())) {
+			return UserRoleType.ANONYMOUS.getRole();
+		} else {
+			User user = (User) auth.getPrincipal();
+			return user.getUsername();
+		}
+
 	}
 
 	public static boolean hasRole(UserRoleType role) {

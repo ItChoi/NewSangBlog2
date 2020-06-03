@@ -14,33 +14,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ManagerMenuServiceImplTest {
 
-    @Autowired
-    private ManagerMenuService managerMenuService;
 
-    @Autowired
-    private ManagerMenuRepository managerMenuRepository;
-
-    @PersistenceContext
-    private EntityManager em;
-
-    @Transactional
     @Test
     public void 테스트() {
 
-        // List<ManagerMenu> managerMenus = managerMenuRepository.findAll();
-        List<ManagerMenu> findManagerMenu = managerMenuRepository.findByParentIdAndMenuLevel(null, "1");
+        String test = "01011112222";
 
-        for (ManagerMenu managerMenu : findManagerMenu) {
-            System.out.println("1차 메뉴: " + managerMenu.getMenuName());
+        System.out.println(test.length());
+        System.out.println(test.substring(0, 3));
+        System.out.println(test.substring(3, 7));
+        System.out.println(test.substring(7, 11));
 
-            for (ManagerMenu menu : managerMenu.getChild()) {
-                System.out.println("2차 메뉴: " + menu.getMenuName());
-            }
-        }
 
 
 
