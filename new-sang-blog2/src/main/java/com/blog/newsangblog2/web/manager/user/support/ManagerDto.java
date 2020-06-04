@@ -9,8 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class ManagerDto {
 	private Long id;
 	private String loginId;

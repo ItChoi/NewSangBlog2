@@ -31,7 +31,28 @@
             <div class="sidebar-heading">
                 Menu
             </div>
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!--<li th:each="menu, i : ${managerMenuList}" class="nav-item">
+                <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index}" onclick="Index.menuToggle(this);">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span th:text="${menu.menuName}"></span>
+                </a>
+
+                <ul th:class="@{menuLevel-} + ${i.index} + ' ' + menu-toggle">
+                    <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
+                        <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index}" onclick="Index.menuToggle(this);">
+                            <span th:text="${menuChild2.menuName}"></span>
+                        </a>
+
+                        <ul th:class="@{menuLevel-} + ${i.index} + ${j.index} + ' ' + menu-toggle">
+                            <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
+                                <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}" onclick="Index.menuToggle(this);">
+                                    <span th:text="${menuChild3.menuName}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>-->
             <li th:each="menu, i : ${managerMenuList}" class="nav-item">
                 <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index}" onclick="Index.menuToggle(this);">
                     <i class="fas fa-fw fa-cog"></i>
@@ -40,13 +61,13 @@
 
                 <ul th:class="@{menuLevel-} + ${i.index} + ' ' + menu-toggle">
                     <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
-                        <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index}">
+                        <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index}" onclick="Index.menuToggle(this);">
                             <span th:text="${menuChild2.menuName}"></span>
                         </a>
 
-                        <ul th:class="@{menuLevel-} + ${i.index} + ' ' + menu-toggle">
+                        <ul th:class="@{menuLevel-} + ${i.index} + ${j.index} + ' ' + menu-toggle">
                             <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
-                                <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}">
+                                <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}" onclick="Index.menuToggle(this);">
                                     <span th:text="${menuChild3.menuName}"></span>
                                 </a>
                             </li>
