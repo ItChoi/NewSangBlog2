@@ -59,3 +59,10 @@ thead {
 tbody > tr > td {
     margin-top: 20px;
 }
+
+.no_data {
+    margin-top: 50px;
+    text-align: center;
+    font-width: bold;
+    font-size: 24px;
+}

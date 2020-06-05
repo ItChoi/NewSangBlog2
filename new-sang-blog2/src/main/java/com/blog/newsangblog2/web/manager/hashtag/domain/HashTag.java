@@ -26,6 +26,4 @@ public class HashTag extends BaseDateTimeEntity {
 
     private HashTagType hashTagType;
 
-
-
 }

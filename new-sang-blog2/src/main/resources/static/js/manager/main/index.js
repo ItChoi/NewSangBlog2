@@ -3,15 +3,16 @@ let Index = {
 
     },
 
-    menuToggle : function(that) {
-        let id = that.id;
-        let menuClass = document.getElementsByClassName(id);
-        let dispalyStatus = that.classList.contains('display-none') ? 'none' : 'block';
-        that.classList.toggle('display-none');
-
-        //let index = id.substr(id.lastIndexOf("-") + 1);
-
-        menuClass[0].style.display = dispalyStatus;
+    menuToggle : function(that, menuType, url) {
+        if (menuType === 'FILE') {
+            location.href = url;
+        } else if (menuType === 'DIRECTORY') {
+            let id = that.id;
+            let menuClass = document.getElementsByClassName(id);
+            let dispalyStatus = that.classList.contains('display-none') ? 'none' : 'block';
+            that.classList.toggle('display-none');
+            menuClass[0].style.display = dispalyStatus;
+        }
 
     }
     /*menuToggle : function(that) {

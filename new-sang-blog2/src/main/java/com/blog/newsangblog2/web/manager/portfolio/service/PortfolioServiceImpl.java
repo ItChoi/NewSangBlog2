@@ -44,12 +44,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         return ResponseWrapperDto.builder()
                 .list(findPortfolioList.getContent())
                 .pagination(
-                        Pagination.builder()
-                            .number(findPortfolioList.getNumber())
-                            .size(findPortfolioList.getSize())
-                                .totalPages(findPortfolioList.getTotalPages())
-                                .totalElements(findPortfolioList.getTotalElements())
-                            .build()
+                        Pagination.initPagination(findPortfolioList)
                 )
                 .build();
     }
@@ -66,12 +61,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         return ResponseWrapperDto.builder()
                 .list(findPortfolioList.getContent())
                 .pagination(
-                        Pagination.builder()
-                                .number(findPortfolioList.getNumber())
-                                .size(findPortfolioList.getSize())
-                                .totalPages(findPortfolioList.getTotalPages())
-                                .totalElements(findPortfolioList.getTotalElements())
-                                .build()
+                        Pagination.initPagination(findPortfolioList)
                 )
                 .build();
     }

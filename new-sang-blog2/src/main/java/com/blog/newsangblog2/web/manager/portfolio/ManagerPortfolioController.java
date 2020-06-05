@@ -24,15 +24,15 @@ public class ManagerPortfolioController {
     @GetMapping(value = {"", "/"})
     public String portfolioList(CommonListDto commonListDto, Model model) {
         ResponseWrapperDto responseDto = portfolioService.getPortfolioList(commonListDto);
-        model.addAttribute("portfolioList", responseDto);
+        model.addAttribute("listDto", responseDto);
 
         return "/manager/portfolio/list";
     }
 
     @GetMapping("/my")
     public String myPortfolioList(@RequestParam("portfolioId") Long userId, CommonListDto commonListDto, Model model) {
-        ResponseWrapperDto responseList = portfolioService.getMyPortfolioList(commonListDto, userId);
-        model.addAttribute("portfolioList", responseList);
+        ResponseWrapperDto responseDto = portfolioService.getMyPortfolioList(commonListDto, userId);
+        model.addAttribute("listDto", responseDto);
 
         return "/manager/portfolio/list";
     }

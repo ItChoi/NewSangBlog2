@@ -23,6 +23,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepositoryCustom {
 
     @Override
     public Page<Portfolio> findAll(CommonListDto commonListDto) {
+        Pageable pageable = getPageable(commonListDto);
 
         QueryResults<Portfolio> result = queryFactory
                 .select(portfolio)
@@ -30,14 +31,19 @@ public class PortfolioRepositoryImpl implements PortfolioRepositoryCustom {
                 .where(
                         selectSearchEq(commonListDto.getWhere(), commonListDto.getQuery())
                 )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .orderBy(portfolio.createdDate.asc())
                 .fetchResults();
 
-        return new PageImpl<>(result.getResults(), getPageable(commonListDto), result.getTotal());
+
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 
     @Override
     public Page<Portfolio> findAllByUserId(Long userId, CommonListDto commonListDto) {
+        Pageable pageable = getPageable(commonListDto);
+
         QueryResults<Portfolio> result = queryFactory
                 .select(portfolio)
                 .from(portfolio)
@@ -45,10 +51,12 @@ public class PortfolioRepositoryImpl implements PortfolioRepositoryCustom {
                         userIdEq(userId),
                         selectSearchEq(commonListDto.getWhere(), commonListDto.getQuery())
                 )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .orderBy(portfolio.createdDate.asc())
                 .fetchResults();
 
-        return new PageImpl<>(result.getResults(), getPageable(commonListDto), result.getTotal());
+        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
     }
 
     private BooleanExpression userIdEq(Long userId) {
@@ -65,8 +73,10 @@ public class PortfolioRepositoryImpl implements PortfolioRepositoryCustom {
 
 
     private Pageable getPageable(CommonListDto commonListDto) {
-        return PageRequest.of(commonListDto.getCurrentPage(), commonListDto.getItemPerPage());
+        return PageRequest.of(commonListDto.getPage(), commonListDto.getSize());
     }
+
+
 
 
 }

@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommonPageDto {
-    private int currentPage = 0;
-    private int itemPerPage = 10;
+    private int page = 0;
+    private int size = 10;
 }
