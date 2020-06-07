@@ -1,12 +1,17 @@
 package com.blog.newsangblog2.common.enumeration;
 
+import lombok.Getter;
+
+@Getter
 public enum ResourceType {
 
-    DIRECTORY,
-    FILE;
+    DIRECTORY("file"),
+    FILE("file");
 
-    ResourceType() {
+    private String type;
 
+    ResourceType(String type) {
+        this.type = type;
     }
 
 }

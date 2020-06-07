@@ -22,12 +22,12 @@ let Form = {
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN' : document.querySelector('input[name="_csrf"]').value
             },
-        }).then(function (response) {
+        }).then(function(response) {
             if (response.status === 200) {
                 that.nextElementSibling.innerHTML = '사용 가능한 ' + that.name + ' 입니다.';
                 return true;
             }
-        }).catch(function (error) {
+        }).catch(function(error) {
             that.nextElementSibling.innerHTML = '이미 존재 하는 ' + that.name + ' 입니다.';
             return false;
         });

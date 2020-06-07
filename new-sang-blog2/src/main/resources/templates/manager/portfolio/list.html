@@ -82,12 +82,13 @@
             <div class="page_area">
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                         <ul class="pagination">
-                            <li class="paginate_button page-item previous disabled" id="dataTable_previous" >
+                            <li class="paginate_button page-item previous" id="dataTable_previous" >
                                 <a th:if="${listDto.pagination.hasPreviousPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number - 1}|"
                                    aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
                             </li>
 
-                            <li class="paginate_button page-item" th:each="num : ${#numbers.sequence(listDto.pagination.startPage, listDto.pagination.endPage)}">
+                            <li class="paginate_button page-item" th:classappend="${num} - 1 == ${listDto.pagination.number} ? active"
+                                th:each="num : ${#numbers.sequence(listDto.pagination.startPage, listDto.pagination.endPage)}">
                                 <a th:href="|/manager/portfolio?page=${num - 1}|" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" th:text="${num}">1</a>
                             </li>
                             <!--<li class="paginate_button page-item ">

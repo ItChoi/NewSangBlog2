@@ -25,19 +25,17 @@ public class ManagerMenuInterceptor extends HandlerInterceptorAdapter {
 
     private final ManagerMenuRepository managerMenuRepository;
 
-
-
-
-    @Override
+    /*@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return super.preHandle(request, response, handler);
-    }
+    }*/
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if (!UserRoleType.ANONYMOUS.getRole().equals(UserUtils.getLoginId())) {
+        if (!UserRoleType.ANONYMOUS.getRole().equals(UserUtils.getLoginId()) && modelAndView != null) {
             List<ManagerMenu> managerMenuList = managerMenuRepository.findAllByFirstLevel();
             modelAndView.addObject("managerMenuList", managerMenuList);
         }
     }
+
 }
