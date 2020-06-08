@@ -23,3 +23,8 @@
     width: 40%;
     float: left;
 }
+
+.menu-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}

@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ManagerMenuDto extends ManagerMenuSearch {
 
+    private Long id;
     private Long parentId;
     private Integer menuLevel;
     private String menuCode;

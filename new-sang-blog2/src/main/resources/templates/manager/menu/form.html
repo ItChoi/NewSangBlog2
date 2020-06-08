@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="/layouts/default">
 
     <th:block layout:fragment="content">
@@ -15,6 +16,8 @@
 
             <div class="main_content">
                 <div class="content_area">
+                    <span sec:authentication="principal.authorities" id="sec-roles" style="display: none"></span>
+
                     <div class="edit-menu-left">
                         <ul>
                             <li th:each="menu, i : ${managerMenuList}" class="nav-item">
@@ -53,8 +56,9 @@
                         </ul>
                     </div>
 
-                    <div class="edit-menu-right">
-                        <table class="board_table">
+                    <div id="edit-menu-right" class="edit-menu-right">
+                        <input type="hidden" name="id" id="menu-id" class="form-control supervisor-menu">
+                        <table class="board_table menu-table">
                             <colgroup>
                                 <col width="30%">
                                 <col width="70%">
@@ -63,24 +67,24 @@
                                 <tr>
                                     <td class="h3 mb-4 text-gray-800">메뉴 코드</td>
                                     <td>
-                                        <input class="menu-code form-control">
+                                        <input type="text" name="menuCode" id="menu-code" class="form-control supervisor-menu">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="h3 mb-4 text-gray-800">메뉴 이름</td>
                                     <td>
-                                        <input class="menu-name form-control">
+                                        <input type="text" name="menuName" id="menu-name" class="form-control supervisor-menu">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="h3 mb-4 text-gray-800">메뉴 타입</td>
                                     <td>
                                         <!--<input class="menu-type form-control">-->
-                                        <select th:field="*{userRole.authority}"  class="form-control" style="height: 50px">
+                                        <select name="menuType" id="menu-type" class="form-control supervisor-menu" style="height: 50px">
                                             <option th:text="선택" value="" disabled selected></option>
-                                            <option th:each="userRole : ${userRoles}"
-                                                    th:text="${userRole.key}"
-                                                    th:value="${userRole}">
+                                            <option th:each="menuType : ${menuTypes}"
+                                                    th:text="${menuType}"
+                                                    th:value="${menuType}">
                                             </option>
                                         </select>
                                     </td>
@@ -89,23 +93,35 @@
                                 <tr>
                                     <td class="h3 mb-4 text-gray-800">url</td>
                                     <td>
-                                        <input class="menu-url form-control">
+                                        <input type="text" name="url" id="menu-url" class="form-control supervisor-menu">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="h3 mb-4 text-gray-800">uri</td>
                                     <td>
-                                        <input class="menu-uri form-control">
+                                        <input type="text" name="uri" id="menu-uri" class="form-control supervisor-menu">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="h3 mb-4 text-gray-800">디스플레이</td>
+                                    <td class="h3 mb-4 text-gray-800">메뉴 디스플레이</td>
                                     <td>
-                                        <input class="menu-display form-control">
+                                        <select name="menuDisplay" id="menu-display" class="form-control" style="height: 50px">
+                                            <option th:text="보임" th:value="Y"></option>
+                                            <option th:text="숨김" th:value="N"></option>
+                                        </select>
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
+                        <div class="text-center">
+                            <button type="submit" id="submit_button" class="btn btn-primary btn-user m-3">
+                                저장
+                            </button>
+                            <button type="button" class="btn btn-primary btn-user m-3" onclick="javascript:location.href='/manager'">
+                                취소
+                            </button>
+                        </div>
                     </div>
 
                 </div>

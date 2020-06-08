@@ -1,6 +1,7 @@
 package com.blog.newsangblog2.web.manager.menu;
 
-import com.blog.newsangblog2.common.enumeration.ResourceType;
+import com.blog.newsangblog2.common.enumeration.FileType;
+import com.blog.newsangblog2.common.utils.FileUtils;
 import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
 import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepository;
 import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
@@ -41,9 +42,10 @@ public class ManagerMenuController {
         List<ManagerMenuDto> responseDtos = managerMenuService.getManagerMenuList();
         model.addAttribute("managerMenuList", responseDtos);
 
-        /*List<String> fileTypes = ResourceType.
+        // List<String> fileTypes = Arrays.stream(ResourceType.values());
+        List<String> fileTypes = FileUtils.getResourceByType(FileType.FILE.getType());
 
-        model.addAttribute("menuTypeList", )*/
+        model.addAttribute("menuTypes", fileTypes);
 
         return "/manager/menu/form";
     }
