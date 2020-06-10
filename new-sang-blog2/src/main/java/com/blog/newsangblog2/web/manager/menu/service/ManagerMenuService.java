@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface ManagerMenuService {
 
-
     List<ManagerMenuDto> getManagerMenuList();
 
     ManagerMenuDto getFindById(Long id);
+
+    Long saveMenu(ManagerMenuDto managerMenuDto);
+
 }

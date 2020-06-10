@@ -4,6 +4,11 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="/layouts/default">
 
+    <head>
+        <!-- 메뉴 순서 변경 -->
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    </head>
+
     <th:block layout:fragment="content">
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -19,28 +24,32 @@
                     <span sec:authentication="principal.authorities" id="sec-roles" style="display: none"></span>
 
                     <div class="edit-menu-left">
-                        <ul>
+                        <ul id="sortable" class="ul-style-none">
                             <li th:each="menu, i : ${managerMenuList}" class="nav-item">
                                 <a th:href="|javascript:Menu.menuDetail(${menu.id});|">
-                                    <i class="fas fa-fw fa-cog"></i>
+                                    <!--<i class="fas fa-fw fa-cog"></i>-->
+                                    <i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                     <span th:text="${menu.menuName}"></span>
                                 </a>
 
-                                <ul>
+                                <ul class="ul-style-none">
                                     <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
                                         <a th:href="|javascript:Menu.menuDetail(${menuChild2.id});|">
+                                            <i class="fas fa-fw" th:classappend="${menuChild2.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                             <span th:text="${menuChild2.menuName}"></span>
                                         </a>
 
-                                        <ul>
+                                        <ul class="ul-style-none">
                                             <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
                                                 <a th:href="|javascript:Menu.menuDetail(${menuChild3.id});|">
+                                                    <i class="fas fa-fw" th:classappend="${menuChild3.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                     <span th:text="${menuChild3.menuName}"></span>
                                                 </a>
 
-                                                <ul>
+                                                <ul class="ul-style-none">
                                                     <li th:if="${menuChild3.child != null}" th:each="menuChild4, l : ${menuChild3.child}">
                                                         <a th:href="|javascript:Menu.menuDetail(${menuChild4.id});|">
+                                                            <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                             <span th:text="${menuChild3.menuName}"></span>
                                                         </a>
                                                     </li>
@@ -53,80 +62,121 @@
                                 <!-- Divider -->
                                 <hr class="sidebar-divider">
                             </li>
+
+                            <div class="text-center">
+                                <button type="button" id="add-menu" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu();">
+                                    메뉴 추가
+                                </button>
+                                <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
+                                    취소
+                                </button>
+                                <p class="text-danger">(*) 메뉴 추가는 최고 관리자 권한만 가능</p>
+                            </div>
                         </ul>
+
                     </div>
 
                     <div id="edit-menu-right" class="edit-menu-right">
-                        <input type="hidden" name="id" id="menu-id" class="form-control supervisor-menu">
-                        <table class="board_table menu-table">
-                            <colgroup>
-                                <col width="30%">
-                                <col width="70%">
-                            </colgroup>
-                            <tbody>
-                                <tr>
-                                    <td class="h3 mb-4 text-gray-800">메뉴 코드</td>
-                                    <td>
-                                        <input type="text" name="menuCode" id="menu-code" class="form-control supervisor-menu">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="h3 mb-4 text-gray-800">메뉴 이름</td>
-                                    <td>
-                                        <input type="text" name="menuName" id="menu-name" class="form-control supervisor-menu">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="h3 mb-4 text-gray-800">메뉴 타입</td>
-                                    <td>
-                                        <!--<input class="menu-type form-control">-->
-                                        <select name="menuType" id="menu-type" class="form-control supervisor-menu" style="height: 50px">
-                                            <option th:text="선택" value="" disabled selected></option>
-                                            <option th:each="menuType : ${menuTypes}"
-                                                    th:text="${menuType}"
-                                                    th:value="${menuType}">
-                                            </option>
-                                        </select>
-                                    </td>
+                        <form th:action="@{/manager/menu}" method="post">
+                            <input type="hidden" name="id" id="menu-id">
+                            <input type="hidden" name="parentId" id="parent-id">
+                            <input type="hidden" name="menuLevel" id="menu-level">
+                            <input type="hidden" name="ordering" id="ordering">
 
-                                </tr>
-                                <tr>
-                                    <td class="h3 mb-4 text-gray-800">url</td>
-                                    <td>
-                                        <input type="text" name="url" id="menu-url" class="form-control supervisor-menu">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="h3 mb-4 text-gray-800">uri</td>
-                                    <td>
-                                        <input type="text" name="uri" id="menu-uri" class="form-control supervisor-menu">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="h3 mb-4 text-gray-800">메뉴 디스플레이</td>
-                                    <td>
-                                        <select name="menuDisplay" id="menu-display" class="form-control" style="height: 50px">
-                                            <option th:text="보임" th:value="Y"></option>
-                                            <option th:text="숨김" th:value="N"></option>
-                                        </select>
-                                    </td>
-                                </tr>
+                            <div>
+                                <p id="text-status"></p>
+                                <!-- Divider -->
+                                <hr class="sidebar-divider">
+                            </div>
 
-                            </tbody>
-                        </table>
-                        <div class="text-center">
-                            <button type="submit" id="submit_button" class="btn btn-primary btn-user m-3">
-                                저장
-                            </button>
-                            <button type="button" class="btn btn-primary btn-user m-3" onclick="javascript:location.href='/manager'">
-                                취소
-                            </button>
-                        </div>
+                            <table class="board_table menu-table">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="70%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">메뉴 코드</td>
+                                        <td>
+                                            <input type="text" name="menuCode" id="menu-code" class="form-control supervisor-menu">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">메뉴 이름</td>
+                                        <td>
+                                            <input type="text" name="menuName" id="menu-name" class="form-control supervisor-menu">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">메뉴 타입</td>
+                                        <td>
+                                            <!--<input class="menu-type form-control">-->
+                                            <select name="menuType" id="menu-type" class="form-control supervisor-menu" style="height: 50px">
+                                                <option th:text="선택" value="" disabled selected></option>
+                                                <option th:each="menuType : ${menuTypes}"
+                                                        th:text="${menuType}"
+                                                        th:value="${menuType}">
+                                                </option>
+                                            </select>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">url</td>
+                                        <td>
+                                            <input type="text" name="url" id="menu-url" class="form-control supervisor-menu">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">uri</td>
+                                        <td>
+                                            <input type="text" name="uri" id="menu-uri" class="form-control supervisor-menu">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">메뉴 디스플레이</td>
+                                        <td>
+                                            <select name="menuDisplay" id="menu-display" class="form-control" style="height: 50px">
+                                                <option th:text="선택" value="" disabled selected></option>
+                                                <option th:text="보임" th:value="Y"></option>
+                                                <option th:text="숨김" th:value="N"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <!--<button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuSave();">
+                                    저장
+                                </button>-->
+                                <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuSave();">
+                                    저장
+                                </button>
+                                <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
+                                    취소
+                                </button>
+                            </div>
+
+                        </form>
                     </div>
-
                 </div>
             </div>
         </div>
     </th:block>
-</html>
 
+    <!-- jQuery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- 메뉴 순서 변경 -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+
+    <script>
+        // 메뉴 드래그 가능한 리스트 만들기
+        /*$(function() {
+            $('#sortable').sortable();
+            $('#sortable').disableSelection();
+        });*/
+    </script>
+
+</html>

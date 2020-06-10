@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -40,11 +41,9 @@ public class ManagerMenuController {
     @GetMapping("/edit")
     public String editMenu(Model model) {
         List<ManagerMenuDto> responseDtos = managerMenuService.getManagerMenuList();
-        model.addAttribute("managerMenuList", responseDtos);
-
-        // List<String> fileTypes = Arrays.stream(ResourceType.values());
         List<String> fileTypes = FileUtils.getResourceByType(FileType.FILE.getType());
 
+        model.addAttribute("managerMenuList", responseDtos);
         model.addAttribute("menuTypes", fileTypes);
 
         return "/manager/menu/form";
@@ -55,6 +54,13 @@ public class ManagerMenuController {
         ManagerMenuDto dto = managerMenuService.getFindById(id);
 
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Long> menuSave(ManagerMenuDto managerMenuDto) {
+        Long id = managerMenuService.saveMenu(managerMenuDto);
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 

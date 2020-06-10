@@ -35,4 +35,38 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
         ManagerMenu findManagerMenu = managerMenuRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id.toString()));
         return modelMapper.map(findManagerMenu, ManagerMenuDto.class);
     }
+
+    @Transactional
+    @Override
+    public Long saveMenu(ManagerMenuDto inputMenuDto) {
+        Long id = inputMenuDto.getId();
+
+        if (id == null) {
+            ManagerMenu inputManagerMenu = modelMapper.map(inputMenuDto, ManagerMenu.class);
+            inputManagerMenu.setMenuLevel(1);
+
+            Integer orderingIndex = managerMenuRepository.getMaxOrderingByParentIdIsNull();
+            orderingIndex = orderingIndex == null ? 0 : orderingIndex;
+            inputManagerMenu.setOrdering(orderingIndex + 1);
+
+            managerMenuRepository.save(inputManagerMenu);
+
+            id = inputManagerMenu.getId();
+        } else {
+            ManagerMenu findManagerMenu = managerMenuRepository.findById(id)
+                    .orElseThrow(() -> new UserNotFoundException(inputMenuDto.getId().toString()));
+
+            findManagerMenu.setMenuCode(inputMenuDto.getMenuCode());
+            findManagerMenu.setMenuName(inputMenuDto.getMenuName());
+            findManagerMenu.setMenuType(inputMenuDto.getMenuType());
+            findManagerMenu.setUrl(inputMenuDto.getUrl());
+            findManagerMenu.setUri(inputMenuDto.getUri());
+            findManagerMenu.setMenuDisplay(inputMenuDto.getMenuDisplay());
+        }
+
+        return id;
+    }
+
+
+
 }

@@ -65,3 +65,7 @@ tbody > tr > td {
     font-width: bold;
     font-size: 24px;
 }
+
+.ul-style-none {
+    list-style: none;
+}
