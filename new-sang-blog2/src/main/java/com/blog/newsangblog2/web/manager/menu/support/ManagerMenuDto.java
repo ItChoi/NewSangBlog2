@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
@@ -14,6 +17,7 @@ public class ManagerMenuDto extends ManagerMenuSearch {
 
     private Long id;
     private Long parentId;
+    private List<ManagerMenuDto> child;
     private Integer menuLevel;
     private String menuCode;
     private String menuName;
@@ -34,5 +38,17 @@ public class ManagerMenuDto extends ManagerMenuSearch {
                 .menuDisplay(menuDisplay)
                 .menuType(menuType)
                 .build();
+    }
+
+    public ManagerMenuDto sortMenuOrdering() {
+        if (this.child != null && this.child.size() != 0) {
+            this.child = this.child.stream()
+                    .sorted(
+                            (o1, o2) -> o1.getOrdering().compareTo(o2.getOrdering())
+                    )
+                    .collect(Collectors.toList());
+        }
+
+        return this;
     }
 }

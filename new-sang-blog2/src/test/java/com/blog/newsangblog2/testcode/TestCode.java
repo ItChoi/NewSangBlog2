@@ -46,5 +46,9 @@ public class TestCode {
 	public void ROLE_확인() {
 		System.out.println("test: " + UserRoleType.ADMIN.name());
 	}
-	
+
+	@Test
+	public void test123() {
+		System.out.println("ASdasdasd");
+	}
 }

@@ -1,5 +1,8 @@
 let Menu = {
     init : function() {
+
+        console.log("managerMenuList: ", ${managerMenuList});
+
         // 메뉴 클릭 전에 right-menu는 display
         document.getElementById('edit-menu-right').style.display = 'none';
         
@@ -13,6 +16,22 @@ let Menu = {
                 menuTag.disabled = true;
             }
         }
+
+        // 등록 후 등록 메뉴의 아이디가 model로 넘어오는데, 있을 경우 edit 페이지 + 디테일 페이지 까지 보여주기.
+        let existsMenuId = document.getElementById('existsMenuId').value;
+        if (isNotEmpty(existsMenuId)) {
+            Menu.menuDetail(existsMenuId);
+        }
+
+        // 메뉴 드래그 순서 변경 (jQuery)
+        $("#sortable1").sortable();
+        $("#sortable1").disableSelection();
+        $("#sortable2").sortable();
+        $("#sortable2").disableSelection();
+        $("#sortable3").sortable();
+        $("#sortable3").disableSelection();
+        $("#sortable4").sortable();
+        $("#sortable4").disableSelection();
 
     },
 
@@ -43,7 +62,7 @@ let Menu = {
         }
     },
 
-    menuSave : function() {
+    /*menuSave : function() {
         axios({
             method: 'post',
             url: '/manager/menu',
@@ -64,11 +83,15 @@ let Menu = {
                 'X-CSRF-TOKEN' : document.querySelector('input[name="_csrf"]').value
             },
         }).then(function(response) {
+            console.log(response);
             let html = '';
 
-            html += '<li>';
-
+            html += '<li class="nav-item">';
+            html += '   <a><i class="fas fa-fw"></i><span>' + response.data.menuName + '</span></a>';
             html += '</li>';
+
+            let navItem = document.getElementsByClassName('nav-item');
+            navItem.appendChild(html);
 
 
             alert("메뉴가 등록 완료.");
@@ -77,7 +100,7 @@ let Menu = {
             alert(error)
         });
 
-    }
+    }*/
 
 };
 

@@ -25,10 +25,40 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
     @Override
     public List<ManagerMenuDto> getManagerMenuList() {
         List<ManagerMenu> managerMenuList = managerMenuRepository.findAllByFirstLevel();
+
+
         return managerMenuList.stream()
                 .map(menu -> modelMapper.map(menu, ManagerMenuDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ManagerMenuDto> sortMenuListOrdering() {
+        List<ManagerMenuDto> managerMenuList = getManagerMenuList();
+
+        managerMenuList
+                .forEach(level2 -> {
+                    level2 = level2.sortMenuOrdering();
+
+                    if (level2.getChild() != null) {
+                        level2.getChild()
+                            .forEach(level3 -> {
+                                level3 = level3.sortMenuOrdering();
+
+                                if (level3.getChild() != null) {
+                                    level3.getChild()
+                                        .forEach(level4 -> {
+                                            level4 = level4.sortMenuOrdering();
+                                        });
+                                }
+
+                            });
+                    }
+                });
+
+        return managerMenuList;
+    }
+
 
     @Override
     public ManagerMenuDto getFindById(Long id) {

@@ -4,11 +4,6 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="/layouts/default">
 
-    <head>
-        <!-- 메뉴 순서 변경 -->
-        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-    </head>
-
     <th:block layout:fragment="content">
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -22,32 +17,37 @@
             <div class="main_content">
                 <div class="content_area">
                     <span sec:authentication="principal.authorities" id="sec-roles" style="display: none"></span>
+                    <input type="hidden" th:value="${existsMenuId}" id="existsMenuId">
 
                     <div class="edit-menu-left">
-                        <ul id="sortable" class="ul-style-none">
+                        <ul id="sortable1" class="ul-style-none">
                             <li th:each="menu, i : ${managerMenuList}" class="nav-item">
+                                <input type="hidden" th:value="${menu.ordering}">
                                 <a th:href="|javascript:Menu.menuDetail(${menu.id});|">
                                     <!--<i class="fas fa-fw fa-cog"></i>-->
                                     <i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                     <span th:text="${menu.menuName}"></span>
                                 </a>
 
-                                <ul class="ul-style-none">
+                                <ul id="sortable2" class="ul-style-none">
                                     <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
+                                        <input type="hidden" th:value="${menuChild2.ordering}">
                                         <a th:href="|javascript:Menu.menuDetail(${menuChild2.id});|">
                                             <i class="fas fa-fw" th:classappend="${menuChild2.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                             <span th:text="${menuChild2.menuName}"></span>
                                         </a>
 
-                                        <ul class="ul-style-none">
+                                        <ul id="sortable3" class="ul-style-none">
                                             <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
+                                                <input type="hidden" th:value="${menuChild3.ordering}">
                                                 <a th:href="|javascript:Menu.menuDetail(${menuChild3.id});|">
                                                     <i class="fas fa-fw" th:classappend="${menuChild3.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                     <span th:text="${menuChild3.menuName}"></span>
                                                 </a>
 
-                                                <ul class="ul-style-none">
+                                                <ul id="sortable4" class="ul-style-none">
                                                     <li th:if="${menuChild3.child != null}" th:each="menuChild4, l : ${menuChild3.child}">
+                                                        <input type="hidden" th:value="${menuChild4.ordering}">
                                                         <a th:href="|javascript:Menu.menuDetail(${menuChild4.id});|">
                                                             <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                             <span th:text="${menuChild3.menuName}"></span>
@@ -64,6 +64,9 @@
                             </li>
 
                             <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-user m-3">
+                                    메뉴 순서 변경 모드
+                                </button>
                                 <button type="button" id="add-menu" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu();">
                                     메뉴 추가
                                 </button>
@@ -150,7 +153,7 @@
                                 <!--<button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuSave();">
                                     저장
                                 </button>-->
-                                <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuSave();">
+                                <button type="submit" class="btn btn-primary btn-user m-3">
                                     저장
                                 </button>
                                 <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
@@ -164,19 +167,4 @@
             </div>
         </div>
     </th:block>
-
-    <!-- jQuery cdn -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- 메뉴 순서 변경 -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
-
-    <script>
-        // 메뉴 드래그 가능한 리스트 만들기
-        /*$(function() {
-            $('#sortable').sortable();
-            $('#sortable').disableSelection();
-        });*/
-    </script>
-
 </html>

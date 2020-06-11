@@ -23,6 +23,7 @@ public class ManagerMenuRepositoryImpl implements ManagerMenuRepositoryCustom {
                 .where(
                         menuLevelEq(1)
                 )
+                .orderBy(managerMenu.ordering.asc())
                 .fetch();
     }
 

@@ -105,3 +105,18 @@
   - sort uniq_sample | uniq -d | nl
   - sort uniq_sample | uniq -u | nl
   - grep "shm_open" *.c | awk -F: '{ print $1 }' | uniq
+  
+#### cut
+- 컬럼 잘라내기
+- 자주 사용되는 옵션
+  - -b, --bytes=LIST : byte 선택
+  - -c, --characters=LIST : character 선택
+  - -f, --fields=LIST : 필드(컬럼) 선택
+  - -d, --delimiter=DELIM : tab 대신 사용할 구분자 지정
+  - --complement : 선택 반전
+  - --output-delimiter=STRING : 출력 시 사용하 구분자 지정
+- 사용 예제
+  - head /etc/passwd | cut -d ':' -f 1,7
+  - head /etc/passwd | cut -d ':' -f 1,7 --output-delimiter=': '
+  - ls -al | cut -b -10
+  - ls -al | cut -b -10 --complement
