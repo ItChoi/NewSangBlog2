@@ -19,67 +19,75 @@
                     <span sec:authentication="principal.authorities" id="sec-roles" style="display: none"></span>
                     <input type="hidden" th:value="${existsMenuId}" id="existsMenuId">
 
-                    <div class="edit-menu-left">
-                        <ul id="sortable1" class="ul-style-none">
-                            <li th:each="menu, i : ${managerMenuList}" class="nav-item">
-                                <input type="hidden" th:value="${menu.ordering}">
-                                <a th:href="|javascript:Menu.menuDetail(${menu.id});|">
-                                    <!--<i class="fas fa-fw fa-cog"></i>-->
-                                    <i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
-                                    <span th:text="${menu.menuName}"></span>
-                                </a>
+                    <div id="edit-menu-left" th:if="${managerOrderingMenuList.size() != 0}">
+                        <form th:action="@{/manager/menu/sort}" method="post">
+                            <ul class="ul-style-none menu-change-target">
+                                <li th:each="menu, i : ${managerOrderingMenuList}" class="nav-item">
+                                    <a th:href="|javascript:Menu.menuDetail(${menu.id});|">
+                                        <!--<i class="fas fa-fw fa-cog"></i>-->
+                                        <i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
+                                        <span th:text="${menu.menuName}"></span>
+                                    </a>
 
-                                <ul id="sortable2" class="ul-style-none">
-                                    <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
-                                        <input type="hidden" th:value="${menuChild2.ordering}">
-                                        <a th:href="|javascript:Menu.menuDetail(${menuChild2.id});|">
-                                            <i class="fas fa-fw" th:classappend="${menuChild2.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
-                                            <span th:text="${menuChild2.menuName}"></span>
-                                        </a>
+                                    <ul class="ul-style-none menu-change-target" th:if="${menu.child != null && menu.child.size() != 0}">
+                                        <li th:each="menuChild2, j : ${menu.child}">
+                                            <a th:href="|javascript:Menu.menuDetail(${menuChild2.id});|">
+                                                <i class="fas fa-fw" th:classappend="${menuChild2.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
+                                                <span th:text="${menuChild2.menuName}"></span>
+                                            </a>
 
-                                        <ul id="sortable3" class="ul-style-none">
-                                            <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
-                                                <input type="hidden" th:value="${menuChild3.ordering}">
-                                                <a th:href="|javascript:Menu.menuDetail(${menuChild3.id});|">
-                                                    <i class="fas fa-fw" th:classappend="${menuChild3.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
-                                                    <span th:text="${menuChild3.menuName}"></span>
-                                                </a>
+                                            <ul class="ul-style-none menu-change-target" th:if="${menuChild2.child != null && menuChild2.child.size() != 0}">
+                                                <li th:each="menuChild3, k : ${menuChild2.child}">
+                                                    <a th:href="|javascript:Menu.menuDetail(${menuChild3.id});|">
+                                                        <i class="fas fa-fw" th:classappend="${menuChild3.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
+                                                        <span th:text="${menuChild3.menuName}"></span>
+                                                    </a>
 
-                                                <ul id="sortable4" class="ul-style-none">
-                                                    <li th:if="${menuChild3.child != null}" th:each="menuChild4, l : ${menuChild3.child}">
-                                                        <input type="hidden" th:value="${menuChild4.ordering}">
-                                                        <a th:href="|javascript:Menu.menuDetail(${menuChild4.id});|">
-                                                            <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
-                                                            <span th:text="${menuChild3.menuName}"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                                    <ul class="ul-style-none menu-change-target" th:if="${menuChild3.child != null && menuChild3.child.size() != 0}">
+                                                        <li th:each="menuChild4, l : ${menuChild3.child}">
+                                                            <a th:href="|javascript:Menu.menuDetail(${menuChild4.id});|">
+                                                                <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
+                                                                <span th:text="${menuChild3.menuName}"></span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
 
-                                <!-- Divider -->
-                                <hr class="sidebar-divider">
-                            </li>
+                                    <!-- Divider -->
+                                    <hr class="sidebar-divider">
+                                </li>
 
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary btn-user m-3">
-                                    메뉴 순서 변경 모드
-                                </button>
-                                <button type="button" id="add-menu" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu();">
-                                    메뉴 추가
-                                </button>
-                                <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
-                                    취소
-                                </button>
-                                <p class="text-danger">(*) 메뉴 추가는 최고 관리자 권한만 가능</p>
-                            </div>
-                        </ul>
+                                <div class="text-center">
+                                    <div id="menu-sort-mode-off">
+                                        <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuOrderingMode();">
+                                            메뉴 순서 변경 모드
+                                        </button>
+                                        <button type="button" id="add-menu" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu();">
+                                            메뉴 추가
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
+                                            취소
+                                        </button>
+                                        <p class="text-danger">(*) 메뉴 추가는 최고 관리자(Supervisor) 권한만 가능</p>
+                                    </div>
 
+                                    <div id="menu-sort-mode-on" style="display: none;">
+                                        <button type="submit" class="btn btn-primary btn-user m-3">
+                                            메뉴 순서 변경 저장
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-user m-3" onclick="location.href='/manager/menu/edit'">
+                                            취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </ul>
+                        </form>
                     </div>
 
-                    <div id="edit-menu-right" class="edit-menu-right">
+                    <div id="edit-menu-right" style="display: none;">
                         <form th:action="@{/manager/menu}" method="post">
                             <input type="hidden" name="id" id="menu-id">
                             <input type="hidden" name="parentId" id="parent-id">
@@ -156,6 +164,7 @@
                                 <button type="submit" class="btn btn-primary btn-user m-3">
                                     저장
                                 </button>
+
                                 <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
                                     취소
                                 </button>

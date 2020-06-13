@@ -44,7 +44,8 @@ public class ManagerMenuController {
         if (menuId != null) {
             model.addAttribute("existsMenuId", menuId);
         }
-        model.addAttribute("managerMenuList", responseDtos);
+
+        model.addAttribute("managerOrderingMenuList", responseDtos);
         model.addAttribute("menuTypes", fileTypes);
 
         return "/manager/menu/form";
@@ -62,6 +63,12 @@ public class ManagerMenuController {
         Long id = managerMenuService.saveMenu(managerMenuDto);
 
         return "redirect:/manager/menu/edit?menuId=" + id;
+    }
+
+    @PostMapping("/sort")
+    public String menuOrderingSort(List<ManagerMenuDto> managerMenuDtoList) {
+
+        return "redirect:/manager/menu/edit";
     }
 
 

@@ -10,13 +10,13 @@
 ::-webkit-scrollbar-button { display: none; }
 /* 위 아래 버튼 (버튼 없애기를 함) */
 
-.edit-menu-left {
+#edit-menu-left {
     width: 50%;
     float: left;
     overflow-y: scroll;
 }
 
-.edit-menu-right {
+#edit-menu-right {
     margin-left: 5%;
     margin-right: 5%;
 

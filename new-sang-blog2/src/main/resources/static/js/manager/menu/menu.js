@@ -1,10 +1,9 @@
 let Menu = {
     init : function() {
-
-        console.log("managerMenuList: ", ${managerMenuList});
-
         // 메뉴 클릭 전에 right-menu는 display
-        document.getElementById('edit-menu-right').style.display = 'none';
+        // document.getElementById('edit-menu-right').style.display = 'none';
+        // 메뉴 순서 변경 모드 전용 버튼 (처음엔 display)
+        // document.getElementById('menu-sort-mode-on').style.display = 'none';
         
         // 슈퍼 관리자만 메뉴의 특정 속성들 변경 가능
         let userAuth = document.getElementById('sec-roles').innerText.indexOf("ROLE_SUPERVISOR");
@@ -24,14 +23,16 @@ let Menu = {
         }
 
         // 메뉴 드래그 순서 변경 (jQuery)
-        $("#sortable1").sortable();
+        /*$("#sortable1").sortable();
         $("#sortable1").disableSelection();
         $("#sortable2").sortable();
         $("#sortable2").disableSelection();
         $("#sortable3").sortable();
         $("#sortable3").disableSelection();
         $("#sortable4").sortable();
-        $("#sortable4").disableSelection();
+        $("#sortable4").disableSelection();*/
+        $(".sortable").sortable();
+        $(".sortable").disableSelection();
 
     },
 
@@ -61,6 +62,12 @@ let Menu = {
             rightMenu.style.display = 'block';
         }
     },
+
+    menuOrderingMode : function() {
+        document.getElementById('menu-sort-mode-off').style.display = 'none';
+        document.getElementById('menu-sort-mode-on').style.display = 'block';
+
+    }
 
     /*menuSave : function() {
         axios({

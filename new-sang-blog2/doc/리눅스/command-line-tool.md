@@ -120,3 +120,139 @@
   - head /etc/passwd | cut -d ':' -f 1,7 --output-delimiter=': '
   - ls -al | cut -b -10
   - ls -al | cut -b -10 --complement
+
+
+#### tr
+- 어떤 내용을 변환(translate)한다.
+- 기본 사용법: tr [OPTION]... SET1 [SET2]
+- 자주 사용되는 옵션
+  - -c, -C, --complement
+  - -d, --delete
+  - SET
+    - CHAR1-CHAR2 : CHAR1부터 CHAR2까지 (예: 'a-z')
+    - [:alnum:] : 문자 + 숫자
+    - [:alpha:] : 문자
+    - [:blank:] : 공백
+    - [:space:] : 공백 + newline
+    - [:digit:] / [:xdigit:] : 10진수 숫자 / 16진수 숫자
+    - [:lower:] / [:upper:] : 소문자 / 대문자
+
+
+#### sed
+- stream editor: 파일의 내용을 출력하는 대 있어서 그 내용을 에디팅 할 수 있다고 생각....
+- 자주 사용되는 옵션
+  - {RANGE}p : range 내의 라인을 출력
+  - {RANGE}d : range 내의 라인을 삭제
+  - /SEARCHPATTERN/p : SEARCHPATTERN과 매치되는 라인을 출력
+  - /SEARCHPATTERN/d : SEARCHPATTERN과 매치되는 라인을 삭제
+  - s/REGEX/REPLACE/ : REGEX에 매치되는 부분을 REPLACE로 교체(substitute)
+- 사용 예제
+  - head /etc/passwd | sed -n '1,3p'
+  - head /etc/passwd | sed -1,3d'
+  - head /etc/passwd | sed -n '/nologin/p'
+  - head /etc/passwd | sed 's/daemon/DAEMON/'
+  - head /etc/passwd | sed 's/daemon/DAEMON/g'
+  - head /etc/passwd | sed '3,5 s/:/^/g'
+  - head /etc/passwd | sed -n '/games/,+2p'
+  
+
+#### awk
+- 텍스트 처리 script language
+- syntax: awk options 'selection _criteria {action }' input-file
+- 자주 사용되는 옵션
+  - -F : field seperator 지정
+- 주요 내장 변수
+  - $1, $2, $3, ... : Nth field
+  - NR : number of records
+  - NF : number of fields
+  - FS : field separator(default 'white space')
+  - RS : record separator (default 'new line')
+  - OFS : Output field separator
+  - ORS : Output record separator
+
+
+
+#### find
+- 조건에 맞는 파일을 찾아 명령을 수행한다.
+- 기본 사용 방법: find [OPTIONS] path EXPR
+- 자주 사용되는 옵션
+  - 조건
+    - -name : 이름으로 검색
+    - -regex : regex에 매치로 검색
+    - -empty : 빈 디렉토리 혹은 빈 검색
+    - -size : 사이즈로 검색 (M,G로 표기 가능)
+      - -N : 이하
+      - +N : 이상
+    - -type: 파일 타입으로 검색
+      - d : directory
+      - p : named pipe
+      - f : regular file
+      - l : softlink
+      - s : socket
+    - -perm : 퍼미션으로 검색 (읽기 4, 쓰기 2, 실행 1)
+      - mode : 정확히 일치하는 파일
+      - +mode : 모든 flag가 포함된 파일
+      - /mode : 어떤 flag라도 포함된 파일
+      
+  - 액션
+    - -delete : 파일 삭제
+    - -ls : ls -dils 명령 수행
+    - -print : 파일 이름 출력
+    - -printf : 파일 이름을 포맷에 맞게 출력
+    - -exec : 주어진 명령 수행 (유용)
+    - -execdir : 해당 디렉터리로 이동하여 명령 수행 (유용)
+    - -ok : 사용자에게 확인 후 exec (유용)
+    - -okdir : 사용자에게 확인 후 실행 execdir (유용)
+    
+    
+#### grep
+- 파일 내용 중 원하는 내용을 찾는다.
+- grep [OPTIONS] PATTERN [FILE...]
+- 자주 사용되는 옵션
+  - -r : recursive : 전체 디렉토리를 다 뒤진다.
+  - -i : ignore case 
+  - -v : invert match : 패턴이 매치가 안 되는 것을 찾는다.
+  - -q : quiet mode
+- 사용 예제
+  - grep fork *.c
+  - grep fork *.c -q
+  - grep "\<for\>" *.c
+  - grep "^static.*(void)" *.c
+  - ls -al | grep posix
+  - find . | grep posix
+  
+  
+#### apropos
+- man page 이름과 설명을 검색한다.
+- 자주 사용되는 옵션
+  - -s, --sections=LIST, --section=LIST : 탐색할 섹션을 colon으로 구분하여 입력
+- 사용 예제
+  - apropos pthread
+  - apropos pthread -s 7
+  - apropos '^sem_'
+  - apropos '.*'
+  - apropos '.*' -s 5:6:7
+  
+#### locate
+- 파일의 위치를 찾아 보여준다.
+- 단, updatedb가 저장해놓은 DB 파일 내에서 검색하므로 누락 파일이 생길 수 있음
+- locate [OPTION]... PATTERN...
+- 자주 사용되는 옵션
+  - -i, --ignore-case : 대소문자 구분없이 검색
+  - -l, --limit, -n LIMIT : 출력 결과를 LIMIT 만큼만 출력
+  - --regex : PATTERN을 regex로 해석
+- 사용 예제
+  - locate main.c
+  - locate main.c -n 10
+  - locate --regex "/usr/src/.*\<main.c$"
+  
+  
+#### which
+- 실행 파일의 위치를 보여준다.
+- 자주 사용 되는 옵션
+  - 없음
+- 사용 예제
+  - which ls
+  - which chmod
+  - which ls strace chmod
+    
