@@ -67,6 +67,7 @@ let Menu = {
         document.getElementById('menu-sort-mode-off').style.display = 'none';
         document.getElementById('menu-sort-mode-on').style.display = 'block';
 
+        document.getElementsByClassName('menu-change-target').class
     }
 
     /*menuSave : function() {
