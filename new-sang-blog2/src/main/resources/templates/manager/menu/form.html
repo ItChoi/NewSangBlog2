@@ -61,7 +61,7 @@
 
                                                             <a th:href="|javascript:Menu.menuDetail(${menuChild4.id});|">
                                                                 <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
-                                                                <span th:text="${menuChild3.menuName}"></span>
+                                                                <span th:text="${menuChild4.menuName}"></span>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -106,7 +106,6 @@
                     <div id="edit-menu-right" style="display: none;">
                         <form th:action="@{/manager/menu}" method="post" id="rightForm">
                             <input type="hidden" name="id" id="menu-id">
-                            <!--<input type="hidden" name="parentId" id="parent-id">-->
                             <input type="hidden" name="menuLevel" id="menu-level">
                             <input type="hidden" name="ordering" id="ordering">
 
@@ -126,12 +125,16 @@
                                         <td class="h3 mb-4 text-gray-800">부모 메뉴</td>
                                         <td>
                                             <select name="parentId" id="parent-id" class="form-control supervisor-menu" style="height: 50px">
-                                                <option th:text="선택" value="" disabled selected></option>
-                                                <option th:each="menu : ${managerOrderingMenuList}"
-                                                        th:text="${menu.menuName}"
-                                                        th:value="${menu.id}">
-                                                </option>
-
+                                            <!--<i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>-->
+                                            <!--<select name="parent" id="parent" class="form-control supervisor-menu" style="height: 50px">-->
+                                                <option th:text="없음" value="" selected></option>
+                                                <div th:each="menu : ${managerOrderingMenuList}">
+                                                    <option th:if="${menu.menuType.name()} eq 'DIRECTORY'" th:text="|1.${menu.menuName}|" th:value="${menu.id}"></option>
+                                                    <div th:if="${menu.child != null && menu.child.size() != 0}" th:each="menuChild2 : ${menu.child}">
+                                                        <option th:if="${menuChild2.menuType.name()} eq 'DIRECTORY'" th:text="|2.${menuChild2.menuName}|" th:value="${menuChild2.id}"></option>
+                                                        <option th:each="menuChild3 : ${menuChild2.child}" th:if="${menuChild3.menuType.name()} eq 'DIRECTORY'" th:text="|3.${menuChild3.menuName}|" th:value="${menuChild3.id}"></option>
+                                                    </div>
+                                                </div>
                                             </select>
                                         </td>
                                     </tr>

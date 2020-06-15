@@ -119,6 +119,7 @@ function clearRightMenu() {
     rightForm.reset();*/
     document.getElementById('menu-id').value = '';
     document.getElementById('parent-id').value = '';
+    //document.getElementById('parent').value = '';
     document.getElementById('menu-level').value = '';
     document.getElementById('ordering').value = '';
     document.getElementById('menu-code').value = '';
@@ -135,6 +136,7 @@ function setRightMenu(data) {
     document.getElementById('ordering').value = data.ordering;
 
     document.getElementById('parent-id').value = isNotEmpty(data.parentId) ? data.parentId : '';
+    //document.getElementById('parent').value = isNotEmpty(data.parent) ? data.parent.id : '';
     document.getElementById('menu-code').value = isNotEmpty(data.menuCode) ? data.menuCode : '';
     document.getElementById('menu-name').value = isNotEmpty(data.menuName) ? data.menuName : '';
     document.getElementById('menu-type').value = isNotEmpty(data.menuType) ? data.menuType : '';

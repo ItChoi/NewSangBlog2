@@ -46,7 +46,7 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
 
     @Override
     public ManagerMenuDto getFindById(Long id) {
-        ManagerMenu findManagerMenu = managerMenuRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id.toString()));
+        ManagerMenu findManagerMenu = managerMenuRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
         return modelMapper.map(findManagerMenu, ManagerMenuDto.class);
     }
 
@@ -57,8 +57,8 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
 
         if (id == null) {
             ManagerMenu inputManagerMenu = modelMapper.map(inputMenuDto, ManagerMenu.class);
-            inputManagerMenu.setMenuLevel(1);
 
+            inputManagerMenu.setMenuLevel(1);
             Integer orderingIndex = managerMenuRepository.getMaxOrderingByParentIdIsNull();
             orderingIndex = orderingIndex == null ? 0 : orderingIndex;
             inputManagerMenu.setOrdering(orderingIndex + 1);
@@ -70,6 +70,11 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
             ManagerMenu findManagerMenu = managerMenuRepository.findById(id)
                     .orElseThrow(() -> new UserNotFoundException(inputMenuDto.getId().toString()));
 
+
+            ManagerMenu parent = managerMenuRepository.findById(inputMenuDto.getParentId())
+                    .orElseThrow(() -> new UserNotFoundException(inputMenuDto.getParentId().toString()));
+            findManagerMenu.setParent(parent);
+
             findManagerMenu.setMenuCode(inputMenuDto.getMenuCode());
             findManagerMenu.setMenuName(inputMenuDto.getMenuName());
             findManagerMenu.setMenuType(inputMenuDto.getMenuType());
@@ -79,6 +84,10 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
         }
 
         return id;
+    }
+
+    private void setDtoToEntity(ManagerMenuDto dto, ManagerMenu entity) {
+
     }
 
     @Transactional
@@ -116,4 +125,15 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
                     }
                 });
     }
+
+    private void changeLevelOrOrdering() {
+
+    }
+
+    private void sortOrdering() {
+
+    }
+
+
+
 }

@@ -2,15 +2,16 @@ package com.blog.newsangblog2.web.manager.menu.domain;
 
 import com.blog.newsangblog2.common.domain.BaseDateTimeEntity;
 import com.blog.newsangblog2.common.enumeration.ResourceType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
+@ToString(exclude = {"parent"})
 @Getter @Setter
 @NoArgsConstructor
 @Entity
@@ -51,7 +52,7 @@ public class ManagerMenu extends BaseDateTimeEntity {
 
 
 
-    @Builder
+    /*@Builder
     public ManagerMenu(Integer menuLevel, String menuCode, String menuName, int ordering, String url, String uri, String menuDisplay, ResourceType menuType) {
         this.menuLevel = menuLevel;
         this.menuCode = menuCode;
@@ -61,6 +62,6 @@ public class ManagerMenu extends BaseDateTimeEntity {
         this.uri = uri;
         this.menuDisplay = menuDisplay;
         this.menuType = menuType;
-    }
+    }*/
 
 }

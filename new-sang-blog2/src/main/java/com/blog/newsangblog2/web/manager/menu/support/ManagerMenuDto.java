@@ -2,6 +2,7 @@ package com.blog.newsangblog2.web.manager.menu.support;
 
 import com.blog.newsangblog2.common.enumeration.ResourceType;
 import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,8 @@ public class ManagerMenuDto extends ManagerMenuSearch {
 
     private Long id;
     private Long parentId;
+
+    // private ManagerMenuDto parent; // 부모 - 자식 호출이 연달아 되어 무한루프에 빠짐. parentId로 해결 하기...
     private List<ManagerMenuDto> child;
     private Integer menuLevel;
     private String menuCode;
@@ -27,7 +30,7 @@ public class ManagerMenuDto extends ManagerMenuSearch {
     private String menuDisplay;
     private ResourceType menuType;
 
-    public ManagerMenu toEntity() {
+    /*public ManagerMenu toEntity() {
         return ManagerMenu.builder()
                 .menuLevel(menuLevel)
                 .menuCode(menuCode)
@@ -38,7 +41,7 @@ public class ManagerMenuDto extends ManagerMenuSearch {
                 .menuDisplay(menuDisplay)
                 .menuType(menuType)
                 .build();
-    }
+    }*/
 
     public ManagerMenuDto sortMenuOrdering() {
         if (this.child != null && this.child.size() != 0) {
