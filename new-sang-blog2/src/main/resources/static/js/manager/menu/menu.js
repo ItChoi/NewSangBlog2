@@ -22,18 +22,6 @@ let Menu = {
             Menu.menuDetail(existsMenuId);
         }
 
-        // 메뉴 드래그 순서 변경 (jQuery)
-        /*$("#sortable1").sortable();
-        $("#sortable1").disableSelection();
-        $("#sortable2").sortable();
-        $("#sortable2").disableSelection();
-        $("#sortable3").sortable();
-        $("#sortable3").disableSelection();
-        $("#sortable4").sortable();
-        $("#sortable4").disableSelection();*/
-        $(".sortable").sortable();
-        $(".sortable").disableSelection();
-
     },
 
     menuDetail : function(menuId) {
@@ -64,11 +52,25 @@ let Menu = {
     },
 
     menuOrderingMode : function() {
+        document.getElementById('no-save').style.display = 'block';
+        document.getElementById('edit-save-button').disabled = true;
         document.getElementById('menu-sort-mode-off').style.display = 'none';
         document.getElementById('menu-sort-mode-on').style.display = 'block';
 
-        document.getElementsByClassName('menu-change-target').class
+
+        // 메뉴 드래그 순서 변경 (jQuery)
+        $(".sortable").sortable();
+        $(".sortable").disableSelection();
+    },
+
+    btnSaveMenuOrdering : function() {
+        let leftForm = document.getElementById('leftForm');
+        menuAllLevelSort();
+        leftForm.submit();
     }
+
+
+
 
     /*menuSave : function() {
         axios({
@@ -113,6 +115,8 @@ let Menu = {
 };
 
 function clearRightMenu() {
+    /*let rightForm = document.getElementById('rightForm');
+    rightForm.reset();*/
     document.getElementById('menu-id').value = '';
     document.getElementById('parent-id').value = '';
     document.getElementById('menu-level').value = '';
@@ -127,10 +131,10 @@ function clearRightMenu() {
 
 function setRightMenu(data) {
     document.getElementById('menu-id').value = data.id;
-    document.getElementById('parent-id').value = data.parentId;
     document.getElementById('menu-level').value = data.menuLevel;
     document.getElementById('ordering').value = data.ordering;
 
+    document.getElementById('parent-id').value = isNotEmpty(data.parentId) ? data.parentId : '';
     document.getElementById('menu-code').value = isNotEmpty(data.menuCode) ? data.menuCode : '';
     document.getElementById('menu-name').value = isNotEmpty(data.menuName) ? data.menuName : '';
     document.getElementById('menu-type').value = isNotEmpty(data.menuType) ? data.menuType : '';
@@ -147,5 +151,41 @@ function isNotEmpty(data) {
 
     return notEmptyCheck;
 }
+
+function menuAllLevelSort() {
+    menuOneLevelSort();
+
+}
+
+function menuOneLevelSort() {
+    let oneLevels = document.getElementsByClassName('oneLevel');
+
+    for (let i = 0; i < oneLevels.length; i++) {
+        oneLevels[i].children.orderings.value = i + 1;
+        menuLevelSortBy('one-' + i);
+    }
+}
+
+function menuLevelSortBy(levelId) {
+    let ulTag = document.getElementById(levelId).getElementsByTagName('ul')[0];
+    let index = levelId.substr(levelId.lastIndexOf('-') + 1);
+
+    if (ulTag != undefined) {
+        for (let j = 0; j < ulTag.children.length; j++) {
+            ulTag.children[j].children.orderings.value = j + 1;
+
+            if (levelId.startsWith('one')) {
+                menuLevelSortBy('two-' + index + j);
+            } else if (levelId.startsWith('two')) {
+                menuLevelSortBy('three-' + index + j);
+            } else if (levelId.startsWith('three')) {
+                menuLevelSortBy('four-' + index + j);
+            }
+
+        }
+    }
+}
+
+
 
 Menu.init();

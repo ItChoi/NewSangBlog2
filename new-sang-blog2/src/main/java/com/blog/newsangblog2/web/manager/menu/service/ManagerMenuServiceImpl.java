@@ -1,9 +1,13 @@
 package com.blog.newsangblog2.web.manager.menu.service;
 
+import com.blog.newsangblog2.common.exception.DataNotFoundException;
+import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
 import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepository;
 import com.blog.newsangblog2.web.manager.menu.support.ManagerMenuDto;
+import com.blog.newsangblog2.web.manager.menu.support.ManagerMenuSortDto;
+import com.sun.media.sound.InvalidDataException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
@@ -26,7 +31,6 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
     public List<ManagerMenuDto> getManagerMenuList() {
         List<ManagerMenu> managerMenuList = managerMenuRepository.findAllByFirstLevel();
 
-
         return managerMenuList.stream()
                 .map(menu -> modelMapper.map(menu, ManagerMenuDto.class))
                 .collect(Collectors.toList());
@@ -35,30 +39,10 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
     @Override
     public List<ManagerMenuDto> sortMenuListOrdering() {
         List<ManagerMenuDto> managerMenuList = getManagerMenuList();
-
-        managerMenuList
-                .forEach(level2 -> {
-                    level2 = level2.sortMenuOrdering();
-
-                    if (level2.getChild() != null) {
-                        level2.getChild()
-                            .forEach(level3 -> {
-                                level3 = level3.sortMenuOrdering();
-
-                                if (level3.getChild() != null) {
-                                    level3.getChild()
-                                        .forEach(level4 -> {
-                                            level4 = level4.sortMenuOrdering();
-                                        });
-                                }
-
-                            });
-                    }
-                });
+        sortMenu(managerMenuList);
 
         return managerMenuList;
     }
-
 
     @Override
     public ManagerMenuDto getFindById(Long id) {
@@ -97,6 +81,39 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
         return id;
     }
 
+    @Transactional
+    @Override
+    public void changeMenuSort(ManagerMenuSortDto dto) {
+        for (int i = 0; i < dto.getIds().size(); i++) {
+            Long id = dto.getIds().get(i);
+            Integer orderIndex = dto.getOrderings().get(i);
 
+            Optional.of(orderIndex).orElseThrow(() -> new NullPointerException());
 
+            ManagerMenu findMenu = managerMenuRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id.toString()));
+            findMenu.setOrdering(orderIndex);
+        }
+    }
+
+    private void sortMenu(List<ManagerMenuDto> managerMenuList) {
+        managerMenuList
+                .forEach(level2 -> {
+                    level2 = level2.sortMenuOrdering();
+
+                    if (level2.getChild() != null) {
+                        level2.getChild()
+                                .forEach(level3 -> {
+                                    level3 = level3.sortMenuOrdering();
+
+                                    if (level3.getChild() != null) {
+                                        level3.getChild()
+                                                .forEach(level4 -> {
+                                                    level4 = level4.sortMenuOrdering();
+                                                });
+                                    }
+
+                                });
+                    }
+                });
+    }
 }

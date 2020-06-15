@@ -1,12 +1,12 @@
 package com.blog.newsangblog2.web.manager.menu;
 
 import com.blog.newsangblog2.common.enumeration.FileType;
-import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.FileUtils;
 import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
 import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepository;
 import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import com.blog.newsangblog2.web.manager.menu.support.ManagerMenuDto;
+import com.blog.newsangblog2.web.manager.menu.support.ManagerMenuSortDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -48,6 +48,7 @@ public class ManagerMenuController {
         model.addAttribute("managerOrderingMenuList", responseDtos);
         model.addAttribute("menuTypes", fileTypes);
 
+
         return "/manager/menu/form";
     }
 
@@ -66,7 +67,8 @@ public class ManagerMenuController {
     }
 
     @PostMapping("/sort")
-    public String menuOrderingSort(List<ManagerMenuDto> managerMenuDtoList) {
+    public String menuOrderingSort(ManagerMenuSortDto managerMenuSortDto) {
+        managerMenuService.changeMenuSort(managerMenuSortDto);
 
         return "redirect:/manager/menu/edit";
     }

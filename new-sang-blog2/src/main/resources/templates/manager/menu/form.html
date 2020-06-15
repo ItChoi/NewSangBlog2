@@ -20,31 +20,45 @@
                     <input type="hidden" th:value="${existsMenuId}" id="existsMenuId">
 
                     <div id="edit-menu-left" th:if="${managerOrderingMenuList.size() != 0}">
-                        <form th:action="@{/manager/menu/sort}" method="post">
-                            <ul class="ul-style-none menu-change-target">
-                                <li th:each="menu, i : ${managerOrderingMenuList}" class="nav-item">
+                        <form id="leftForm" th:action="@{/manager/menu/sort}" method="post">
+
+
+
+                            <ul class="ul-style-none sortable">
+                                <li th:each="menu, i : ${managerOrderingMenuList}" th:id="@{one-} + ${i.index}" class="nav-item oneLevel">
+                                    <input type="hidden" name="ids" th:value="${menu.id}">
+                                    <input type="hidden" name="orderings">
+
                                     <a th:href="|javascript:Menu.menuDetail(${menu.id});|">
-                                        <!--<i class="fas fa-fw fa-cog"></i>-->
                                         <i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                         <span th:text="${menu.menuName}"></span>
                                     </a>
 
-                                    <ul class="ul-style-none menu-change-target" th:if="${menu.child != null && menu.child.size() != 0}">
-                                        <li th:each="menuChild2, j : ${menu.child}">
+                                    <ul class="ul-style-none sortable" th:if="${menu.child != null && menu.child.size() != 0}">
+                                        <li th:each="menuChild2, j : ${menu.child}" th:id="@{two-} + ${i.index} + ${j.index}" class="twoLevel">
+                                            <input type="hidden" name="ids" th:value="${menuChild2.id}">
+                                            <input type="hidden" name="orderings">
+
                                             <a th:href="|javascript:Menu.menuDetail(${menuChild2.id});|">
                                                 <i class="fas fa-fw" th:classappend="${menuChild2.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                 <span th:text="${menuChild2.menuName}"></span>
                                             </a>
 
-                                            <ul class="ul-style-none menu-change-target" th:if="${menuChild2.child != null && menuChild2.child.size() != 0}">
-                                                <li th:each="menuChild3, k : ${menuChild2.child}">
+                                            <ul class="ul-style-none sortable" th:if="${menuChild2.child != null && menuChild2.child.size() != 0}">
+                                                <li th:each="menuChild3, k : ${menuChild2.child}" th:id="@{three-} + ${i.index} + ${j.index} +  ${k.index}" class="threeLevel">
+                                                    <input type="hidden" name="ids" th:value="${menuChild3.id}">
+                                                    <input type="hidden" name="orderings">
+
                                                     <a th:href="|javascript:Menu.menuDetail(${menuChild3.id});|">
                                                         <i class="fas fa-fw" th:classappend="${menuChild3.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                         <span th:text="${menuChild3.menuName}"></span>
                                                     </a>
 
-                                                    <ul class="ul-style-none menu-change-target" th:if="${menuChild3.child != null && menuChild3.child.size() != 0}">
-                                                        <li th:each="menuChild4, l : ${menuChild3.child}">
+                                                    <ul class="ul-style-none sortable" th:if="${menuChild3.child != null && menuChild3.child.size() != 0}">
+                                                        <li th:each="menuChild4, l : ${menuChild3.child}" th:id="@{four-} + ${i.index} + ${j.index} + ${k.index} + ${l.index}" class="fourLevel">
+                                                            <input type="hidden" name="ids" th:value="${menuChild4.id}">
+                                                            <input type="hidden" name="orderings">
+
                                                             <a th:href="|javascript:Menu.menuDetail(${menuChild4.id});|">
                                                                 <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                                                 <span th:text="${menuChild3.menuName}"></span>
@@ -60,37 +74,39 @@
                                     <hr class="sidebar-divider">
                                 </li>
 
-                                <div class="text-center">
-                                    <div id="menu-sort-mode-off">
-                                        <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuOrderingMode();">
-                                            메뉴 순서 변경 모드
-                                        </button>
-                                        <button type="button" id="add-menu" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu();">
-                                            메뉴 추가
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
-                                            취소
-                                        </button>
-                                        <p class="text-danger">(*) 메뉴 추가는 최고 관리자(Supervisor) 권한만 가능</p>
-                                    </div>
-
-                                    <div id="menu-sort-mode-on" style="display: none;">
-                                        <button type="submit" class="btn btn-primary btn-user m-3">
-                                            메뉴 순서 변경 저장
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-user m-3" onclick="location.href='/manager/menu/edit'">
-                                            취소
-                                        </button>
-                                    </div>
-                                </div>
                             </ul>
+
+                            <div class="text-center">
+                                <div id="menu-sort-mode-off">
+                                    <p class="text-danger">(*) 메뉴 추가는 최고 관리자(Supervisor) 권한만 가능</p>
+                                    <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuOrderingMode();">
+                                        메뉴 순서 변경 모드
+                                    </button>
+                                    <button type="button" id="add-menu" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu();">
+                                        메뉴 추가
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
+                                        취소
+                                    </button>
+                                </div>
+
+                                <div id="menu-sort-mode-on" style="display: none;">
+                                    <p class="text-danger">(*) 마우스 드래그를 통해 메뉴 순서 변경</p>
+                                    <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.btnSaveMenuOrdering();">
+                                        메뉴 순서 변경 저장
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-user m-3" onclick="location.href='/manager/menu/edit'">
+                                        취소
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
 
                     <div id="edit-menu-right" style="display: none;">
-                        <form th:action="@{/manager/menu}" method="post">
+                        <form th:action="@{/manager/menu}" method="post" id="rightForm">
                             <input type="hidden" name="id" id="menu-id">
-                            <input type="hidden" name="parentId" id="parent-id">
+                            <!--<input type="hidden" name="parentId" id="parent-id">-->
                             <input type="hidden" name="menuLevel" id="menu-level">
                             <input type="hidden" name="ordering" id="ordering">
 
@@ -106,6 +122,19 @@
                                     <col width="70%">
                                 </colgroup>
                                 <tbody>
+                                    <tr>
+                                        <td class="h3 mb-4 text-gray-800">부모 메뉴</td>
+                                        <td>
+                                            <select name="parentId" id="parent-id" class="form-control supervisor-menu" style="height: 50px">
+                                                <option th:text="선택" value="" disabled selected></option>
+                                                <option th:each="menu : ${managerOrderingMenuList}"
+                                                        th:text="${menu.menuName}"
+                                                        th:value="${menu.id}">
+                                                </option>
+
+                                            </select>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td class="h3 mb-4 text-gray-800">메뉴 코드</td>
                                         <td>
@@ -161,13 +190,14 @@
                                 <!--<button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.menuSave();">
                                     저장
                                 </button>-->
-                                <button type="submit" class="btn btn-primary btn-user m-3">
+                                <button type="submit" class="btn btn-primary btn-user m-3" id="edit-save-button">
                                     저장
                                 </button>
 
                                 <button type="button" class="btn btn-primary btn-user m-3" onclick="Menu.controlRightMenu('cancel');">
                                     취소
                                 </button>
+                                <p class="text-danger" style="display: none;" id="no-save">(*) 메뉴 순서 변경 중에는 저장이 불가능 합니다.</p>
                             </div>
 
                         </form>
