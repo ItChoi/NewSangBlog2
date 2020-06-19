@@ -55,6 +55,20 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
     public Long saveMenu(ManagerMenuDto inputMenuDto) {
         Long id = inputMenuDto.getId();
 
+        /**
+         * 등록
+         * 1. 메뉴 레벨 찾기
+         * 2. 해당 메뉴 레벨의 max + 1로 ordering 주기.
+         *
+         * 수정
+         * 1. 메뉴 레벨 찾기
+         * 2. 해당 메뉴 레벨의 max + 1로 ordering 주기.
+         * 3. 기존 자리 ordering 순서 정렬
+         */
+
+        ///Integer menuLevel = inputMenuDto.getParentId() != null ? inputMenuDto
+
+
         if (id == null) {
             ManagerMenu inputManagerMenu = modelMapper.map(inputMenuDto, ManagerMenu.class);
 
