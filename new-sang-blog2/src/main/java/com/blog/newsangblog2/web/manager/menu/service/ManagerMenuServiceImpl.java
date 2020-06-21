@@ -1,19 +1,17 @@
 package com.blog.newsangblog2.web.manager.menu.service;
 
-import com.blog.newsangblog2.common.exception.DataNotFoundException;
 import com.blog.newsangblog2.common.exception.DuplicationException;
+import com.blog.newsangblog2.common.exception.InvalidDataException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.web.manager.menu.domain.ManagerMenu;
 import com.blog.newsangblog2.web.manager.menu.repository.ManagerMenuRepository;
 import com.blog.newsangblog2.web.manager.menu.support.ManagerMenuDto;
 import com.blog.newsangblog2.web.manager.menu.support.ManagerMenuSortDto;
-import com.sun.media.sound.InvalidDataException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,54 +53,24 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
     public Long saveMenu(ManagerMenuDto inputMenuDto) {
         Long id = inputMenuDto.getId();
 
-        /**
-         * 등록
-         * 1. 메뉴 레벨 찾기
-         * 2. 해당 메뉴 레벨의 max + 1로 ordering 주기.
-         *
-         * 수정
-         * 1. 메뉴 레벨 찾기
-         * 2. 해당 메뉴 레벨의 max + 1로 ordering 주기.
-         * 3. 기존 자리 ordering 순서 정렬
-         */
+        ManagerMenu parent = null;
+        if (inputMenuDto.getParentId() != null) {
+            parent = managerMenuRepository.findById(inputMenuDto.getParentId()).orElse(null);
+        }
 
-        ///Integer menuLevel = inputMenuDto.getParentId() != null ? inputMenuDto
-
+        Integer menuLevel = parent != null ? parent.getMenuLevel() + 1 : 1;
+        inputMenuDto.setMenuLevel(menuLevel);
 
         if (id == null) {
-            ManagerMenu inputManagerMenu = modelMapper.map(inputMenuDto, ManagerMenu.class);
-
-            inputManagerMenu.setMenuLevel(1);
-            Integer orderingIndex = managerMenuRepository.getMaxOrderingByParentIdIsNull();
-            orderingIndex = orderingIndex == null ? 0 : orderingIndex;
-            inputManagerMenu.setOrdering(orderingIndex + 1);
-
-            managerMenuRepository.save(inputManagerMenu);
-
-            id = inputManagerMenu.getId();
+            id = createMenu(inputMenuDto, parent);
         } else {
-            ManagerMenu findManagerMenu = managerMenuRepository.findById(id)
-                    .orElseThrow(() -> new UserNotFoundException(inputMenuDto.getId().toString()));
 
-
-            ManagerMenu parent = managerMenuRepository.findById(inputMenuDto.getParentId())
-                    .orElseThrow(() -> new UserNotFoundException(inputMenuDto.getParentId().toString()));
-            findManagerMenu.setParent(parent);
-
-            findManagerMenu.setMenuCode(inputMenuDto.getMenuCode());
-            findManagerMenu.setMenuName(inputMenuDto.getMenuName());
-            findManagerMenu.setMenuType(inputMenuDto.getMenuType());
-            findManagerMenu.setUrl(inputMenuDto.getUrl());
-            findManagerMenu.setUri(inputMenuDto.getUri());
-            findManagerMenu.setMenuDisplay(inputMenuDto.getMenuDisplay());
+            editMenu(inputMenuDto, parent);
         }
 
         return id;
     }
 
-    private void setDtoToEntity(ManagerMenuDto dto, ManagerMenu entity) {
-
-    }
 
     @Transactional
     @Override
@@ -117,7 +85,8 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
             findMenu.setOrdering(orderIndex);
         }
     }
-
+    
+    // 1레벨은 정렬되어서 가져오고, 2레벨 이후에서는 자바를 통해 순서 정렬
     private void sortMenu(List<ManagerMenuDto> managerMenuList) {
         managerMenuList
                 .forEach(level2 -> {
@@ -140,14 +109,170 @@ public class ManagerMenuServiceImpl implements ManagerMenuService {
                 });
     }
 
-    private void changeLevelOrOrdering() {
 
+
+    private List<ManagerMenu> sortTargetMenu(ManagerMenu managerMenu) {
+        List<ManagerMenu> findMenuList = null;
+        if (managerMenu.getParent() != null) {
+            findMenuList = managerMenuRepository.findByParentIdOrderByOrderingAsc(managerMenu.getParent().getId());
+        } else {
+            findMenuList = managerMenuRepository.findByParentIdIsNullOrderByOrderingAsc();
+        }
+
+        return findMenuList;
     }
 
-    private void sortOrdering() {
+    // ordering 기준 index asc
+    private void basicSortOrder(List<ManagerMenu> managerMenuList) {
+        int index = 1;
 
+        for (int i = 0; i < managerMenuList.size(); i++) {
+            managerMenuList.get(i).setOrdering(index++);
+        }
     }
 
+    private Long createMenu(ManagerMenuDto inputMenuDto, ManagerMenu parent) {
+        ManagerMenu inputManagerMenu = modelMapper.map(inputMenuDto, ManagerMenu.class);
+        inputManagerMenu.setOrdering(getMaxOrderingByParentId(inputMenuDto.getParentId()) + 1);
+        inputManagerMenu.setParent(parent);
+        managerMenuRepository.save(inputManagerMenu);
+
+        return inputManagerMenu.getId();
+    }
+
+
+    private void changeParentData(ManagerMenu findManagerMenu, ManagerMenuDto inputMenuDto, ManagerMenu inputParent) {
+            if (checkParentNullToNotNull(findManagerMenu, inputParent)) {
+                changeChildMenuLevelUp(findManagerMenu);
+            } else if (checkParentNotNullToNull(findManagerMenu, inputParent)) {
+                changeChildMenuLevelDown(findManagerMenu);
+            }
+
+            List<ManagerMenu> originLevelMenuList = sortTargetMenu(findManagerMenu);
+            originLevelMenuList.remove(findManagerMenu.getOrdering() - 1);
+            basicSortOrder(originLevelMenuList);
+
+            findManagerMenu.setOrdering(getMaxOrderingByParentId(inputMenuDto.getParentId()) + 1);
+            findManagerMenu.setParent(inputParent);
+    }
+
+    private Long editMenu(ManagerMenuDto inputMenuDto, ManagerMenu inputParent) {
+        ManagerMenu findManagerMenu = managerMenuRepository.findById(inputMenuDto.getId())
+                .orElseThrow(() -> new UserNotFoundException(inputMenuDto.getId().toString()));
+
+        if (checkChangeParent(findManagerMenu, inputParent)) {
+            changeParentData(findManagerMenu, inputMenuDto, inputParent);
+        }
+
+        findManagerMenu.setMenuLevel(inputMenuDto.getMenuLevel());
+        findManagerMenu.setMenuCode(inputMenuDto.getMenuCode());
+        findManagerMenu.setMenuName(inputMenuDto.getMenuName());
+        findManagerMenu.setMenuType(inputMenuDto.getMenuType());
+        findManagerMenu.setUrl(inputMenuDto.getUrl());
+        findManagerMenu.setUri(inputMenuDto.getUri());
+        findManagerMenu.setMenuDisplay(inputMenuDto.getMenuDisplay());
+
+        return findManagerMenu.getId();
+    }
+
+    private Integer getMaxOrderingByParentId(Long parentId) {
+        Integer orderingIndex = null;
+
+        if (parentId == null) {
+            orderingIndex = managerMenuRepository.getMaxOrderingByParentIdIsNull();
+        } else {
+            orderingIndex = managerMenuRepository.getMaxOrderingByParentId(parentId);
+        }
+
+        orderingIndex = orderingIndex == null ? 0 : orderingIndex;
+
+        return orderingIndex;
+    }
+
+    private boolean checkChangeParent(ManagerMenu findManagerMenu, ManagerMenu inputParent) {
+        boolean isChange = false;
+
+        if (checkParentNullToNotNull(findManagerMenu, inputParent)
+                || checkParentNotNullToNull(findManagerMenu, inputParent)
+                || checkNotNullParent(findManagerMenu, inputParent)) {
+
+
+            isChange = true;
+        }
+
+        return isChange;
+    }
+
+    private boolean checkParentNullToNotNull(ManagerMenu findManagerMenu, ManagerMenu inputParent) {
+        boolean isChange = false;
+        if (findManagerMenu.getParent() == null && inputParent != null) {
+
+            if (findManagerMenu.getId() == inputParent.getId()) {
+                throw new InvalidDataException("자신을 부모 메뉴로 선택 할 수 없습니다.");
+            }
+
+            isChange = true;
+        }
+
+        return isChange;
+    }
+
+    private boolean checkParentNotNullToNull(ManagerMenu findManagerMenu, ManagerMenu inputParent) {
+        boolean isChange = false;
+        if (findManagerMenu.getParent() != null && inputParent == null) {
+
+            isChange = true;
+        }
+
+        return isChange;
+    }
+
+    private boolean checkNotNullParent(ManagerMenu findManagerMenu, ManagerMenu inputParent) {
+        boolean isChange = false;
+        if (findManagerMenu.getParent() != null && inputParent != null && findManagerMenu.getParent().getId() != inputParent.getId()) {
+
+            isChange = true;
+        }
+
+        return isChange;
+    }
+
+
+
+    private void changeChildMenuLevelUp(ManagerMenu managerMenu) {
+        changeChildMenuLevelByIndex(managerMenu, 1);
+    }
+
+
+    private void changeChildMenuLevelDown(ManagerMenu managerMenu) {
+        changeChildMenuLevelByIndex(managerMenu, -1);
+    }
+
+    private void changeChildMenuLevelByIndex(ManagerMenu managerMenu, int index) {
+        managerMenu.setMenuLevel(managerMenu.getMenuLevel() + 1);
+        managerMenu.getChild()
+                .forEach(child2 -> {
+                    child2.setMenuLevel(child2.getMenuLevel() + index);
+
+                    child2.getChild()
+                            .forEach(child3 -> {
+                                child3.setMenuLevel(child3.getMenuLevel() + index);
+
+                                child3.getChild()
+                                        .forEach(child4 -> {
+                                            child4.setMenuLevel(child4.getMenuLevel() + index);
+
+                                            /*if (child4.getChild() != null && child4.getChild().size() != 0) {
+                                                throw new Exception();
+                                            }*/
+
+                                        });
+
+                            });
+                });
+
+    }
 
 
 }
+
