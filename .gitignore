@@ -5,6 +5,7 @@ HELP.md
 
 # properties files
 *.properties
+*.yml
 
 # comfiled class files
 *.class
