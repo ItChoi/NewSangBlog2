@@ -25,7 +25,7 @@
 
 
                             <ul class="ul-style-none sortable">
-                                <li th:each="menu, i : ${managerOrderingMenuList}" th:id="@{one-} + ${i.index}" class="nav-item oneLevel">
+                                <li th:if="${menu.menuDisplay eq 'Y'}" th:each="menu, i : ${managerOrderingMenuList}" th:id="@{one-} + ${i.index}" class="nav-item oneLevel">
                                     <input type="hidden" name="ids" th:value="${menu.id}">
                                     <input type="hidden" name="orderings">
 
@@ -128,7 +128,7 @@
                                             <!--<i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>-->
                                             <!--<select name="parent" id="parent" class="form-control supervisor-menu" style="height: 50px">-->
                                                 <option th:text="없음" value="" selected></option>
-                                                <div th:each="menu : ${managerOrderingMenuList}">
+                                                <div th:if="${menu.menuDisplay eq 'Y'}" th:each="menu : ${managerOrderingMenuList}">
                                                     <option th:if="${menu.menuType.name()} eq 'DIRECTORY'" th:text="|1.${menu.menuName}|" th:value="${menu.id}"></option>
                                                     <div th:if="${menu.child != null && menu.child.size() != 0}" th:each="menuChild2 : ${menu.child}">
                                                         <option th:if="${menuChild2.menuType.name()} eq 'DIRECTORY'" th:text="|2.${menuChild2.menuName}|" th:value="${menuChild2.id}"></option>
