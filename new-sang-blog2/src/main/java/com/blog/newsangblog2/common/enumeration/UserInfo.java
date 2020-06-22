@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum UserInfo {
 	LOGIN_ID("loginId"),
 	EMAIL("email");
 	
-	private String code;
+	private final String code;
 
 
 

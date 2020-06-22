@@ -2,14 +2,15 @@ package com.blog.newsangblog2.common.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum ResourceType {
 
     DIRECTORY("file"),
     FILE("file");
 
-    private String type;
+    private final String type;
 
 }

@@ -2,12 +2,13 @@ package com.blog.newsangblog2.common.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum FileType {
     FILE("file");
 
-    private String type;
+    private final String type;
 
 }

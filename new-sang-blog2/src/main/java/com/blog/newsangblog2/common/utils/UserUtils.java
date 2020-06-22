@@ -1,17 +1,13 @@
 package com.blog.newsangblog2.common.utils;
 
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
-import com.blog.newsangblog2.common.exception.UserNotFoundException;
-import com.blog.newsangblog2.web.manager.user.domain.Manager;
-import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 import java.util.Collection;
-import java.util.Optional;
 
 
 public class UserUtils {
@@ -23,8 +19,17 @@ public class UserUtils {
 		if ("anonymousUser".equals(auth.getPrincipal())) {
 			return UserRoleType.ANONYMOUS.getRole();
 		} else {
-			User user = (User) auth.getPrincipal();
-			return user.getUsername();
+
+			String userName = "";
+			try {
+				User user = (User) auth.getPrincipal();
+				userName = user.getUsername();
+			} catch (ClassCastException e) {
+				DefaultOAuth2User user = (DefaultOAuth2User) auth.getPrincipal();
+				userName = (String) user.getAttributes().get("email");
+			}
+
+			return userName;
 		}
 	}
 

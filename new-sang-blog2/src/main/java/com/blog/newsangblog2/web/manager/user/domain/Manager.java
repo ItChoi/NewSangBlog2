@@ -57,6 +57,11 @@ public class Manager extends BaseDateTimeEntity {
 		this.userRole = userRole;
 	}
 
+	public Manager update(String name, String imageFileName) {
+		this.name = name;
+		this.imageFileName = imageFileName;
 
-	
+		return this;
+	}
+
 }

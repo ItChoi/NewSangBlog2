@@ -1,5 +1,6 @@
 package com.blog.newsangblog2.config.security;
 
+import com.blog.newsangblog2.config.security.auth.CustomOAuth2UserService;
 import com.blog.newsangblog2.web.manager.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final UserService userService;
+
+	private final CustomOAuth2UserService customOAuth2UserService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -107,6 +110,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.headers()
 				.frameOptions()
 				.disable()
+				.and()
+					.oauth2Login()
+						.userInfoEndpoint()
+							.userService(customOAuth2UserService)
 		// .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 		;
 	}

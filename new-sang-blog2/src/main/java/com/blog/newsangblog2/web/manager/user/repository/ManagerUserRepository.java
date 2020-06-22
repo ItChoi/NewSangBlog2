@@ -9,4 +9,5 @@ public interface ManagerUserRepository extends JpaRepository<Manager, Long> {
 	Optional<Manager> findManagerByLoginId(String loginId);
 	boolean existsByLoginId(String loginId);
 	boolean existsByEmail(String email);
+	Optional<Manager> findByEmail(String email);
 }

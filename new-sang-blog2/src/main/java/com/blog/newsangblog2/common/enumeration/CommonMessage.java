@@ -2,13 +2,14 @@ package com.blog.newsangblog2.common.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum CommonMessage {
     ALREADY_EXISTS_ID("이미 존재 하는 아이디 입니다."),
     ID_IS_AVAILABLE("사용 가능한 아이디 입니다.");
 
-    private String message;
+    private final String message;
 
 }
