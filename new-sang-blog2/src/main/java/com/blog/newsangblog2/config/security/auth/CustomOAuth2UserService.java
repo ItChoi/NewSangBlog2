@@ -53,7 +53,6 @@ public class CustomOAuth2UserService  implements OAuth2UserService<OAuth2UserReq
         Manager manager = managerUserRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
-
         return managerUserRepository.save(manager);
     }
 
