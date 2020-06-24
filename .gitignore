@@ -4,7 +4,8 @@ HELP.md
 
 # properties files
 # *.properties
-*.yml
+# *.yml
+application-oauth.yml
 
 # comfiled class files
 *.class
