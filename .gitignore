@@ -13,7 +13,7 @@ HELP.md
 *.log
 
 # package files
-*.jar
+# *.jar
 *.war
 *.nar
 *.ear
