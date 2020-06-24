@@ -3,7 +3,7 @@ HELP.md
 !**/src/test/**
 
 # properties files
-*.properties
+# *.properties
 *.yml
 
 # comfiled class files
