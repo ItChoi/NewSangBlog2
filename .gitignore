@@ -3,8 +3,8 @@ HELP.md
 !**/src/test/**
 
 # properties files
-# *.properties
-# *.yml
+*.properties
+*.yml
 application-oauth.yml
 
 # comfiled class files
@@ -14,7 +14,7 @@ application-oauth.yml
 *.log
 
 # package files
-# *.jar
+*.jar
 *.war
 *.nar
 *.ear
