@@ -1,5 +1,4 @@
 HELP.md
-!**/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
@@ -21,6 +20,8 @@ HELP.md
 *.zip
 *.tar.gz
 *.rar
+
+!gradle/wrapper/gradle-wrapper.jar
 
 .metadata
 Spring Elements
