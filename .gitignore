@@ -1,3 +1,7 @@
+.idea
+.metadata
+RemoteSystemsTempFiles
+
 #HELP.md
 #!**/src/main/**
 #!**/src/test/**
