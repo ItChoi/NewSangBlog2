@@ -49,3 +49,5 @@ application-oauth.yml
 gradlew.bat
 
 *.ssh
+
+RemoteSystemsTempFiles
