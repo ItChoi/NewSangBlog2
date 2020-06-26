@@ -1,0 +1,14 @@
+package com.blog.newsangblog2;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class TestJUnit5Class {
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -1,65 +1,65 @@
-HELP.md
-!**/src/main/**
-!**/src/test/**
+#HELP.md
+#!**/src/main/**
+#!**/src/test/**
 
 # properties files
-*.properties
-*.yml
-application-oauth.yml
+#*.properties
+#*.yml
+#application-oauth.yml
 
 # comfiled class files
-*.class
+#*.class
 
 # log files
-*.log
+#*.log
 
 # package files
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+#*.jar
+#*.war
+#*.nar
+#*.ear
+#*.zip
+#*.tar.gz
+#*.rar
 
-!gradle/wrapper/gradle-wrapper.jar
+#!gradle/wrapper/gradle-wrapper.jar
 
-.metadata
-Spring Elements
+#.metadata
+#Spring Elements
 
 # gradle
-.gradle
-/build/
-build/
+#.gradle
+#/build/
+#build/
 
 
 # Eclipse
-.apt_generated
-.factorypath
-.sts4-cache
-.classpath
-.project
-.settings
-.springBeans
-/bin
+#.apt_generated
+#.factorypath
+#.sts4-cache
+#.classpath
+#.project
+#.settings
+#.springBeans
+#/bin
 
-.ssh
+#.ssh
 
 # intellij idea
-.idea
-*.iws
-*.iml
-*.ipr
-out/
+#.idea
+#*.iws
+#*.iml
+#*.ipr
+#out/
 
 # NetBeans
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+#/nbproject/private/
+#/nbbuild/
+#/dist/
+#/nbdist/
+#/.nb-gradle/
 
 # vs code
-.vscode/
+#.vscode/
 
 

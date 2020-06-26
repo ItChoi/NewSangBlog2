@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value="Aggregate for window 1580870150504"/>
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="1201"/>
+		<item key="DIALOG_Y_ORIGIN" value="210"/>
+		<item key="DIALOG_WIDTH" value="500"/>
+		<item key="DIALOG_HEIGHT" value="419"/>
+		<item key="TOGGLE_SELECTED" value="false"/>
+	</section>
+	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
+		<item key="ShowStatusLine" value="true"/>
+		<item key="History" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History&gt;&#x0D;&#x0A;&lt;historyRootNode&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/support/ManagerDto.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/utils/UserUtils.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/test/java/com/blog/newsangblog2/testcode/TestCode.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/test/java/com/blog/newsangblog2/config/JasyptConfigTest.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/config/jasypt/PropertyServiceForJasyptStarter.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/domain/UserAuthority.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/resources/static/bootstrap/vendor/fontawesome-free/svgs/solid/bullhorn.svg&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/service/ManagerUserServiceImpl.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/repository/ManagerUserRepository.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/common/domain/BaseDateTimeEntity.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/test/java/com/blog/newsangblog2/manager/user/service/UserServiceTest.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/service/ManagerUserService.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/doc/todo-list.md&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/common/enumeration/UserRoleType.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/doc/solve-error.md&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/domain/UserRole.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/test/java/com/blog/newsangblog2/manager/user/repository/ManagerRepositoryTest.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/resources/templates/manager/main/index.html&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/resources/templates/manager/user/login.html&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/service/UserService.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/doc/spring-security.md&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/ManagerUserController.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/config/security/SecurityConfig.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/resources/templates/manager/user/access-denied.html&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/main/ManagerMainController.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/manager/user/domain/Manager.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/resources/application.yml&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/build.gradle&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/new-sang-blog2/src/main/java/com/blog/newsangblog2/Application.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;/historyRootNode&gt;&#x0D;&#x0A;&lt;/History&gt;"/>
+		<item key="ShowDerived" value="false"/>
+		<item key="FilterByLocation" value="false"/>
+		<item key="WorkingSet" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;"/>
+		<section name="DialogBoundsSettings">
+			<item key="DIALOG_HEIGHT" value="500"/>
+			<item key="DIALOG_WIDTH" value="600"/>
+			<item key="DIALOG_X_ORIGIN" value="198"/>
+			<item key="DIALOG_Y_ORIGIN" value="210"/>
+			<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+		</section>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="389"/>
+		<item key="DIALOG_Y_ORIGIN" value="280"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+</section>
