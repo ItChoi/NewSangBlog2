@@ -1,6 +1,7 @@
 .idea
 .metadata
 RemoteSystemsTempFiles
+!gradle/wrapper/gradle-wrapper.jar
 
 #HELP.md
 #!**/src/main/**
