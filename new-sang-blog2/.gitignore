@@ -20,7 +20,7 @@ application-oauth.yml
 *.log
 
 *.jar
-*.war
+*.warg
 *.nar
 *.ear
 *.zip
