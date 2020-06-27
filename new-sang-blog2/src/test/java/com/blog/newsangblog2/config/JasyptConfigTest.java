@@ -1,26 +1,23 @@
 package com.blog.newsangblog2.config;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.env.Environment;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class JasyptConfigTest {
-	
-	@Autowired
+
+
+    @Test
+    public void testtest() {
+
+    }
+
+	/*@Autowired
 	ApplicationContext appCtx;
 	
-	
+
 	@Test
 	public void test() {
 		// TODO::: 깃 캐시 삭제하고 다시 푸시 필요
@@ -57,6 +54,6 @@ public class JasyptConfigTest {
 		assertEquals("asdasasd", env.getProperty("spring.datasource.password"));
 		System.out.println("---111!!!");
 		System.out.println("---222!!!");
-	}
+	}*/
 
 }
