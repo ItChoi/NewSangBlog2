@@ -4,6 +4,22 @@ spring:
       client:
         registration:
           google:
-            client-id: 63921188128-ob0blt6mgouv6tku3j6iml04nqk13fdt.apps.googleusercontent.com
-            client-secret: nQWKou1r5yoZ7ENz5lkLfGRQ
+            client-id: 63921188128-4scp3901kbu9auh9ai7gikru5ema3vp6.apps.googleusercontent.com
+            client-secret: eNCbCkC0gHFYknYIrbaCVsJh
             scope: profile, email
+          naver:
+            client-id: CYY60Oq0TMbMuwJrKGoU
+            client-secret: 0Z5IV4PsV4
+            redirect_uri: http://localhost:8080/login/oauth2/code/naver
+            authorization_grant_type: authorization_code
+            scope: name, email, profile_image
+            client-name: Naver
+        provider:
+          naver:
+            authorization_uri: https://nid.naver.com/oauth2.0/authorize
+            token_uri: https://nid.naver.com/oauth2.0/token
+            user-info-uri: https://openapi.naver.com/v1/nid/me
+            user_name_attribute: response
+
+---
+

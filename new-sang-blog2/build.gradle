@@ -57,6 +57,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.projectlombok:lombok')
 	annotationProcessor("org.projectlombok:lombok:1.18.12")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.12")
 	compile('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
@@ -86,7 +87,7 @@ dependencies {
 	compile('org.springframework.session:spring-session-jdbc')
 
 	// 스프링 시큐리티 테스트를 위해 여러 도구를 지원하는 의존성
-	// testCompile('org.springframework.security:spring-security-test')
+	testCompile('org.springframework.security:spring-security-test')
 
 }
 

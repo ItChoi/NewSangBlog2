@@ -1,19 +1,20 @@
 package com.blog.newsangblog2.testcode;
 
-import java.util.Optional;
-
 import com.blog.newsangblog2.common.enumeration.PreNumber;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-
 import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
 
 @Slf4j
 @SpringBootTest
 public class TestCode {
 
+	@Disabled
 	@Test
 	public void test() {
 		String testLoginId = null;
