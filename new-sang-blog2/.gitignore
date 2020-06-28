@@ -9,7 +9,6 @@ build/
 out/
 application-oauth.yml
 
-!gradle/wrapper/gradle-wrapper.jar
 !**/src/main**
 !**/src/test/**
 
@@ -51,3 +50,5 @@ gradlew.bat
 *.ssh
 
 RemoteSystemsTempFiles
+
+!gradle/wrapper/gradle-wrapper.jar
