@@ -52,3 +52,4 @@ gradlew.bat
 RemoteSystemsTempFiles
 
 !gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
