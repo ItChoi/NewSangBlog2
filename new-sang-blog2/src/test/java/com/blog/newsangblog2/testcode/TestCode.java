@@ -14,7 +14,7 @@ import java.util.Optional;
 @SpringBootTest
 public class TestCode {
 
-	@Disabled
+	/*@Disabled
 	@Test
 	public void test() {
 		String testLoginId = null;
@@ -23,7 +23,7 @@ public class TestCode {
 		
 		System.out.println("result: " + loginId);
 		
-	}
+	}*/
 	
 	@Test
 	public void 이넘_테스트() {

@@ -25,13 +25,13 @@ public class UserServiceTest {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Disabled
+	/*@Disabled
 	@Test
 	public void test() {
 		UserDetails userDetails = userService.loadUserByUsername("enffl18");
 		String password = userDetails.getPassword();
 		assertTrue(passwordEncoder.matches("qwe123", password));
-	}
+	}*/
 	
 	@Test
 	public void passwordEncoder_test() {
