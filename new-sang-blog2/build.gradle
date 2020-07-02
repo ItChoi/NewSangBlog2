@@ -89,6 +89,7 @@ dependencies {
 	// 스프링 시큐리티 테스트를 위해 여러 도구를 지원하는 의존성
 	// testCompile('org.springframework.security:spring-security-test')
 
+
 }
 
 def querydslDir = "$buildDir/generated/querydsl"
