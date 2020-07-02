@@ -15,35 +15,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserServiceTest {
 	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
 
-	/*@Disabled
 	@Test
 	public void test() {
-		UserDetails userDetails = userService.loadUserByUsername("enffl18");
-		String password = userDetails.getPassword();
-		assertTrue(passwordEncoder.matches("qwe123", password));
-	}*/
-	
-	@Test
-	public void passwordEncoder_test() {
-		PasswordEncoder passwordEncoder1 = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		
-		String password1 = passwordEncoder1.encode("aaabbb123");
-		String password2 = passwordEncoder.encode("aaabbb123");
-		
-		System.out.println("11111: " + password1);
-		System.out.println("22222: " + password2);
+
 	}
-	
 	
 
 }

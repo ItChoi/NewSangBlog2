@@ -11,22 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class TestJUnit5Class {
 
-	@Autowired
-	private ManagerUserRepository managerUserRepository;
-
-	@Autowired
-	private ModelMapper modelMapper;
 
 	@Test
 	void test() {
-		ManagerDto managerDto = new ManagerDto();
-		managerDto.setEmail("asdasdasd");
-		managerDto.setName("asdadasdasd");
 
-		Manager manager = modelMapper.map(managerDto, Manager.class);
-
-		System.out.println("result: " + manager.getEmail());
-		System.out.println("result: " + manager.getName());
 	}
 
 }
