@@ -32,7 +32,7 @@ spring:
   profiles: real
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://sang-blog.c0sph0rbucmy.ap-northeast-2.rds.amazonaws.com:3306/new_sang_blog_rds
+    url: jdbc:mysql://new-sang-blog.c0sph0rbucmy.ap-northeast-2.rds.amazonaws.com:3306/new_sang_blog_rds
     username: root
     password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
 
