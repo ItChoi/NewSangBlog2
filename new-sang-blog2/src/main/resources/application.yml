@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: real
+    active: local
     include: oauth
   jpa:
     hibernate:
@@ -26,15 +26,6 @@ spring:
     username: root
     password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
 
----
-
-spring:
-  profiles: real
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://new-sang-blog.c0sph0rbucmy.ap-northeast-2.rds.amazonaws.com:3306/new_sang_blog_rds
-    username: root
-    password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
 
 ---
 
