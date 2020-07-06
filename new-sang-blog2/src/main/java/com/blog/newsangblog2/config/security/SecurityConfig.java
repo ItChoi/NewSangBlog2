@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(
 				"/css/**", "/js/**", "/img/**",
 				"/lib/**", "/bootstrap/**", "/front/**"
-				, "/templates/**/**"
+				, "/template/manager/**"
 		);
 	}
 
