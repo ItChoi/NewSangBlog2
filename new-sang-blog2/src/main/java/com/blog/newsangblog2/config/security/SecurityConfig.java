@@ -49,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// static 디렉토리의 하위 파일 목록은 인증 무시 (항상 통과)
 		web.ignoring().antMatchers(
 				"/css/**", "/js/**", "/img/**",
-				"/lib/**", "/bootstrap/**", "/front/**"
-				, "/templates/manager/**"
+				"/lib/**", "/bootstrap/**",
+				"/fragments/**", "/layouts/**"
 		);
 	}
 
