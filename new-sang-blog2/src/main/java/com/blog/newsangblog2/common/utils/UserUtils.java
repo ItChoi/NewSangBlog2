@@ -15,6 +15,7 @@ public class UserUtils {
 	public static String getLoginId() {
 		// 스프링 시큐리티 세션 정보를 가져온다.
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth == null) return null;
 
 		if ("anonymousUser".equals(auth.getPrincipal())) {
 			return UserRoleType.ANONYMOUS.getRole();
