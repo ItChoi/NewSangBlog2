@@ -32,7 +32,9 @@ public class ManagerMenuInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if (!UserRoleType.ANONYMOUS.getRole().equals(UserUtils.getLoginId()) && modelAndView != null) {
+        String loginId = UserUtils.getLoginId();
+
+        if (StringUtils.isNotEmpty(loginId) && !UserRoleType.ANONYMOUS.getRole().equals(UserUtils.getLoginId()) && modelAndView != null) {
             List<ManagerMenu> managerMenuList = managerMenuRepository.findAllByFirstLevel();
             modelAndView.addObject("managerMenuList", managerMenuList);
         }
