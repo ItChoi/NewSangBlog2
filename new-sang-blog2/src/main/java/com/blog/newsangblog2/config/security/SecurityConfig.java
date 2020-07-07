@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// static 디렉토리의 하위 파일 목록은 인증 무시 (항상 통과)
 		web.ignoring().antMatchers(
+				"/resources/**",
 				"/css/**", "/js/**", "/img/**",
 				"/lib/**", "/bootstrap/**",
 				"/fragments/**", "/layouts/**"
@@ -66,8 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// antMatchers: 특정 경로 지정
 				// hasRole: 역할에 따른 접근 설정
 				.antMatchers(
-						"/manager/user/create", "/manager/user/duplicate-info-check", "/h2-console/**",
-						"/manager/user/edit", "/manager/user/login"
+						"/manager/user/create",
+						"/manager/user/duplicate-info-check",
+						"/h2-console/**",
+						"/manager/user/edit",
+						"/manager/user/login"
 				).permitAll()
 				.antMatchers("/manager/**").hasAnyRole("ADMIN", "SUPERVISOR")
 				.and()
