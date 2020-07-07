@@ -1,2 +1,8 @@
 # NewSangBlog2
-스프링 부트, JPA(query dsl), Gradle, vue 사용
+- 스프링 부트 
+- JPA(query dsl), 
+- Gradle
+- Aws (Ec2, S3, RDS)
+- Thymeleaf
+
+
