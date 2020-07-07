@@ -49,7 +49,7 @@ public class ManagerMenuController {
         model.addAttribute("menuTypes", fileTypes);
 
 
-        return "/manager/menu/form";
+        return "manager/menu/form";
     }
 
     @GetMapping("/{menuId}")
@@ -63,14 +63,14 @@ public class ManagerMenuController {
     public String menuSave(ManagerMenuDto managerMenuDto) {
         Long id = managerMenuService.saveMenu(managerMenuDto);
 
-        return "redirect:/manager/menu/edit?menuId=" + id;
+        return "redirect:manager/menu/edit?menuId=" + id;
     }
 
     @PostMapping("/sort")
     public String menuOrderingSort(ManagerMenuSortDto managerMenuSortDto) {
         managerMenuService.changeMenuSort(managerMenuSortDto);
 
-        return "redirect:/manager/menu/edit";
+        return "redirect:manager/menu/edit";
     }
 
 

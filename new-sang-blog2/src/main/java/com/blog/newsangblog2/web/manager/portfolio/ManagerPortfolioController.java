@@ -26,7 +26,7 @@ public class ManagerPortfolioController {
         ResponseWrapperDto responseDto = portfolioService.getPortfolioList(commonListDto);
         model.addAttribute("listDto", responseDto);
 
-        return "/manager/portfolio/list";
+        return "manager/portfolio/list";
     }
 
     @GetMapping("/my")
@@ -34,7 +34,7 @@ public class ManagerPortfolioController {
         ResponseWrapperDto responseDto = portfolioService.getMyPortfolioList(commonListDto, userId);
         model.addAttribute("listDto", responseDto);
 
-        return "/manager/portfolio/list";
+        return "manager/portfolio/list";
     }
 
 

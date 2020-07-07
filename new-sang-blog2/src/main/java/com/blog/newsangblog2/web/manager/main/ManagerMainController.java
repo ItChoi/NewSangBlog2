@@ -12,7 +12,7 @@ public class ManagerMainController {
 		
 		//return "/manager/main/index";
 		//return "/layouts/default";
-		return "/manager/main/include/board";
+		return "manager/main/include/board";
 	}
 	
 }

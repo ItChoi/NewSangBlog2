@@ -49,7 +49,7 @@ public class ManagerUserController {
 		List<ManagerDto> dtos = list.stream().map(manager -> modelMapper.map(manager, ManagerDto.class)).collect(Collectors.toList());
 
 		model.addAttribute("list", dtos);
-		return "/manager/user/list";
+		return "manager/user/list";
 	}
 
 
@@ -58,7 +58,7 @@ public class ManagerUserController {
 	public String createManager(Model model) {
 		managerUserService.settingBaseInfo(model);
 		model.addAttribute("managerInfo", new ManagerDto());
-		return "/manager/user/form";
+		return "manager/user/form";
 	}
 	
 	@PostMapping("/create")
@@ -67,7 +67,7 @@ public class ManagerUserController {
 			userService.createManager(managerDto);
 		}
 
-		return "redirect:/manager/user/login";
+		return "redirect:manager/user/login";
 	}
 
 	@GetMapping("/edit")
@@ -77,7 +77,7 @@ public class ManagerUserController {
 		ManagerDto responseDto = modelMapper.map(managerInfo, ManagerDto.class);
 		responseDto.settingPhonNumber();
 		model.addAttribute("managerInfo", responseDto);
-		return "/manager/user/form";
+		return "manager/user/form";
 	}
 
 	@PostMapping("/edit")
@@ -86,7 +86,7 @@ public class ManagerUserController {
 			userService.updateManager(managerDto);
 		}
 
-		return "redirect:/manager/user/edit";
+		return "redirect:manager/user/edit";
 	}
 
 	
@@ -103,7 +103,7 @@ public class ManagerUserController {
 	@GetMapping("/login/result")
 	public String loginResult() {
 		
-		return "/loginSuccess";
+		return "loginSuccess";
 	}
 
 	// 로그아웃 결과 페이지
@@ -116,7 +116,7 @@ public class ManagerUserController {
 	@GetMapping("/access-denied")
 	public String accessDeny() {
 		System.out.println("access-denied page!!!!");
-		return "/manager/user/access-denied";
+		return "manager/user/access-denied";
 	}
 
 	@GetMapping("/duplicate-info-check")
