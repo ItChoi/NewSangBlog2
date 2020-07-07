@@ -96,7 +96,7 @@ public class ManagerUserController {
 			model.addAttribute("error", error);
 		}
 		
-		return "/manager/user/login";
+		return "manager/user/login";
 	}
 	
 	// 로그인 결과 페이지
