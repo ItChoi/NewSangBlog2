@@ -21,3 +21,6 @@
 - 실무 인프라 세팅 시 고려할 사항들은?
 
 - 클라우드 서비스(AWS), 젠킨스, 도커 & 쿠버네티스 세팅 시 적용 순서 및 각각 연동 ?
+
+
+- File ItChoi/NewSangBlog2:.travis.yml not found on GitHub
