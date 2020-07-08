@@ -4,5 +4,5 @@
 - Gradle
 - Aws (Ec2, S3, RDS)
 - Thymeleaf
-
+- CI (현재 Travis, 향후 Jenkins 적용)
 
