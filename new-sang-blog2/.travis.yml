@@ -13,7 +13,7 @@ cache:
     - '$HOME/.gradle'
 
 before_install:
-  - chmod +x g  xradlew
+  - chmod +x gradlew
 
 #script: "./gradlew clean build"
 script: "cd new-sang-blog2/; ./gradlew clean build"
