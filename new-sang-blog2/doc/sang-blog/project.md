@@ -118,7 +118,15 @@
          - Travis CI, S3, CodeDeploy 연동 후 이를 기반으로 실제 Jar를 배포하여 실행해보기.
            - deploy.sh 파일 추가
              - script 디렉토리 생성 후 스크립트 생성!
+       - 실제 배포 과정 체험
+         - build.gradle에서 프로젝트 버전 변경!
+       - CodeDeploy 로그 확인
+         - CodeDeploy와 같이 AWS가 지원하는 서비스에서는 오류가 발생했을 때 로그 찾는 방법을 모르면 오류 해결하기 어렵다.
+         - 따라서 배포 실패 시  어느 로그를 봐야 할 지 알아야 한다.
+           - CodeDeploy 관한 대부분 내용은 -> /opt/codedeploy-agent/deployment-root 에 있다.
+           - tail -F /var/log/aws/codedeploy-agent/codedeploy-agent.log
            
+
            
          
        
