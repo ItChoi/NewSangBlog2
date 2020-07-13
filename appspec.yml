@@ -1,4 +1,3 @@
-# AWS CodeDeploy 설정
 version: 0.0
 os: linux
 files:
