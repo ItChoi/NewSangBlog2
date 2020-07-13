@@ -114,7 +114,10 @@
              - AWS CodeDeploy의 설정 appspec.yml로 진행 (숨김 파일 아님)
                - Travis 설정은 .travis.yml
                - appspec.yml 코드 추가, .travis.yml 코드 추가
-               - travis - codedeploy 연동 test@ 
+       - 배포 자동화 구성
+         - Travis CI, S3, CodeDeploy 연동 후 이를 기반으로 실제 Jar를 배포하여 실행해보기.
+           - deploy.sh 파일 추가
+             - script 디렉토리 생성 후 스크립트 생성!
            
            
          
