@@ -113,7 +113,8 @@
                - ec2 서버 접속 후 zip 폴더 생성 (깃 권한 영역 밖)
              - AWS CodeDeploy의 설정 appspec.yml로 진행 (숨김 파일 아님)
                - Travis 설정은 .travis.yml
-               - appspec.yml 코드 추가, .travis.yml 코드 추가 
+               - appspec.yml 코드 추가, .travis.yml 코드 추가
+               - travis - codedeploy 연동 test@ 
            
            
          
