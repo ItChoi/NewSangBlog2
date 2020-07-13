@@ -1,6 +1,6 @@
 version: 0.0
 os: linux
 files:
-  - source: /new-sang-blog2/
+  - source: /
     destination: /home/ec2-user/project/zip/
     overwrite: yes
