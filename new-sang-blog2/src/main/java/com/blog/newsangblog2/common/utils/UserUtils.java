@@ -26,6 +26,7 @@ public class UserUtils {
 				User user = (User) auth.getPrincipal();
 				userName = user.getUsername();
 			} catch (ClassCastException e) {
+				// sns 로그인 시 가져오는 Auth는 형태가 좀 다르다. 밑에 hasRole도 수정 필요할듯
 				DefaultOAuth2User user = (DefaultOAuth2User) auth.getPrincipal();
 				userName = (String) user.getAttributes().get("email");
 			}

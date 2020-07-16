@@ -1,10 +1,8 @@
 package com.blog.newsangblog2.config.security.auth;
 
-import com.blog.newsangblog2.common.enumeration.UserRoleType;
 import com.blog.newsangblog2.config.security.auth.dto.OAuthAttributes;
 import com.blog.newsangblog2.config.security.auth.dto.SessionUser;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
-import com.blog.newsangblog2.web.manager.user.domain.UserRole;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
