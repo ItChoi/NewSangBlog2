@@ -5,8 +5,6 @@ ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
 
 REPOSITORY=/home/ec2-user/project
-PROJECT_SCHEMA=NewSangBlog2
-PROJECT_NAME=new-sang-blog2
 
 echo "> Build 파일 복사"
 echo "> cp $REPOSITORY/zip/*.jar $REPOSITORY/"
