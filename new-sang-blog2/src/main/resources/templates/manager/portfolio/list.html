@@ -8,26 +8,47 @@
     <div class="container-fluid">
         <div class="main_content">
             <div class="search_area">
-                <table class="search_frame">
-                    <colgroup>
-                        <col width="50%">
-                        <col width="50%">
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <td>
-                            검색1
-                        </td>
-                        <td>
-                            검색2
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>검색 기능3</td>
-                        <td>검색 기능4</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <form>
+                    <table class="search_frame">
+                        <colgroup>
+                            <col width="50%">
+                            <col width="50%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="col-sm-6 d-inline-block" style="width: 150px;">
+                                        <select class="form-control" title="텍스트 검색" name="where">
+                                            <option th:text="전체" value="" selected></option>
+                                            <option th:value="title+content">제목 + 내용</option>
+                                            <option th:value="title">제목</option>
+                                            <option th:value="content">내용</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 d-inline-block" style="width: 200px;">
+                                        <input type="text" name="query" class="form-control form-control-user" title="검색어">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="col-sm-6 d-inline-block" style="width: 150px;">
+                                        <span>사용 여부</span>
+                                    </div>
+
+                                    <div class="col-sm-6 d-inline-block" style="width: 200px;">
+                                        <select class="form-control" title="사용 여부">
+                                            <option th:text="전체" value="" selected></option>
+                                            <option>사용</option>
+                                            <option>미사용</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button>검색</button>
+                </form>
             </div>
 
             <hr/>

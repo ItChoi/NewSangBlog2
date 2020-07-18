@@ -48,8 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// static 디렉토리의 하위 파일 목록은 인증 무시 (항상 통과)
 		web.ignoring().antMatchers(
-				"/css/**", "/js/**", "/img/**",
-				"/lib/**", "/bootstrap/**"
+				"/css/**",
+				"/js/**",
+				"/img/**",
+				"/lib/**",
+				"/bootstrap/**"
 		);
 	}
 
@@ -65,9 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// antMatchers: 특정 경로 지정
 				// hasRole: 역할에 따른 접근 설정
 				.antMatchers(
+						"/h2-console/**",
+						"/profile",
 						"/manager/user/create",
 						"/manager/user/duplicate-info-check",
-						"/h2-console/**",
 						"/manager/user/edit",
 						"/manager/user/login"
 				).permitAll()
@@ -93,12 +97,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 로그아웃 설정 WebSecurityConfigurerAdapter 사용 시 자동 적용
 				// 기본적으로 /logout 에 접근하면 HTTP 세션 제거
 				.logout()
-				// .logoutUrl("")
+				//.logoutUrl("/manager/user/logout")
 				// 로그아웃 기본 URL을 다른 URL로 재정의
 				// .logoutRequestMatcher(new AntPathRequestMatcher("/manager/user/logout"))
 				.logoutSuccessUrl("/manager/user/login")
 				// HTTP 세션 초기화 작업
 				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
 				// .deleteCookies("Key") - 로그아웃 시 특정 쿠키 제거하고 싶을 때 사용
 				.and()
 				// 403 예외 처리 핸들링

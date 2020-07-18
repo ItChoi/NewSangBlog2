@@ -1,3 +1,4 @@
+<!--
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
@@ -8,11 +9,11 @@
 
         <title>SangBlog - Dashboard</title>
 
-        <!-- Custom fonts for this template-->
+        &lt;!&ndash; Custom fonts for this template&ndash;&gt;
         <link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-        <!-- Custom styles for this template-->
+        &lt;!&ndash; Custom styles for this template&ndash;&gt;
         <link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
         <link href="/static/css/manager/main/common.css" rel="stylesheet">
 
@@ -25,12 +26,12 @@
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
+    &lt;!&ndash; Page Wrapper &ndash;&gt;
     <div id="wrapper">
-        <!-- Sidebar -->
+        &lt;!&ndash; Sidebar &ndash;&gt;
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
+            &lt;!&ndash; Sidebar - Brand &ndash;&gt;
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
@@ -40,10 +41,10 @@
                 </div>
             </a>
 
-            <!-- Divider -->
+            &lt;!&ndash; Divider &ndash;&gt;
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
+            &lt;!&ndash; Nav Item - Dashboard &ndash;&gt;
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -51,13 +52,13 @@
                 </a>
             </li>
 
-            <!-- Divider -->
+            &lt;!&ndash; Divider &ndash;&gt;
             <hr class="sidebar-divider">
-            <!-- Heading -->
+            &lt;!&ndash; Heading &ndash;&gt;
             <div class="sidebar-heading">
                 Menu
             </div>
-            <!-- Nav Item - Pages Collapse Menu -->
+            &lt;!&ndash; Nav Item - Pages Collapse Menu &ndash;&gt;
             <li th:each="menu, i : ${managerMenuList}" class="nav-item">
                 <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index}" onclick="Index.menuToggle(this);">
                     <i class="fas fa-fw fa-cog"></i>
@@ -81,23 +82,23 @@
                 </ul>
             </li>
         </ul>
-        <!-- End of Sidebar -->
+        &lt;!&ndash; End of Sidebar &ndash;&gt;
 
-        <!-- Content Wrapper -->
+        &lt;!&ndash; Content Wrapper &ndash;&gt;
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
+            &lt;!&ndash; Main Content &ndash;&gt;
             <div id="content">
 
-                <!-- Topbar -->
+                &lt;!&ndash; Topbar &ndash;&gt;
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
+                    &lt;!&ndash; Sidebar Toggle (Topbar) &ndash;&gt;
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
+                    &lt;!&ndash; Topbar Search &ndash;&gt;
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -109,18 +110,18 @@
                         </div>
                     </form>
 
-                    <!-- Topbar Navbar -->
+                    &lt;!&ndash; Topbar Navbar &ndash;&gt;
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Alerts -->
+                        &lt;!&ndash; Nav Item - Alerts &ndash;&gt;
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
+                                &lt;!&ndash; Counter - Alerts &ndash;&gt;
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                            &lt;!&ndash; Dropdown - Alerts &ndash;&gt;
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
@@ -166,16 +167,16 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Messages -->
+                        &lt;!&ndash; Nav Item - Messages &ndash;&gt;
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
+                                &lt;!&ndash; Counter - Messages &ndash;&gt;
                                 <span class="badge badge-danger badge-counter">7</span>
                             </a>
 
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                            &lt;!&ndash; Dropdown - Messages &ndash;&gt;
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in" aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
                                     Message Center
                                 </h6>
@@ -232,14 +233,14 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
+                        &lt;!&ndash; Nav Item - User Information &ndash;&gt;
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
                                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                             </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            &lt;!&ndash; Dropdown - User Information &ndash;&gt;
+                            <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="/manager/user/edit">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -263,17 +264,17 @@
                     </ul>
 
                 </nav>
-                <!-- End of Topbar -->
+                &lt;!&ndash; End of Topbar &ndash;&gt;
 
                 <div class="container-fluid">
                     <div th:insert="/manager/main/include/board.html"></div>
                 </div>
 
-                <!-- Begin Page Content -->
+                &lt;!&ndash; Begin Page Content &ndash;&gt;
             </div>
-            <!-- End of Main Content -->
+            &lt;!&ndash; End of Main Content &ndash;&gt;
 
-            <!-- Footer -->
+            &lt;!&ndash; Footer &ndash;&gt;
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -281,15 +282,15 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
+            &lt;!&ndash; End of Footer &ndash;&gt;
 
         </div>
-        <!-- End of Content Wrapper -->
+        &lt;!&ndash; End of Content Wrapper &ndash;&gt;
 
     </div>
-    <!-- End of Page Wrapper -->
+    &lt;!&ndash; End of Page Wrapper &ndash;&gt;
 
-    <!-- Logout Modal-->
+    &lt;!&ndash; Logout Modal&ndash;&gt;
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -312,21 +313,21 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
+    &lt;!&ndash; Bootstrap core JavaScript&ndash;&gt;
     <script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
     <script src="/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+    &lt;!&ndash; Core plugin JavaScript&ndash;&gt;
     <script src="/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
+    &lt;!&ndash; Custom scripts for all pages&ndash;&gt;
     <script src="/bootstrap/js/sb-admin-2.min.js"></script>
 
 
-    <!-- Page level plugins -->
+    &lt;!&ndash; Page level plugins &ndash;&gt;
     <script src="/bootstrap/vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
+    &lt;!&ndash; Page level custom scripts &ndash;&gt;
     <script src="/bootstrap/js/demo/chart-area-demo.js"></script>
     <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
 
@@ -334,4 +335,4 @@
 
 
 </body>
-</html>
+</html>-->

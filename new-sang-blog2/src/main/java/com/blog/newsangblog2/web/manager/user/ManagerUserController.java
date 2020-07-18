@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,7 +111,12 @@ public class ManagerUserController {
 	// 로그아웃 결과 페이지
 	@GetMapping("/logout/result")
 	public String logoutResult() {
-		return "/logout";
+		return "logout";
+	}
+
+	@GetMapping("/logout")
+	public String logout() {
+		return "manager/user/login";
 	}
 	
 	// 접근 거부 페이지

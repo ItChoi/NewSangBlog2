@@ -6,22 +6,27 @@ let Menu = {
         // document.getElementById('menu-sort-mode-on').style.display = 'none';
         
         // 슈퍼 관리자만 메뉴의 특정 속성들 변경 가능
-        let userAuth = document.getElementById('sec-roles').innerText.indexOf("ROLE_SUPERVISOR");
-        if (userAuth !== 1) {
-            document.getElementById('add-menu').disabled = true;
-            let readonlyMenuByAuth = document.getElementsByClassName('supervisor-menu');
-            for (let menuTag of readonlyMenuByAuth) {
-                menuTag.readOnly = true;
-                menuTag.disabled = true;
+
+        let secRoles =  document.getElementById('sec-roles');
+        if (secRoles != null) {
+            let userAuth = secRoles.innerText.indexOf("ROLE_SUPERVISOR");
+            if (userAuth !== 1) {
+                document.getElementById('add-menu').disabled = true;
+                let readonlyMenuByAuth = document.getElementsByClassName('supervisor-menu');
+                for (let menuTag of readonlyMenuByAuth) {
+                    menuTag.readOnly = true;
+                    menuTag.disabled = true;
+                }
             }
         }
-
         // 등록 후 등록 메뉴의 아이디가 model로 넘어오는데, 있을 경우 edit 페이지 + 디테일 페이지 까지 보여주기.
-        let existsMenuId = document.getElementById('existsMenuId').value;
-        if (isNotEmpty(existsMenuId)) {
-            Menu.menuDetail(existsMenuId);
+        let existsMenuId = document.getElementById('existsMenuId');
+        if (existsMenuId != null) {
+            let registerMenuValue = document.getElementById('existsMenuId').value;
+            if (isNotEmpty(registerMenuValue)) {
+                Menu.menuDetail(registerMenuValue);
+            }
         }
-
     },
 
     menuDetail : function(menuId) {

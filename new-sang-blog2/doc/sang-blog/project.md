@@ -152,9 +152,9 @@
   1. Ec2에 엔진엑스 설치
      - sudo yum install nginx
      - sudo service nginx status
-  
+- 무중단 배포 스크립트 만들기
+  -   
 
-# TODO::: /etc/nginx/nginx.conf 파일을 건드렸더니 퍼블릭 DNS로 인스턴스 url이 제대로 안나온다...
   
   
             

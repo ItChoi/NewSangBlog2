@@ -95,11 +95,12 @@
                             </div>
 
                             <button type="submit" id="submit_button" class="btn btn-primary btn-user btn-block">
-                                Register Account
+                                <span th:if="${managerInfo.id}">수정</span>
+                                <span th:unless="${managerInfo.id}">등록</span>
                             </button>
 
-                            <button th:if="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager'">Cancel</button>
-                            <button th:unless="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager/user/login'">Cancel</button>
+                            <button th:if="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager'">취소</button>
+                            <button th:unless="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager/user/login'">취소</button>
                             <hr>
 
 
