@@ -153,8 +153,18 @@
      - sudo yum install nginx
      - sudo service nginx status
 - 무중단 배포 스크립트 만들기
-  -   
-
+  - profile rest api 만들기.
+  - real1, real2 yml 파일 만들기.
+  - nginx 설정 (프록시 설정이 교체될 수 있도록 설정)
+    - /etc/nginx/conf.d/ service-url.inc 파일 생성
+  - 배포 스크립트들 작성
+    - stop.sh : 기존 엔진엑스에 연결되어 있진 않지만, 실행 중이던 스프링 부트 종료
+    - start.sh : 배포할 신규 버전 스프링 부트 프로젝트를 stop.sh로 종료한 'profile'로 실행
+    - health.sh : 'start.sh'로 실행시킨 프로젝트가 정상적으로 실행됐는지 체크
+    - switch.sh : 엔진엑스가 바라보는 스프링 부트를 최신 버전으로 변경
+    - profile.sh : 앞선 4개 스크립트 파일에서 공용으로 사용할 'profile'과 포트 체크 로직
+    - appspec.yml에 설정
+    
   
   
             
