@@ -1,3 +1,4 @@
+/*
 package com.blog.newsangblog2.web.profile;
 
 import org.assertj.core.api.Assertions;
@@ -24,13 +25,14 @@ public class ProfileControllerTest {
     @Test
     public void profile은_인증없이_호출된다() throws Exception {
         // String expected = "default";
-        /*String expected = "oauth";
+        String expected = "oauth";
         ResponseEntity<String> response = restTemplate.getForEntity("/profile", String.class);
 
         System.out.println("response.getBody(): " + response.getBody());
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody()).isEqualTo(expected);*/
+        Assertions.assertThat(response.getBody()).isEqualTo(expected);
     }
 
 }
+*/
