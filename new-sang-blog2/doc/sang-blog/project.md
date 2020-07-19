@@ -164,7 +164,6 @@
     - switch.sh : 엔진엑스가 바라보는 스프링 부트를 최신 버전으로 변경
     - profile.sh : 앞선 4개 스크립트 파일에서 공용으로 사용할 'profile'과 포트 체크 로직
     - appspec.yml에 설정 
-    - TESTSETSETSTE
     
     
   
