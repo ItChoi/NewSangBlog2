@@ -10,7 +10,7 @@ out/
 application-oauth.yml
 application-aws.yml
 
-!**/src/main**
+!**/src/main/**
 !**/src/test/**
 
 *.properties
