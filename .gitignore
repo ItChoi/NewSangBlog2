@@ -8,6 +8,8 @@ build/
 *.ipr
 out/
 
+application-yuyu.yml
+
 !**/src/main/**
 !**/src/test/**
 
