@@ -7,8 +7,6 @@ build/
 *.iml
 *.ipr
 out/
-application-oauth.yml
-application-aws.yml
 
 !**/src/main/**
 !**/src/test/**
@@ -54,3 +52,6 @@ RemoteSystemsTempFiles
 
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
+
+application-oauth.yml
+application-aws.yml
