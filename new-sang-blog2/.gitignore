@@ -8,8 +8,8 @@ build/
 *.ipr
 out/
 
-# !**/src/main/**
-# !**/src/test/**
+!**/src/main/**
+!**/src/test/**
 
 *.properties
 
@@ -55,5 +55,4 @@ RemoteSystemsTempFiles
 
 application-oauth.yml
 application-aws.yml
-application-kfc.yml
-application-qorhvk1.yml
+application-ppt.yml
