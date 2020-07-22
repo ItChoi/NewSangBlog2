@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="main_content">
+            <div class="search_area">
+                <form>
+                    <table class="search_frame">
+                        <colgroup>
+                            <col width="50%">
+                            <col width="50%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="col-sm-6 d-inline-block" style="width: 150px;">
+                                        <select class="form-control" title="텍스트 검색" name="where">
+                                            <option th:text="전체" value="" selected></option>
+                                            <option th:value="title+content">제목 + 내용</option>
+                                            <option th:value="title">제목</option>
+                                            <option th:value="content">내용</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 d-inline-block" style="width: 200px;">
+                                        <input type="text" name="query" class="form-control form-control-user" title="검색어">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="col-sm-6 d-inline-block" style="width: 150px;">
+                                        <span>사용 여부</span>
+                                    </div>
+
+                                    <div class="col-sm-6 d-inline-block" style="width: 200px;">
+                                        <select class="form-control" title="사용 여부">
+                                            <option th:text="전체" value="" selected></option>
+                                            <option>사용</option>
+                                            <option>미사용</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button>검색</button>
+                </form>
+            </div>
+
+            <hr/>
+
+            <div class="content_area">
+                <div class="page_info">
+                    <p th:text="|총 ${listDto.pagination.totalElements}개 게시물|"></p>
+                </div>
+                <table class="board_table">
+                    <colgroup>
+                        <col width="25px">
+                        <col width="80px">
+                        <col width="150px;">
+                        <col width="80px">
+                        <col width="50px">
+                        <col width="70px">
+                        <col width="70px">
+                        <col width="70px">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>제목</td>
+                        <td>내용</td>
+                        <td>url</td>
+                        <td>사용 여부</td>
+                        <td>관리자 사용 여부</td>
+                        <td>생성일</td>
+                        <td>수정일</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:if="${listDto.list.size()} > 0" th:each="portfolio, i : ${listDto.list}">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="${portfolio.title}"></td>
+                        <td th:text="${portfolio.content}"></td>
+                        <td th:text="${portfolio.url}"></td>
+                        <td th:text="${portfolio.displayFlag}"></td>
+                        <td th:text="${portfolio.forceDisplayFlag}"></td>
+                        <td th:text="${portfolio.createdDate}"></td>
+                        <td th:text="${portfolio.updatedDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="no_data" th:if="${listDto.list.size()} <= 0">
+                    <div>포트폴리오 게시물이 없습니다.</div>
+                </div>
+
+            </div>
+            <div class="page_area">
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous" id="dataTable_previous" >
+                                <a th:if="${listDto.pagination.hasPreviousPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number - 1}|"
+                                   aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                            </li>
+
+                            <li class="paginate_button page-item" th:classappend="${num} - 1 == ${listDto.pagination.number} ? active"
+                                th:each="num : ${#numbers.sequence(listDto.pagination.startPage, listDto.pagination.endPage)}">
+                                <a th:href="|/manager/portfolio?page=${num - 1}|" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" th:text="${num}">1</a>
+                            </li>
+                            <!--<li class="paginate_button page-item ">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                            </li>
+                            <li class="paginate_button page-item ">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                            </li>
+                            <li class="paginate_button page-item ">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
+                            </li>
+                            <li class="paginate_button page-item ">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
+                            </li>
+                            <li class="paginate_button page-item ">
+                                <a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
+                            </li>-->
+
+                            <li class="paginate_button page-item next" id="dataTable_next">
+                                <a th:if="${listDto.pagination.nextPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number + 1}|"
+                                   aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                            </li>
+                        </ul>
+
+
+                    <!--<a th:if="${listDto.pagination.hasPreviousPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number - 1}|">이전</a>
+                    <span th:each="num : ${#numbers.sequence(listDto.pagination.startPage, listDto.pagination.endPage)}">
+                        <a th:if="${num} != ${listDto.pagination.number} + 1" th:text="${num}" th:href="|/manager/portfolio?page=${num - 1}|"></a>
+                        <a th:unless="${num} != ${listDto.pagination.number} + 1" th:href="|/manager/portfolio?page=${num - 1}|">
+                            <strong th:text="${num}"></strong>
+                        </a>
+                    </span>
+                    <a th:if="${listDto.pagination.nextPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number + 1}|">다음</a>-->
+                </div>
+            </div>
+            <!--<div class="page_area">
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <a th:if="${listDto.pagination.hasPreviousPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number - 1}|">이전</a>
+                    <span th:each="num : ${#numbers.sequence(listDto.pagination.startPage, listDto.pagination.endPage)}">
+                        <a th:if="${num} != ${listDto.pagination.number} + 1" th:text="${num}" th:href="|/manager/portfolio?page=${num - 1}|"></a>
+                        <a th:unless="${num} != ${listDto.pagination.number} + 1" th:href="|/manager/portfolio?page=${num - 1}|">
+                            <strong th:text="${num}"></strong>
+                        </a>
+                    </span>
+                    <a th:if="${listDto.pagination.nextPage} == true" th:href="|/manager/portfolio?page=${listDto.pagination.number + 1}|">다음</a>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</th:block>
+</html>

@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sangblog?serverTimezone=UTC
+    username: root
+    password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
+  profiles:
+    include: oauth,aws
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        default_batch_fetch_size: 500
+        spring.jpa.properties.hibernate.use_sql_comments: true
+    open-in-view: true
+    #generate-ddl: true
+    #show-sql: true
+    session:
+      store-type: jdbc
+  session:
+    jdbc:
+      initializer-schema: always
+#  thymeleaf:
+#    prefix: classpath:templates/
+#    check-template-location: true
+#    suffix: .html
+#    mode: HTML5
+#    cache: false
+#    order: 0
+
+---
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        # type.descriptor.sql.BasicBinder: TRACE
+
+---
+
+jasypt:
+  encryptor:
+    bean: jasyptEncryptorBean
+
+---

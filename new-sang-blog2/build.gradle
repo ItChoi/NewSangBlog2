@@ -1,0 +1,121 @@
+buildscript {
+	ext {
+		// ext는 build.gradle에서 사용하는 전역변수 설정
+		springBootVersion = '2.2.6.RELEASE'
+
+	}
+
+	repositories {
+		mavenCentral()
+		maven { url "https://plugins.gradle.org/m2/" } // 플러그인 저장소
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		/**
+		SpringDataJpa에서 LocalDate와 LocalDateTime 저장 시 DB에 제대로 전환 안되는 이슈가 있는데,
+		이 문제를 Hibernate core 5.2.10부터는 해결
+		따라서 추가 의존성 (1)
+		*/
+		classpath("io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE")
+
+		// querydsl
+		classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
+	}
+
+}
+
+// 자바와 스프링 부트를 사용하기 위한 필수 플러그인
+apply plugin: 'java'
+//apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+// 스프링 부트의 의존성을 관리해주는 플러그인
+apply plugin: 'io.spring.dependency-management'
+
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+
+group = 'com.blog'
+// version = '0.0.1-SNAPSHOT'
+version = '1.0.1-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = '1.8'
+
+repositories {
+	// 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지 지정
+	mavenCentral()
+	// 오라클 의존성을 추가하기 위함
+	//maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
+
+	test {
+    	useJUnitPlatform()
+	}
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-devtools')
+	compile('org.projectlombok:lombok')
+	annotationProcessor("org.projectlombok:lombok:1.18.12")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.12")
+	compile('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testCompile 'junit:junit:4.12'
+	testCompile 'org.junit.vintage:junit-vintage-engine:5.5.2'
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('com.github.zhanhb:thymeleaf-layout-dialect:2.4.1')
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
+	compile('mysql:mysql-connector-java')
+	compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.2')
+	compile('com.github.ulisesbocchio:jasypt-spring-boot:3.0.2')
+	//compile('com.oracle:ojdbc6:11.2.0.1.0')
+
+	compile('com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8')
+
+	compile('com.querydsl:querydsl-jpa')
+	compile('com.querydsl:querydsl-apt')
+
+	compile('org.modelmapper:modelmapper:2.3.7')
+
+	// 스프링 시큐리티 관련 의존성, 소셜 로그인 등 클라이언트 입장에서 소셜 기능 구현 시 필요한 의존성
+	compile("org.springframework.boot:spring-boot-starter-oauth2-client")
+
+	// 세션 저장소르 데이터 베이스로 사용!
+	compile('org.springframework.session:spring-session-jdbc')
+
+	// 스프링 시큐리티 테스트를 위해 여러 도구를 지원하는 의존성
+	// testCompile('org.springframework.security:spring-security-test')
+
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-aws-context', version: '2.2.1.RELEASE'
+
+
+
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	library = "com.querydsl:querydsl-apt"
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java', querydslDir]
+		}
+	}
+}
+
+compileQuerydsl{
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
