@@ -7,15 +7,10 @@ build/
 *.iml
 *.ipr
 out/
-
 application-oauth.yml
 application-aws.yml
-application-test.yml
-application-test123.yml
-application-test1515.yml
-application-sang.yml
 
-!**/src/main/**
+!**/src/main**
 !**/src/test/**
 
 *.properties
