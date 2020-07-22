@@ -10,6 +10,8 @@ out/
 application-oauth.yml
 application-aws.yml
 application-test.yml
+application-test123.yml
+
 
 !**/src/main**g
 !**/src/test/**
