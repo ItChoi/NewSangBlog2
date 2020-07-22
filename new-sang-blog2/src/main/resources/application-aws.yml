@@ -1,0 +1,11 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIA2SVR7GSUWNX5I3PH
+      secretKey: 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
+    s3:
+      bucket: sang-blog-image
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
