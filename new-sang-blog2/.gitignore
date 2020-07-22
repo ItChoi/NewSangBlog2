@@ -9,6 +9,7 @@ build/
 out/
 application-oauth.yml
 application-aws.yml
+application-test.yml
 
 !**/src/main**g
 !**/src/test/**
