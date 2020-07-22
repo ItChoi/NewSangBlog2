@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sangblog?serverTimezone=UTC
+    username: root
+    password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
