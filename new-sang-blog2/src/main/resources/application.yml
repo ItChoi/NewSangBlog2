@@ -5,7 +5,7 @@ spring:
     username: root
     password: ENC(1zkPcCGxHm7wC5+52ohXAFKKQeyMZc9+)
   profiles:
-    include: oauth
+    include: oauth,aws
   jpa:
     hibernate:
       ddl-auto: none

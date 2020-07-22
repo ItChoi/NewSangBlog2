@@ -33,10 +33,7 @@
                             <h1 th:if="${managerInfo.id}" class="h4 text-gray-900 mb-4">정보 수정</h1>
                             <h1 th:unless="${managerInfo.id}" class="h4 text-gray-900 mb-4">계정 생성</h1>
                         </div>
-                        <form th:action="@{/manager/user/(${managerInfo.id} ? 'edit' : 'create')}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">
-                        <!--<form th:if="${managerInfo.id}" th:action="@{/manager/user/edit}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">-->
-                        <!--<form th:unless="${managerInfo.id}" th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">-->
-
+                        <form th:action="@{/manager/user/__${managerInfo.id} ? 'edit' : 'create'__}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user required" th:field="*{loginId}" onkeyup="Form.duplicateInfoCheck(this)"

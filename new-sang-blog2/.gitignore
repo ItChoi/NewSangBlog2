@@ -8,6 +8,7 @@ build/
 *.ipr
 out/
 application-oauth.yml
+application-aws.yml
 
 !**/src/main**
 !**/src/test/**

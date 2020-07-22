@@ -4,6 +4,7 @@ import com.blog.newsangblog2.common.enumeration.CommonMessage;
 import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
+import com.blog.newsangblog2.s3.S3Uploader;
 import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +46,8 @@ public class ManagerUserController {
 	private final ManagerMenuService managerMenuService;
 
 	private final ModelMapper modelMapper;
+
+	private final S3Uploader s3Uploader;
 
 	@GetMapping("/list")
 	public String managerList(Model model) {
@@ -64,8 +68,10 @@ public class ManagerUserController {
 	}
 	
 	@PostMapping("/create")
-	public String createManager(@Valid ManagerDto managerDto, BindingResult bindingResult) {
+	public String createManager(@Valid ManagerDto managerDto, BindingResult bindingResult) throws IOException {
 		if (!bindingResult.hasErrors()) {
+			String imgPath = s3Uploader.upload(managerDto.getFile());
+			managerDto.setImageFileName(imgPath);
 			userService.createManager(managerDto);
 		}
 
