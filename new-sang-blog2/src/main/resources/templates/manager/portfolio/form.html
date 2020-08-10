@@ -1,138 +1,123 @@
-<html lang="en"
-      xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="main_content">
+            <div class="content_area">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">포트폴리오 등록</h1>
+                </div>
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <form th:action="@{/manager/portfolio/create}" method="post" enctype="multipart/form-data" th:object="${portfolioInfo}" onsubmit="">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">제목</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-<title>포트폴리오 등록</title>
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">내용</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-<link href="/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">url</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-<link href="/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">프로젝트 파일명</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-</head>
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">사용 여부</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-<body class="bg-gradient-primary">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">개발 환경</h6>
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="m-0 font-weight-bold text-primary">사용 기술</h6>
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<div class="container">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">프로젝트 이미지</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <input type="file" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <img th:src="@{img/dog.jpg}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-    <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
-            <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                <div class="col-lg-7">
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 th:if="${managerInfo.id}" class="h4 text-gray-900 mb-4">정보 수정</h1>
-                            <h1 th:unless="${managerInfo.id}" class="h4 text-gray-900 mb-4">계정 생성</h1>
-                        </div>
-                        <form th:action="@{/manager/user/(${managerInfo.id} ? 'edit' : 'create')}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">
-                            <!--<form th:if="${managerInfo.id}" th:action="@{/manager/user/edit}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">-->
-                            <!--<form th:unless="${managerInfo.id}" th:action="@{/manager/user/create}" method="post" class="user" enctype="multipart/form-data" th:object="${managerInfo}" onsubmit="return Form.submitClick();">-->
-
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user required" th:field="*{loginId}" onkeyup="Form.duplicateInfoCheck(this)"
-                                           placeholder="로그인 아이디 (필수 입력)" title="로그인 아이디">
-                                    <div class="text-danger duplicate-text"></div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <select th:field="*{userRole.authority}"  class="form-control required" style="height: 50px" title="계정 권한">
-                                        <option th:text="선택" value="" disabled selected></option>
-                                        <option th:each="userRole : ${userRoles}"
-                                                th:text="${userRole.key}"
-                                                th:value="${userRole}">
-                                        </option>
-                                    </select>
+                                    </form>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" th:field="*{password}" class="form-control form-control-user required password" placeholder="비밀번호 (필수 입력)" title="비밀번호">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user required password" id="re_password" placeholder="비밀번호 재입력 (필수 입력)" title="비밀번호 재입력">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-user required" th:field="*{name}" placeholder="이름 (필수 입력)" title="이름">
-                            </div>
-                            <div class="form-group row">
-                                <input type="hidden" th:field="*{phoneNumber}">
-                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                    <select th:field="*{phoneNumber1}" class="form-control" style="height: 50px" title="앞 번호">
-                                        <option th:each="preNumber : ${prePhoneNumber}"
-                                                th:text="${preNumber}"
-                                                th:value="${preNumber}">
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control form-control-user" th:field="*{phoneNumber2}" maxlength="4" placeholder="가운데 번호" title="가운데 번호">
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control form-control-user" th:field="*{phoneNumber3}" maxlength="4" placeholder="끝 번호" title="끝 번호">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" th:field="*{email}" class="form-control form-control-user required email" onkeyup="Form.duplicateInfoCheck(this)" placeholder="이메일 (필수 입력)" title="이메일">
-                                <div class="text-danger duplicate-text"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <textarea class="form-control form-control-user" th:field="*{introduce}" placeholder="소개 글" title="소개"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="file" th:field="*{file}" title="파일">
-                            </div>
-
-                            <button type="submit" id="submit_button" class="btn btn-primary btn-user btn-block">
-                                Register Account
-                            </button>
-
-                            <button th:if="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager'">Cancel</button>
-                            <button th:unless="${managerInfo.id}" type="button" class="btn btn-primary btn-user btn-block" onclick="javascript:location.href='/manager/user/login'">Cancel</button>
-                            <hr>
-
-
-                            <a href="" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Register with Google
-                            </a>
-                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                            </a>
-
-
-                        </form>
-                        <hr>
-                        <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="login.html">Already have an account? Login!</a>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
-</div>
-
-<script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
-<script src="/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="/bootstrap/js/sb-admin-2.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<script src="/js/common/validator.js"></script>
-
-</body></html>
+</th:block>
+</html>

@@ -1,4 +1,4 @@
-package com.blog.newsangblog2.common.domain;
+package com.blog.newsangblog2.common.support;
 
 
 import com.blog.newsangblog2.web.manager.portfolio.domain.Portfolio;

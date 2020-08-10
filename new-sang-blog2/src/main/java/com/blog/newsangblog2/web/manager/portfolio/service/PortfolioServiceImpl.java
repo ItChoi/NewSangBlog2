@@ -1,8 +1,8 @@
 package com.blog.newsangblog2.web.manager.portfolio.service;
 
-import com.blog.newsangblog2.common.domain.CommonListDto;
-import com.blog.newsangblog2.common.domain.Pagination;
-import com.blog.newsangblog2.common.domain.ResponseWrapperDto;
+import com.blog.newsangblog2.common.support.CommonListDto;
+import com.blog.newsangblog2.common.support.Pagination;
+import com.blog.newsangblog2.common.support.ResponseWrapperDto;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
 import com.blog.newsangblog2.web.manager.portfolio.domain.Portfolio;
@@ -50,13 +50,14 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public ResponseWrapperDto getMyPortfolioList(CommonListDto commonListDto, Long userId) {
+    public ResponseWrapperDto getMyPortfolioList(CommonListDto commonListDto) {
+        String loginId = UserUtils.getLoginId();
 
-        if (!managerUserRepository.existsById(userId)) {
-            throw new UserNotFoundException(userId + "이 존재하지 않습니다.");
+        if (!managerUserRepository.existsByLoginId(loginId)) {
+            throw new UserNotFoundException(loginId + "이 존재하지 않습니다.");
         }
 
-        Page<Portfolio> findPortfolioList = portfolioRepository.findAllByUserId(userId, commonListDto);
+        Page<Portfolio> findPortfolioList = portfolioRepository.findAllByLoginId(loginId, commonListDto);
 
         return ResponseWrapperDto.builder()
                 .list(findPortfolioList.getContent())

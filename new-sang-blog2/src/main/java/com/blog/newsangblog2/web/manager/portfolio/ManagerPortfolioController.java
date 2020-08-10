@@ -1,8 +1,9 @@
 package com.blog.newsangblog2.web.manager.portfolio;
 
-import com.blog.newsangblog2.common.domain.CommonListDto;
-import com.blog.newsangblog2.common.domain.ResponseWrapperDto;
+import com.blog.newsangblog2.common.support.CommonListDto;
+import com.blog.newsangblog2.common.support.ResponseWrapperDto;
 import com.blog.newsangblog2.web.manager.portfolio.service.PortfolioService;
+import com.blog.newsangblog2.web.manager.portfolio.support.PortfolioFormDto;
 import com.blog.newsangblog2.web.manager.portfolio.support.PortfolioRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @RequestMapping("/manager/portfolio")
@@ -30,8 +30,8 @@ public class ManagerPortfolioController {
     }
 
     @GetMapping("/my")
-    public String myPortfolioList(@RequestParam("portfolioId") Long userId, CommonListDto commonListDto, Model model) {
-        ResponseWrapperDto responseDto = portfolioService.getMyPortfolioList(commonListDto, userId);
+    public String myPortfolioList(CommonListDto commonListDto, Model model) {
+        ResponseWrapperDto responseDto = portfolioService.getMyPortfolioList(commonListDto);
         model.addAttribute("listDto", responseDto);
 
         return "manager/portfolio/list";
@@ -39,8 +39,15 @@ public class ManagerPortfolioController {
 
 
     @GetMapping("/create")
-    public String createPortfolio() {
+    public String createPortfolio(Model model) {
+        model.addAttribute("portfolioInfo", new PortfolioFormDto());
         return "/manager/portfolio/form";
+    }
+
+    @PostMapping("/temp-save")
+    public String tempSavePortfolio() {
+
+        return "";
     }
 
 

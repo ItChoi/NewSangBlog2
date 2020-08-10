@@ -1,7 +1,7 @@
 package com.blog.newsangblog2.web.manager.portfolio.service;
 
-import com.blog.newsangblog2.common.domain.CommonListDto;
-import com.blog.newsangblog2.common.domain.ResponseWrapperDto;
+import com.blog.newsangblog2.common.support.CommonListDto;
+import com.blog.newsangblog2.common.support.ResponseWrapperDto;
 import com.blog.newsangblog2.web.manager.portfolio.support.PortfolioRequestDto;
 
 public interface PortfolioService {
@@ -9,5 +9,5 @@ public interface PortfolioService {
 
     ResponseWrapperDto getPortfolioList(CommonListDto commonListDto);
 
-    ResponseWrapperDto getMyPortfolioList(CommonListDto commonListDto, Long id);
+    ResponseWrapperDto getMyPortfolioList(CommonListDto commonListDto);
 }

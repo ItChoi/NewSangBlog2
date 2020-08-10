@@ -1,4 +1,4 @@
-package com.blog.newsangblog2.common.domain;
+package com.blog.newsangblog2.common.support;
 
 import lombok.Builder;
 import lombok.Getter;

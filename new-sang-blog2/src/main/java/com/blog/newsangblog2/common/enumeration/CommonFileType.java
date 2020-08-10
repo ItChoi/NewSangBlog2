@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum HashTagType {
+public enum CommonFileType {
 
-    PROJECT_ENVIRONMENT("portfolio"),
-    PROJECT_SKILL("portfolio");
+    PORTFOLIO("portfolio");
 
-    private final String table;
+    private final String tableName;
+
 
 }

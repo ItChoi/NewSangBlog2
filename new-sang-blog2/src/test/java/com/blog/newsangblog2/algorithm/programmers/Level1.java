@@ -1,8 +1,10 @@
 package com.blog.newsangblog2.algorithm.programmers;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -306,6 +308,144 @@ public class Level1 {
     }
     // 시저암호 end
 
-    // 프로그래머스
+    // 이상한_문자_만들기 start
+    @Test
+    public void 이상한_문자_만들기() {
+        String s = "try hello world";
+        System.out.println("result: " + 이상한_문자_만들기_함수(s));
+    }
+
+    private String 이상한_문자_만들기_함수(String s) {
+        String[] tempArray = s.split(" ", -1);
+        String answer = "";
+
+        for (int i = 0; i < tempArray.length; i++) {
+            String tempStr = "";
+            for (int j = 0; j < tempArray[i].length(); j++) {
+                char charAt = tempArray[i].charAt(j);
+                tempStr += j % 2 == 0 ? String.valueOf(charAt).toUpperCase() : String.valueOf(charAt).toLowerCase();
+            }
+
+            tempArray[i] = tempStr;
+        }
+
+        answer = String.join(" ", tempArray);
+
+        return answer;
+    }
+    // 이상한_문자_만들기 end
+
+    // 자릿수_더하기 start
+    @Test
+    public void 자릿수_더하기() {
+        int n = 123;
+        System.out.println("result: " + 자릿수_더하기_함수(n));
+    }
+
+    private int 자릿수_더하기_함수(int n) {
+        int answer = 0;
+        String strN = String.valueOf(n);
+
+        for (int i = 0; i < strN.length(); i++) {
+            answer += Integer.valueOf(String.valueOf(strN.charAt(i)));
+        }
+
+        return answer;
+    }
+    // 자릿수_더하기 end
+
+    // 자연수_뒤집어_배열로_만들기 start
+    @Test
+    public void 자연수_뒤집어_배열로_만들기() {
+        long n = 12345;
+
+        for (int i : 자연수_뒤집어_배열로_만들기_함수(n)) {
+            System.out.println("result:" + i);
+        }
+    }
+
+    private int[] 자연수_뒤집어_배열로_만들기_함수(long n) {
+        String[] tempN = String.valueOf(n).split("");
+        int[] answer = Arrays.stream(tempN).mapToInt(Integer::parseInt).toArray();
+        int nLength = tempN.length;
+        int middleLength = nLength % 2 == 0 ? nLength / 2 : nLength / 2 + 1;
+
+        for (int i = 0; i < middleLength; i++) {
+            answer[i] = Integer.valueOf(tempN[(nLength - 1) - i]);
+            answer[(nLength - 1) - i] = Integer.valueOf(tempN[i]);
+        }
+
+        return answer;
+    }
+    // 자연수_뒤집어_배열로_만들기 end
+
+    // 정수_제곱근_판별 start
+    @Test
+    public void 정수_제곱근_판별() {
+        long n = 121;
+        System.out.println("result: " + 정수_제곱근_판별_함수(n));
+    }
+
+    private long 정수_제곱근_판별_함수(long n) {
+        long answer = -1;
+
+        long i = 1;
+        while(n > i || n == 1) {
+            if ((n / i == i && n % i == 0) || n == 1) {
+                System.out.println("i: " + i);
+                break;
+            }
+
+            i++;
+        }
+
+        if (i != n || n == 1) {
+            i += 1;
+            answer  = i * i;
+        }
+
+        return answer;
+    }
+    // 정수_제곱근_판별 end
+
+    // 제일_작은_수_제거하기 start
+    @Test
+    public void 제일_작은_수_제거하기() {
+        int[] arr = {10,8,9};
+
+        for (int i : 제일_작은_수_제거하기_함수(arr)) {
+            System.out.println("result: " + i);;
+        }
+    }
+
+    private int[] 제일_작은_수_제거하기_함수(int[] arr) {
+        int checkLength= arr.length - 1;
+        int[] answer;
+        if (checkLength > 0) {
+            answer = new int[checkLength];
+
+            int minIndex = 0;
+            for (int i = 1; i < arr.length; i++) {
+                if (arr[minIndex] > arr[i]) {
+                    minIndex = i;
+                }
+            }
+
+            int j = 0;
+            for (int i = 0; i < arr.length; i++) {
+                if (i == minIndex) {
+                    continue;
+                }
+
+                answer[j++] = arr[i];
+            }
+
+        } else {
+            answer = new int[]{-1};
+        }
+
+        return answer;
+    }
+    // 제일_작은_수_제거하기 end
 
 }

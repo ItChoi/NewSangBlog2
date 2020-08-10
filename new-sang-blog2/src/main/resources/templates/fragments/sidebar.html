@@ -37,7 +37,7 @@
 
             <li th:each="menu, i : ${managerMenuList}" class="nav-item">
                 <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index}"
-                   th:data-type="${menu.menuType}" th:data-url="${menu.url}"
+                   th:data-type="${menu.menuType}" th:data-url="${menu.url + menu.uri}"
                    th:onclick="Index.menuToggle(this, this.getAttribute('data-type'), this.getAttribute('data-url'));">
                     <!--<i class="fas fa-fw fa-cog"></i>-->
                     <i class="fas fa-fw" th:classappend="${menu.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
@@ -47,7 +47,7 @@
                 <ul th:class="@{menuLevel-} + ${i.index} + ' ' + menu-toggle" th:classappend="ul-style-none">
                     <li th:if="${menu.child != null}" th:each="menuChild2, j : ${menu.child}">
                         <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index}"
-                           th:data-type="${menuChild2.menuType}" th:data-url="${menuChild2.url}"
+                           th:data-type="${menuChild2.menuType}" th:data-url="${menuChild2.url + menuChild2.uri}"
                            th:onclick="Index.menuToggle(this, this.getAttribute('data-type'), this.getAttribute('data-url'));">
                             <i class="fas fa-fw" th:classappend="${menuChild2.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                             <span th:text="${menuChild2.menuName}"></span>
@@ -56,7 +56,7 @@
                         <ul th:class="@{menuLevel-} + ${i.index} + ${j.index} + ' ' + menu-toggle" th:classappend="ul-style-none">
                             <li th:if="${menuChild2.child != null}" th:each="menuChild3, k : ${menuChild2.child}">
                                 <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index}"
-                                   th:data-type="${menuChild3.menuType}" th:data-url="${menuChild3.url}"
+                                   th:data-type="${menuChild3.menuType}" th:data-url="${menuChild3.url + menuChild3.uri}"
                                    th:onclick="Index.menuToggle(this, this.getAttribute('data-type'), this.getAttribute('data-url'));">
                                     <i class="fas fa-fw" th:classappend="${menuChild3.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                     <span th:text="${menuChild3.menuName}"></span>
@@ -65,7 +65,7 @@
                                 <ul th:class="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index} + ' ' + menu-toggle" th:classappend="ul-style-none">
                                     <li th:if="${menuChild3.child != null}" th:each="menuChild4, l : ${menuChild3.child}">
                                         <a class="nav-link collapsed no-margin" href="javascript:void(0);" th:id="@{menuLevel-} + ${i.index} + ${j.index} + ${k.index} + ${l.index}"
-                                           th:data-type="${menuChild4.menuType}" th:data-url="${menuChild4.url}"
+                                           th:data-type="${menuChild4.menuType}" th:data-url="${menuChild4.url + menuChild4.uri}"
                                            th:onclick="Index.menuToggle(this, this.getAttribute('data-type'), this.getAttribute('data-url'));">
                                             <i class="fas fa-fw" th:classappend="${menuChild4.menuType.name()} eq 'DIRECTORY' ? 'fa-folder' : 'fa-file'"></i>
                                             <span th:text="${menuChild3.menuName}"></span>

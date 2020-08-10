@@ -67,6 +67,7 @@
                         <col width="70px">
                         <col width="70px">
                         <col width="70px">
+                        <col width="70px">
                     </colgroup>
                     <thead>
                     <tr>
@@ -78,6 +79,7 @@
                         <td>관리자 사용 여부</td>
                         <td>생성일</td>
                         <td>수정일</td>
+                        <td>상세보기</td>
                     </tr>
                     </thead>
 
@@ -91,6 +93,10 @@
                         <td th:text="${portfolio.forceDisplayFlag}"></td>
                         <td th:text="${portfolio.createdDate}"></td>
                         <td th:text="${portfolio.updatedDate}"></td>
+                        <td>
+                            <button>상세보기</button>
+                        </td>
+
                     </tr>
                     </tbody>
                 </table>

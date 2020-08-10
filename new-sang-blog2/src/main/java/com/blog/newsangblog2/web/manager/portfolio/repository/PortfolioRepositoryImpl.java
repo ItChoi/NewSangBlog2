@@ -1,11 +1,9 @@
 package com.blog.newsangblog2.web.manager.portfolio.repository;
 
-import com.blog.newsangblog2.common.domain.CommonListDto;
+import com.blog.newsangblog2.common.support.CommonListDto;
 import com.blog.newsangblog2.web.manager.portfolio.domain.Portfolio;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -41,14 +39,14 @@ public class PortfolioRepositoryImpl implements PortfolioRepositoryCustom {
     }
 
     @Override
-    public Page<Portfolio> findAllByUserId(Long userId, CommonListDto commonListDto) {
+    public Page<Portfolio> findAllByLoginId(String loginId, CommonListDto commonListDto) {
         Pageable pageable = getPageable(commonListDto);
 
         QueryResults<Portfolio> result = queryFactory
                 .select(portfolio)
                 .from(portfolio)
                 .where(
-                        userIdEq(userId),
+                        loginIdEq(loginId),
                         selectSearchEq(commonListDto.getWhere(), commonListDto.getQuery())
                 )
                 .offset(pageable.getOffset())
@@ -57,6 +55,10 @@ public class PortfolioRepositoryImpl implements PortfolioRepositoryCustom {
                 .fetchResults();
 
         return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+    }
+
+    private BooleanExpression loginIdEq(String loginId) {
+        return loginId != null ? portfolio.manager.loginId.eq(loginId) : null;
     }
 
     private BooleanExpression userIdEq(Long userId) {
