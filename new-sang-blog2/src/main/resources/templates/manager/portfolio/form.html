@@ -3,6 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layouts/default">
 
+<head>
+    <link href="/css/manager/portfolio/form.css" rel="stylesheet">
+</head>
+
 <th:block layout:fragment="content">
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -36,18 +40,18 @@
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <input type="text" th:field="*{content}" class="form-control form-control-user" title="내용">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="card-header py-3">
-                                                <h6 class="m-0 font-weight-bold text-primary">url</h6>
+                                                <h6 class="m-0 font-weight-bold text-primary">URL</h6>
                                             </div>
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <input type="text" th:field="*{url}" class="form-control form-control-user" title="URL">
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,7 +62,7 @@
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <input type="text" th:field="*{zipFile}" class="form-control form-control-user" title="ZIP FILE">
                                                     </div>
                                                 </div>
                                             </div>
@@ -69,7 +73,12 @@
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
-                                                        <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <label for="radioY">
+                                                            <input type="radio" name="displayFlag" id="radioY" value="Y" th:checked="${portfolioInfo.displayFlag eq 'Y' ? 'checked' : ''}" title="사용 여부"> 사용
+                                                        </label>
+                                                        <label for="radioN">
+                                                            <input type="radio" name="displayFlag" id="radioN" value="N" title="사용 여부"> 사용 안함
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,17 +87,38 @@
                                                 <h6 class="m-0 font-weight-bold text-primary">개발 환경</h6>
                                                 <div class="card-body">
                                                     <div class="form-group row">
-                                                        <div class="col-sm-12">
-                                                            <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <div class="col-sm-4">
+                                                            <input type="text" id="envHashTag" class="form-control form-control-user">
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <button type="button" class="btn btn-primary m-0" onclick="Form.addHashTag('env')">해시태그 추가</button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="env_hashtag">
+                                                        <p th:each="hashTag : ${portfolioInfo.envHashTag}" th:text="${hashTag.title}" class="hash-tag"></p>
+                                                        <div class="hash-tag">
+                                                            <span>asdadasads</span>
+                                                            <a href="">
+                                                                <img th:src="@{/img/close-button.jpg}" alt="X">
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <h6 class="m-0 font-weight-bold text-primary">사용 기술</h6>
                                                 <div class="card-body">
                                                     <div class="form-group row">
-                                                        <div class="col-sm-12">
-                                                            <input type="text" th:field="*{title}" class="form-control form-control-user" title="제목">
+                                                        <div class="col-sm-4">
+                                                            <input type="text" id="skillHashTag" class="form-control form-control-user">
                                                         </div>
+                                                        <div class="col-sm-4">
+                                                            <button type="button" class="btn btn-primary m-0" onclick="Form.addHashTag('skill')">해시태그 추가</button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="skill_hashtag">
+                                                        <p th:each="hashTag : ${portfolioInfo.skillHashTag}" th:text="${hashTag.title}" class="hash-tag"></p>
+                                                        <p class="hash-tag">asdasd</p>
+                                                        <p class="hash-tag">asdasd</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,25 +129,27 @@
                                                 <h6 class="m-0 font-weight-bold text-primary">프로젝트 이미지</h6>
                                             </div>
                                             <div class="card-body">
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <input type="file" th:field="*{title}" class="form-control form-control-user" title="제목">
-                                                        <img th:src="@{img/dog.jpg}"/>
-                                                    </div>
+                                                <div class="text-center">
+                                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" th:src="@{/img/dog.jpg}" alt="">
                                                 </div>
+                                                <p>
+                                                    asdasdasdahoigdfgofidagfdo;ighadfg;iahdfg;ioh
+                                                </p>
                                             </div>
                                         </div>
 
+                                        <div class="text-center">
+                                            <button class="btn btn-primary">프로젝트 이미지 추가</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
 </th:block>
 </html>
+<script src="/js/portfolio/form.js"></script>

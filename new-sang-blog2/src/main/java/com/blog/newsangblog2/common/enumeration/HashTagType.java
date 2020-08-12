@@ -7,9 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum HashTagType {
 
-    PROJECT_ENVIRONMENT("portfolio"),
-    PROJECT_SKILL("portfolio");
+    PROJECT_ENVIRONMENT("portfolio", "env"),
+    PROJECT_SKILL("portfolio", "skill");
 
     private final String table;
+    private final String type;
 
 }

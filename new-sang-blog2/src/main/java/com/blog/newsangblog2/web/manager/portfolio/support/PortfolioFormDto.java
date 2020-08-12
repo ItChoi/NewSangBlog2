@@ -1,6 +1,7 @@
 package com.blog.newsangblog2.web.manager.portfolio.support;
 
 import com.blog.newsangblog2.common.enumeration.CommonImageRepositoryDto;
+import com.blog.newsangblog2.web.manager.hashtag.support.HashTagDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,6 @@ public class PortfolioFormDto {
     private String displayFlag;
     private String forceDisplayFlag;
     private List<CommonImageRepositoryDto> commonImageRepositoryList;
+    private List<HashTagDto> envHashTag;
+    private List<HashTagDto> skillHashTag;
 }

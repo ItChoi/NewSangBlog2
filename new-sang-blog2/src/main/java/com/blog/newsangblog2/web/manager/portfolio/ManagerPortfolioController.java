@@ -2,6 +2,7 @@ package com.blog.newsangblog2.web.manager.portfolio;
 
 import com.blog.newsangblog2.common.support.CommonListDto;
 import com.blog.newsangblog2.common.support.ResponseWrapperDto;
+import com.blog.newsangblog2.web.manager.hashtag.support.HashTagDto;
 import com.blog.newsangblog2.web.manager.portfolio.service.PortfolioService;
 import com.blog.newsangblog2.web.manager.portfolio.support.PortfolioFormDto;
 import com.blog.newsangblog2.web.manager.portfolio.support.PortfolioRequestDto;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
@@ -49,6 +51,9 @@ public class ManagerPortfolioController {
 
         return "";
     }
+
+    /*@PostMapping("/hashtag")
+    public ResponseEntity<HashTagDto>*/
 
 
 

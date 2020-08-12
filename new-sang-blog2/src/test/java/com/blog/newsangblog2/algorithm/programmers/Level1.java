@@ -3,9 +3,7 @@ package com.blog.newsangblog2.algorithm.programmers;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -168,54 +166,43 @@ public class Level1 {
          * [abce, abcd, cdx]   2	[abcd, abce, cdx]
          */
 
-        String[] strings = {"sun", "bed", "car"};
-        int n = 1;
-//        String[] strings = {"abce", "abcd", "cdx"};
+//        String[] strings = {"sun", "bed", "car"};
 //        int n = 1;
+//        String[] strings = {"abce", "abcd", "cdx"};
+//        int n = 2;
 //        String[] strings = {"asdf", "fadg", "czas"};
 //        int n = 3;
-//        String[] strings = {"abzcd","cdzab","abzfg","abzaa","abzbb","bbzaa"};
-//        int n = 2;
+        String[] strings = {"abzcd","cdzab","abzfg","abzaa","abzbb","bbzaa"};
+        int n = 2;
 
-        System.out.println("result: " + 문자열_내_마음대로_정렬하기1(strings, n));
-
+        for (String s : 문자열_내_마음대로_정렬하기1(strings, n)) {
+            System.out.println("test: " + s);
+        }
     }
 
     // 문자열_내_마음대로_정렬하기 private 함수 start TODO
     private String[] 문자열_내_마음대로_정렬하기1(String[] strings, int n) {
         String[] answer = new String[strings.length];
-        // Arrays.sort(strings);
-        int index = -1;
 
-        for (int i = 0; i < strings.length; i++) {
+        Comparator<String> comp = new Comparator<String>() {
+            public int compare(String s1, String s2) {
+                char str1 = s1.charAt(n);
+                char str2 = s2.charAt(n);
 
-            for (int j = 0; j < strings.length; j++) {
-                if (!"".equals(strings[j]) ) {
-                    if (index == -1) {
-                        index = j;
-                    }
-
-                    if (j + 1 != strings.length && !"".equals(strings[j + 1])) {
-
-                        if (strings[index].charAt(n) > strings[j + 1].charAt(n)) {
-                            index = j + 1;
-                        }
-
-                    }
-
-                }
+                if(str1 > str2)
+                    return 1;
+                else if(str1 < str2)
+                    return -1;
+                else
+                    return 0;
             }
+        };
 
-            answer[i] = strings[index];
-            strings[index] = "";
-            index = -1;
-        }
+        Arrays.sort(strings);
+        Arrays.sort(strings, comp);
 
-
-
-        for (String s : answer) {
-            System.out.println("test: " + s);
-        }
+        for(int i = 0; i < strings.length; i++)
+            answer[i] = strings[i];
 
         return answer;
     }
@@ -448,4 +435,59 @@ public class Level1 {
     }
     // 제일_작은_수_제거하기 end
 
+    // 핸드폰_번호_가리기 start
+    @Test
+    public void 핸드폰_번호_가리기() {
+        String phoneNumber = "01033334444";
+        System.out.println("result: " + 핸드폰_번호_가리기_함수(phoneNumber));
+    }
+
+    private String 핸드폰_번호_가리기_함수(String phone_number) {
+        int endNum = phone_number.length() - 4;
+        String target = phone_number.substring(endNum);
+        String answer = "";
+
+        for (int i = 0; i < endNum; i++) {
+            answer += "*";
+        }
+
+        return answer + target;
+    }
+    // 핸드폰_번호_가리기 end
+
+    // x만큼_간격이_있는_n개의_숫자 start
+    @Test
+    public void x만큼_간격이_있는_n개의_숫자() {
+        int x = -4; int n = 3;
+        for (long o : x만큼_간격이_있는_n개의_숫자_함수(x, n)) {
+            System.out.println("result: " + o);
+        }
+    }
+
+    private long[] x만큼_간격이_있는_n개의_숫자_함수(int x, int n) {
+        long[] answer = new long[n];
+        for (int i = 0; i < n; i++) {
+            answer[i] = x * (i + 1);
+        }
+        return answer;
+    }
+    // x만큼_간격이_있는_n개의_숫자 end
+
+    // 직사각형_별찍기 start
+    @Test
+    public void 직사각형_별찍기() {
+        Scanner sc = new Scanner(System.in);
+        int a = 5;
+        int b = 3;
+
+        for (int i = 0; i < b; i++) {
+            for (int j = 0; j < a; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        System.out.println(a + b);
+    }
+    // 직사각형_별찍기 end
 }
