@@ -11,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RequestMapping("/manager/portfolio")
@@ -47,13 +45,18 @@ public class ManagerPortfolioController {
     }
 
     @PostMapping("/temp-save")
-    public String tempSavePortfolio() {
-
+    public String tempSavePortfolio(@RequestBody PortfolioFormDto requestDto) {
+        System.out.println("test");
         return "";
     }
 
-    /*@PostMapping("/hashtag")
-    public ResponseEntity<HashTagDto>*/
+    @PostMapping("/hashtag")
+    public ResponseEntity<HashTagDto> hashtag(@RequestBody HashTagDto hashTagDto) {
+
+
+
+        return null;
+    }
 
 
 
@@ -62,6 +65,14 @@ public class ManagerPortfolioController {
         Long portfolioId = portfolioService.createPortfolio(portfolioRequestDto);
 
         return new ResponseEntity<>(portfolioId, HttpStatus.OK);
+    }
+
+    @PostMapping("/upload_image_test")
+    public String test(MultipartFile file) {
+
+        System.out.println("testasdadasd");
+
+        return "";
     }
 
 }

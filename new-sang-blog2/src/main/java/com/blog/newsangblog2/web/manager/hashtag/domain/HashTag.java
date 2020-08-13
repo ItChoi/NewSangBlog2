@@ -21,6 +21,7 @@ public class HashTag extends BaseDateTimeEntity {
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
     private HashTagType hashTagType;
 
 }

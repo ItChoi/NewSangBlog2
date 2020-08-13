@@ -17,11 +17,13 @@
                 </div>
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <form th:action="@{/manager/portfolio/create}" method="post" enctype="multipart/form-data" th:object="${portfolioInfo}" onsubmit="">
+                    <form th:action="@{/manager/portfolio/create}" method="post" enctype="multipart/form-data" th:object="${portfolioInfo}" onsubmit="">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="p-5">
+                                        <!--<form th:action="@{/manager/portfolio/create}" method="post" enctype="multipart/form-data" th:object="${portfolioInfo}" onsubmit="">-->
+                                        <input id="id" name="id" type="hidden" th:value="${portfolioInfo.id}">
                                         <div class="card shadow mb-4">
                                             <div class="card-header py-3">
                                                 <h6 class="m-0 font-weight-bold text-primary">제목</h6>
@@ -95,11 +97,11 @@
                                                         </div>
                                                     </div>
                                                     <div id="env_hashtag">
-                                                        <p th:each="hashTag : ${portfolioInfo.envHashTag}" th:text="${hashTag.title}" class="hash-tag"></p>
-                                                        <div class="hash-tag">
-                                                            <span>asdadasads</span>
+                                                        <div th:each="hashTag : ${portfolioInfo.envHashTag}" class="hash-tag">
+                                                            <input type="hidden" th:value="${hashTag.id}">
+                                                            <span th:text="${hashTag.title}"></span>
                                                             <a href="">
-                                                                <img th:src="@{/img/close-button.jpg}" alt="X">
+                                                                <img th:src="@{/img/close-button.png}" alt="X">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -116,15 +118,19 @@
                                                         </div>
                                                     </div>
                                                     <div id="skill_hashtag">
-                                                        <p th:each="hashTag : ${portfolioInfo.skillHashTag}" th:text="${hashTag.title}" class="hash-tag"></p>
-                                                        <p class="hash-tag">asdasd</p>
-                                                        <p class="hash-tag">asdasd</p>
+                                                        <div th:each="hashTag : ${portfolioInfo.skillHashTag}" class="hash-tag">
+                                                            <input type="hidden" th:value="${hashTag.id}">
+                                                            <span th:text="${hashTag.title}"></span>
+                                                            <a href="">
+                                                                <img th:src="@{/img/close-button.png}" alt="X">
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="card shadow mb-4">
+                                        <!--<div class="card shadow mb-4">
                                             <div class="card-header py-3">
                                                 <h6 class="m-0 font-weight-bold text-primary">프로젝트 이미지</h6>
                                             </div>
@@ -136,20 +142,81 @@
                                                     asdasdasdahoigdfgofidagfdo;ighadfg;iahdfg;ioh
                                                 </p>
                                             </div>
+                                        </div>-->
+
+                                        <div class="card shadow mb-4" th:each="commonImage : ${portfolioInfo.commonImageRepositoryList}">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary" th:text="${commonImage.title}">제목 없음</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="text-center">
+                                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" th:src="@{${commonImage.fileName}}" alt="이미지">
+                                                </div>
+                                                <p th:text="${commonImage.content}">
+                                                    내용 없음
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <!--<h6 class="m-0 font-weight-bold text-primary">프로젝트 이미지</h6>-->
+                                                <div class="form-group row">
+                                                    <div class="col-sm-8">
+                                                        <input type="text" name="commonImageRepositoryList.title" class="form-control form-control-user" placeholder="제목 입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <!--<div class="text-center">
+                                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" th:src="@{/img/dog.jpg}" alt="">
+                                                </div>-->
+                                                <p>
+                                                    <div class="col-sm-12">
+                                                        <div id="editor"></div>
+                                                        <div class="fr-view">
+                                                            Here comes the HTML edited with the Froala rich text editor.
+                                                        </div>
+                                                    </div>
+                                                </p>
+                                            </div>
                                         </div>
 
                                         <div class="text-center">
                                             <button class="btn btn-primary">프로젝트 이미지 추가</button>
                                         </div>
-                                    </form>
+                                        <!--</form>-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary btn-user m-3" id="temp-save-button">
+                                임시 저장
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-user m-3" id="edit-save-button">
+                                등록
+                            </button>
+                            <button type="button" class="btn btn-primary btn-user m-3">
+                                취소
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/js/portfolio/form.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // 여기 안에서 var editor = new 어쩌구()
+            let editor = new FroalaEditor('#editor', {
+                imageUploadURL: '/manager/portfolio/upload_image_test'
+            });
+
+        });
+    </script>
 </th:block>
 </html>
-<script src="/js/portfolio/form.js"></script>

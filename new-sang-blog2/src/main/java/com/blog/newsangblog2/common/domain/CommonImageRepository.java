@@ -4,10 +4,7 @@ import com.blog.newsangblog2.common.enumeration.CommonFileType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,8 +17,12 @@ public class CommonImageRepository {
 
     private Long refId;
 
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Enumerated(EnumType.STRING)
     private CommonFileType fileType;
 
     private String fileName;

@@ -25,7 +25,11 @@ spring:
 #    mode: HTML5
 #    cache: false
 #    order: 0
-
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      max-file-size: 100MB
+      max-request-size: 100MB
 ---
 
 logging:

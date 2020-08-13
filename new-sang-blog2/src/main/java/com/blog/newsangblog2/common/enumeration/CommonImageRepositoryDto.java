@@ -15,6 +15,7 @@ public class CommonImageRepositoryDto {
 
     private Long id;
     private Long refId;
+    private String title;
     private String content;
     private CommonFileType fileType;
     private String fileName;
