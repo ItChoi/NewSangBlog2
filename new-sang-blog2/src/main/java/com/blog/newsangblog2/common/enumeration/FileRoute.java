@@ -6,11 +6,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum S3ImageUrl {
+public enum FileRoute {
 
-    //
-    DIR_PROFILE("manager/user/profile");
+    DIR_PROFILE("manager/user/profile"),
+    S3_PROFILE("portfolio/");
 
-    private final String url;
+    private final String route;
 
 }

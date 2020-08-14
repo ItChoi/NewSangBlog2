@@ -1,4 +1,4 @@
-package com.blog.newsangblog2.s3;
+package com.blog.newsangblog2.web.uploader.s3;
 
 
 import com.amazonaws.auth.AWSCredentials;
@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.net.URL;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -56,12 +57,16 @@ public class S3Uploader {
         return s3Client.getUrl(bucket, fileName).toString();
     }
 
-    public String getS3Image(String name) {
+    public String getS3UrlByFile(String fileUrl) {
+        String url = s3Client.getUrl(bucket, fileUrl) + "";
 
-
-        return "";
+        return url;
     }
 
+    public String getS3Url() {
+        String url = s3Client.getBucketLocation(bucket);
+        return url;
+    }
 
 
 

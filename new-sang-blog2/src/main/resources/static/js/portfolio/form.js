@@ -53,3 +53,28 @@ let Form = {
 };
 
 Form.init();
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    let editor = new FroalaEditor('#editor', {
+        imageUploadURL: '/uploader/s3', // 업로드 처리 end point
+        imageUploadParam: 'file', // 파일 파라메터명
+        imageUploadMethod: 'POST',
+        imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+        imageMaxSize: 2 * 1024 * 1024, // 최대 이미지 사이즈 : 2메가
+        requestHeaders: {
+            'X-CSRF-TOKEN': document.getElementsByName("_csrf")[0].value
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+

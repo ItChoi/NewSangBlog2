@@ -51,48 +51,50 @@ repositories {
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-devtools')
-	compile('org.projectlombok:lombok')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-jdbc')
+	implementation('org.springframework.boot:spring-boot-devtools')
+	implementation('org.projectlombok:lombok')
 	annotationProcessor("org.projectlombok:lombok:1.18.12")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.12")
-	compile('com.h2database:h2')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-    testCompile 'junit:junit:4.12'
-	testCompile 'org.junit.vintage:junit-vintage-engine:5.5.2'
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-security')
-	compile('com.github.zhanhb:thymeleaf-layout-dialect:2.4.1')
-	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
-	compile('mysql:mysql-connector-java')
-	compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.2')
-	compile('com.github.ulisesbocchio:jasypt-spring-boot:3.0.2')
+	implementation('com.h2database:h2')
+	implementation('org.springframework.boot:spring-boot-starter-test')
+	implementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+	implementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+	implementation 'junit:junit:4.12'
+	implementation 'org.junit.vintage:junit-vintage-engine:5.5.2'
+	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+	implementation('org.springframework.boot:spring-boot-starter-security')
+	implementation('com.github.zhanhb:thymeleaf-layout-dialect:2.4.1')
+	implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
+	implementation('mysql:mysql-connector-java')
+	implementation('com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.2')
+	implementation('com.github.ulisesbocchio:jasypt-spring-boot:3.0.2')
 	//compile('com.oracle:ojdbc6:11.2.0.1.0')
 
-	compile('com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8')
+	implementation('com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8')
 
-	compile('com.querydsl:querydsl-jpa')
-	compile('com.querydsl:querydsl-apt')
+	implementation('com.querydsl:querydsl-jpa')
+	implementation('com.querydsl:querydsl-apt')
 
-	compile('org.modelmapper:modelmapper:2.3.7')
+	implementation('org.modelmapper:modelmapper:2.3.7')
 
 	// 스프링 시큐리티 관련 의존성, 소셜 로그인 등 클라이언트 입장에서 소셜 기능 구현 시 필요한 의존성
-	compile("org.springframework.boot:spring-boot-starter-oauth2-client")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
 	// 세션 저장소르 데이터 베이스로 사용!
-	compile('org.springframework.session:spring-session-jdbc')
+	implementation('org.springframework.session:spring-session-jdbc')
 
 	// 스프링 시큐리티 테스트를 위해 여러 도구를 지원하는 의존성
 	// testCompile('org.springframework.security:spring-security-test')
 
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-aws-context', version: '2.2.1.RELEASE'
+	// aws 의존성
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-aws-context', version: '2.2.1.RELEASE'
 
-
+	// gson 의존성
+	implementation('com.google.code.gson:gson:2.8.6')
 
 }
 

@@ -4,7 +4,7 @@ import com.blog.newsangblog2.common.enumeration.CommonMessage;
 import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
-import com.blog.newsangblog2.s3.S3Uploader;
+import com.blog.newsangblog2.web.uploader.s3.S3Uploader;
 import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
 import com.blog.newsangblog2.web.manager.user.repository.ManagerUserRepository;
@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
