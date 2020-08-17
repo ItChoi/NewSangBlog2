@@ -56,7 +56,7 @@ Form.init();
 
 window.addEventListener('DOMContentLoaded', (event) => {
     let editor = new FroalaEditor('#editor', {
-        imageUploadURL: '/uploader/s3', // 업로드 처리 end point
+        imageUploadURL: '/uploader/editor-image', // 업로드 처리 end point
         imageUploadParam: 'file', // 파일 파라메터명
         imageUploadMethod: 'POST',
         imageAllowedTypes: ['jpeg', 'jpg', 'png'],

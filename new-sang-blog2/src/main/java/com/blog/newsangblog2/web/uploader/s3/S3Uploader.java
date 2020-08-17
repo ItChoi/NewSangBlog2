@@ -6,8 +6,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,16 +56,24 @@ public class S3Uploader {
         return s3Client.getUrl(bucket, fileName).toString();
     }
 
-    public String getS3UrlByFile(String fileUrl) {
-        String url = s3Client.getUrl(bucket, fileUrl) + "";
-
+    public String getS3FileUrl(String fileSrc) {
+        String url = s3Client.getUrl(bucket, fileSrc) + "";
         return url;
     }
 
-    public String getS3Url() {
+    /*public String getS3Url() {
         String url = s3Client.getBucketLocation(bucket);
-        return url;
-    }
+        S3Object fullObject = s3Client.getObject(new GetObjectRequest(bucket, secretKey));
+
+        ListObjectsRequest request = new ListObjectsRequest().withBucketName(bucket);
+        ObjectListing objectListing = s3Client.listObjects(request);
+        for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+            System.out.println("test: " + objectSummary.getKey());
+
+        }
+
+        return "url";
+    }*/
 
 
 

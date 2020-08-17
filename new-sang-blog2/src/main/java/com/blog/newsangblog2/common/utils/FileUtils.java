@@ -7,6 +7,20 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileUtils {
+    public static String[] ALLOWED_EXTS = {
+            "gif", "jpeg", "jpg",
+            "png", "svg", "blob"
+    };
+
+    public static String[] ALLOWED_MIMETYPE = {
+            "image/gif",
+            "image/jpeg",
+            "image/pjpeg",
+            "image/x-png",
+            "image/png",
+            "image/svg+xml"
+    } ;
+
 
     public static List<String> getResourceByType(String type) {
 

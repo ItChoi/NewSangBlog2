@@ -7,17 +7,14 @@ import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import lombok.AllArgsConstructor;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@AllArgsConstructor
-@SpringBootTest
 class S3UploaderTest {
     private static final Regions REGION = Regions.AP_NORTHEAST_2;
 
-    @Test
+    /*@Test
     public void S3_파일_경로_가져오기() {
         AmazonS3 s3Uploader = Mockito.mock(AmazonS3.class);
         String bucketName = "sang-blog-image";
@@ -32,13 +29,11 @@ class S3UploaderTest {
 
         }
 
-    }
+    }*/
 
-    /*@Test
+    @Test
     public void S3_디폴트_경로_가져오기() {
-        S3Uploader s3Uploader = Mockito.mock(S3Uploader.class);
-        Assert.assertNotNull(s3Uploader.getS3Url());
+
     }
-*/
 
 }

@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 public enum FileRoute {
 
     DIR_PROFILE("manager/user/profile"),
-    S3_PROFILE("portfolio/");
+    PROFILE("profile/"),
+    PORTFOLIO("portfolio/");
 
     private final String route;
 

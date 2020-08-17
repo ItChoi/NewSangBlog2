@@ -38,4 +38,6 @@ public class Portfolio extends BaseDateTimeEntity {
 
     private String forceDisplayFlag;
 
+    private int ordering;
+
 }

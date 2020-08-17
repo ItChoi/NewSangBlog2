@@ -14,25 +14,6 @@ public class Level1 {
 
     @Test
     public void 체육복() {
-        /**
-         *
-         * 점심시간에 도둑이 들어, 일부 학생이 체육복을 도난당했습니다.
-         * 다행히 여벌 체육복이 있는 학생이 이들에게 체육복을 빌려주려 합니다.
-         * 학생들의 번호는 체격 순으로 매겨져 있어, 바로 앞번호의 학생이나 바로 뒷번호의 학생에게만 체육복을 빌려줄 수 있습니다.
-         * 예를 들어, 4번 학생은 3번 학생이나 5번 학생에게만 체육복을 빌려줄 수 있습니다.
-         * 체육복이 없으면 수업을 들을 수 없기 때문에 체육복을 적절히 빌려 최대한 많은 학생이 체육수업을 들어야 합니다.
-         *
-         * 전체 학생의 수 n, 체육복을 도난당한 학생들의 번호가 담긴 배열 lost,
-         * 여벌의 체육복을 가져온 학생들의 번호가 담긴 배열 reserve가 매개변수로 주어질 때,
-         * 체육수업을 들을 수 있는 학생의 최댓값을 return 하도록 solution 함수를 작성해주세요.
-         *
-         * 제한사항
-         * - 전체 학생의 수는 2명 이상 30명 이하입니다.
-         * - 체육복을 도난당한 학생의 수는 1명 이상 n명 이하이고 중복되는 번호는 없습니다.
-         * - 여벌의 체육복을 가져온 학생의 수는 1명 이상 n명 이하이고 중복되는 번호는 없습니다.
-         * - 여벌 체육복이 있는 학생만 다른 학생에게 체육복을 빌려줄 수 있습니다.
-         * - 여벌 체육복을 가져온 학생이 체육복을 도난당했을 수 있습니다. 이때 이 학생은 체육복을 하나만 도난당했다고 가정하며, 남은 체육복이 하나이기에 다른 학생에게는 체육복을 빌려줄 수 없습니다.
-         */
         int n = 5;
         int[] lost = {1, 2, 3, 4};
         int[] reserve = {2, 4, 5};
@@ -112,16 +93,6 @@ public class Level1 {
 
     @Test
     public void 두_정수_사이의_합() {
-        /**
-         * 두 정수 a, b가 주어졌을 때 a와 b 사이에 속한 모든 정수의 합을 리턴하는 함수, solution을 완성하세요.
-         * 예를 들어 a = 3, b = 5인 경우, 3 + 4 + 5 = 12이므로 12를 리턴합니다.
-         *
-         * 제한 조건
-         * - a와 b가 같은 경우는 둘 중 아무 수나 리턴하세요.
-         * - a와 b는 -10,000,000 이상 10,000,000 이하인 정수입니다.
-         * - a와 b의 대소관계는 정해져있지 않습니다.
-         */
-
         int a = 3;
         int b = 5;
 
@@ -148,24 +119,6 @@ public class Level1 {
 
     @Test
     public void 문자열_내_마음대로_정렬하기() {
-        /**
-         * 문제 설명
-         * 문자열로 구성된 리스트 strings와, 정수 n이 주어졌을 때, 각 문자열의 인덱스 n번째 글자를 기준으로 오름차순 정렬하려 합니다.
-         * 예를 들어 strings가 [sun, bed, car]이고 n이 1이면 각 단어의 인덱스 1의 문자 u, e, a로 strings를 정렬합니다.
-         *
-         * 제한 조건
-         * - strings는 길이 1 이상, 50이하인 배열입니다.
-         * - strings의 원소는 소문자 알파벳으로 이루어져 있습니다.
-         * - strings의 원소는 길이 1 이상, 100이하인 문자열입니다.
-         * - 모든 strings의 원소의 길이는 n보다 큽니다.
-         * - 인덱스 1의 문자가 같은 문자열이 여럿 일 경우, 사전순으로 앞선 문자열이 앞쪽에 위치합니다.
-         *
-         * 입출력 예
-         * strings	           n	return
-         * [sun, bed, car]	   1	[car, bed, sun]
-         * [abce, abcd, cdx]   2	[abcd, abce, cdx]
-         */
-
 //        String[] strings = {"sun", "bed", "car"};
 //        int n = 1;
 //        String[] strings = {"abce", "abcd", "cdx"};
@@ -490,4 +443,64 @@ public class Level1 {
         System.out.println(a + b);
     }
     // 직사각형_별찍기 end
+
+    // 2019 카카오 개발자 겨울 인턴십 - 크레미_인형뽑기_게임 start
+    @Test
+    public void 크레미_인형뽑기_게임() {
+        //[[0,0,0,0,0],[0,0,1,0,3],[0,2,5,0,1],[4,2,4,4,2],[3,5,1,3,1]];
+        //[1,5,3,5,1,2,1,4];
+        int[][] board = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 3},
+                {0, 2, 5, 0, 1},
+                {4, 2, 4, 4, 2},
+                {3, 5, 1, 3, 1}
+        };
+        // 4, 3, 1, 1, 3, 2, 0, 4
+        int[] moves = {1, 5, 3, 5, 1, 2, 1, 4};
+
+
+        System.out.println("result: " + 크레미_인형뽑기_게임_함수(board, moves));
+    }
+
+    private int 크레미_인형뽑기_게임_함수(int[][] board, int[] moves) {
+        // 터지는 인형 개수
+        int answer = 0;
+        // 바구니
+        List<Integer> bucket = new ArrayList<>();
+        // 크레인 위치
+        int crane = 0;
+
+        for (int i = 0; i < moves.length; i++) {
+            crane = moves[i] - 1;
+
+            for (int j = 0; j < board.length; j++) {
+                if (board[j][crane] == 0) {
+                    continue;
+                }
+
+                bucket.add(board[j][crane]);
+                board[j][crane] = 0;
+                break;
+            }
+
+            while (bucket.size() > 1) {
+                int size = bucket.size();
+                int checkIndex1 = size - 1;
+                int checkIndex2 = size - 2;
+
+                if (bucket.get(checkIndex1) != bucket.get(checkIndex2)) {
+                    break;
+                }
+
+                answer += 2;
+                bucket.remove(checkIndex1);
+                bucket.remove(checkIndex2);
+            }
+
+        }
+
+        return answer;
+    }
+    // 2019 카카오 개발자 겨울 인턴십 - 크레미_인형뽑기_게임 end
 }
