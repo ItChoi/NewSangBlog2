@@ -56,3 +56,5 @@ RemoteSystemsTempFiles
 application-oauth.yml
 application-aws.yml
 application-local-db.yml
+
+**/src/test/java/com/blog/newsangblog2/CompanyAssignment.*
