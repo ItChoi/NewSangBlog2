@@ -1,11 +1,11 @@
 package com.blog.newsangblog2.algorithm.programmers;
 
-import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 프로그래머스 알고리즘 문제 풀어보자.
@@ -503,4 +503,223 @@ public class Level1 {
         return answer;
     }
     // 2019 카카오 개발자 겨울 인턴십 - 크레미_인형뽑기_게임 end
+
+    // 예산 start
+    @Test
+    public void 예산() {
+        int[] d  = {1,3,2,5,4};
+        int budget = 9;
+        System.out.println("result: " + 예산_함수(d, budget));
+    }
+
+    private int 예산_함수(int[] d, int budget) {
+        int result = 0;
+        Arrays.sort(d);
+
+        int tempBudget = budget;
+
+        for (int i = 0; i < d.length; i++) {
+            if (tempBudget < d[i]) {
+                break;
+            }
+
+            tempBudget -= d[i];
+            result++;
+        }
+
+        return result;
+    }
+
+    // 예산 end
+
+    // 2019 KAKAO BLIND RECRUITMENT - 실패율 start
+    @Test
+    public void 실패율() {
+        int n = 5;
+        int[] stages = {2, 1, 2, 6, 2, 4, 3, 3};
+
+        for (int i : 실패율_함수(n, stages)) {
+            System.out.println("result: " + i);
+        }
+    }
+
+    private int[] 실패율_함수(int N, int[] stages) {
+        Map<Integer, Double> tempResult = new HashMap<>();
+
+        double tempVal = 0.0;
+        for (int i = 1; i <= N; i++) {
+            double fPeople = 0.0;
+            double sPeople = 0.0;
+
+            for (int j = 0; j < stages.length; j++) {
+                if (i <= stages[j]) {
+                    sPeople++;
+                    if (i == stages[j]) {
+                        fPeople++;
+                    }
+                }
+            }
+            tempVal = sPeople > 0.0 ? fPeople / sPeople : 0.0;
+            tempResult.put(i, tempVal);
+        }
+
+        int[] result = new int[tempResult.size()];
+
+        List<Integer> collect = tempResult.keySet().stream()
+                .sorted((o1, o2) -> {
+                    if (tempResult.get(o1) < tempResult.get(o2)) {
+                        return 1;
+                    } else if (tempResult.get(o1) > tempResult.get(o2)) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                .collect(Collectors.toList());
+
+        int j = 0;
+        for (int i : collect) {
+            result[j++] = i;
+        }
+
+        return result;
+    }
+    // 2019 KAKAO BLIND RECRUITMENT - 실패율 end
+
+
+    // 2019 2018 KAKAO BLIND RECRUITMENT - [1차] 비밀지도 start
+    @Test
+    public void 비밀지도() {
+        int n = 5;
+        int[] arr1 = {9,20,28,18,11};
+        int[] arr2 = {30,1,21,17,28};
+        for (String s : 비밀지도_함수(n, arr1, arr2)) {
+            System.out.println("result: " + s);
+        }
+    }
+
+    private String[] 비밀지도_함수(int n, int[] arr1, int[] arr2) {
+        String[] answer = new String[n];
+
+        String[] temp1 = decimalToBinaryNum(arr1, n);
+        String[] temp2 = decimalToBinaryNum(arr2, n);
+
+        for (int i = 0 ; i < n; i++) {
+            String value = "";
+            for (int j = 0; j < n; j++) {
+                boolean check = false;
+                if (temp1[i].charAt(j) == '1') {
+                    check = true;
+                }
+
+                if (temp2[i].charAt(j) == '1' && !check) {
+                    check = true;
+                }
+
+                if (check) {
+                    value += "#";
+                } else {
+                    value += " ";
+                }
+            }
+
+            answer[i] = value;
+        }
+
+        return answer;
+    }
+    
+    private String[] decimalToBinaryNum(int[] arr, int n) {
+        String[] returnStr = new String[arr.length];
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            StringBuilder binaryNum = new StringBuilder();
+            int val = arr[i];
+
+            int j = n;
+            while (j-- > 0) {
+                if (val % 2 == 0) {
+                    binaryNum.append(0);
+                } else {
+                    binaryNum.append(val % 2);
+                }
+                val = val / 2;
+            }
+
+            returnStr[i] = binaryNum.reverse().toString();
+        }
+
+        return returnStr;
+    }
+
+    // 2019 2018 KAKAO BLIND RECRUITMENT - [1차] 비밀지도 end
+
+
+
+    // 2018 KAKAO BLIND RECRUITMENT - [1차] 다트 게임 start
+    @Test
+    public void 다트_게임() {
+//        String dartResult = "1S2D*3T"; // 37
+//        String dartResult = "1D2S#10S"; // 9
+//        String dartResult = "1D2S0T"; // 3
+//        String dartResult = "1S*2T*3S"; // 23
+//        String dartResult = "1D#2S*3S"; // 5
+//        String dartResult = "1T2D3D#"; // -4
+        String dartResult = "1D2S3T*"; // 59 x
+
+        System.out.println("result: " + 다트_게임_함수(dartResult));
+    }
+
+    private int 다트_게임_함수(String dartResult) {
+        int result = 0;
+        Pattern pattern = Pattern.compile("[0-9]+[S,D,T]+[*,#]?");
+        Matcher matcher = pattern.matcher(dartResult);
+
+        int preVal = 0;
+        int i = 0;
+        while (matcher.find()) {
+            String group = matcher.group();
+            String[] divideData = group.replaceAll("(\\d+|.)", "$1\n").split("\n");
+
+            int num = Integer.parseInt(divideData[0]);
+            int squareOfNum = 0;
+            String option = "";
+
+            if ("S".equals(divideData[1])) {
+                squareOfNum = 1;
+            } else if ("D".equals(divideData[1])) {
+                squareOfNum = 2;
+            } else if ("T".equals(divideData[1])) {
+                squareOfNum = 3;
+            }
+
+            if (divideData.length == 3) {
+                option = divideData[2];
+
+                if ("*".equals(option)) {
+                    if (i != 0) {
+                        //result = result * 2;
+                        result -= preVal;
+                        result += preVal * 2;
+                    }
+
+                    option = 2 + "";
+                } else if ("#".equals(option)) {
+                    option = -1 + "";
+                }
+
+
+                result += (Math.pow(num, squareOfNum)) * Integer.parseInt(option);
+                preVal = (int) (Math.pow(num, squareOfNum)) * Integer.parseInt(option);
+
+            } else {
+                result += (Math.pow(num, squareOfNum));
+                preVal = (int) (Math.pow(num, squareOfNum));
+            }
+
+            i++;
+        }
+
+        return result;
+    }
+    // 2018 KAKAO BLIND RECRUITMENT - [1차] 다트 게임 end
 }
