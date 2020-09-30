@@ -11,6 +11,7 @@ import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
 import com.blog.newsangblog2.web.uploader.s3.S3Uploader;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.ArrayUtils;
@@ -32,6 +33,7 @@ import java.util.UUID;
 import org.apache.commons.io.FilenameUtils;
 
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UploadService {
@@ -82,28 +84,33 @@ public class UploadService {
         try {
             String contentTypeInfo = request.getContentType();
             nullCheckContentType(contentTypeInfo, "multipart/form-data");
-            String absoluteServerPath = uploadImageSrc + settingFullFileName(contentTypeInfo, file.getOriginalFilename());
+            String absoluteServerPath = uploadImageSrc + settingFullFileName(file.getOriginalFilename());
 
             /*String path = request.getHeader("referer");
             linkName = path + ""*/
             linkName = s3Uploader.getS3FileUrl(absoluteServerPath);
 
+            File fileInfo = new File(linkName);
             if (!ArrayUtils.contains(FileUtils.ALLOWED_EXTS, FilenameUtils.getExtension(absoluteServerPath))
-            || !ArrayUtils.contains(FileUtils.ALLOWED_MIMETYPE, contentTypeInfo.toLowerCase())) {
+            || !ArrayUtils.contains(FileUtils.ALLOWED_MIMETYPE, filePart.getContentType().toLowerCase())) {
 
-                File fileInfo = new File(absoluteServerPath);
+                /*File fileInfo = new File(absoluteServerPath);*/
+                fileInfo = new File(linkName);
                 if (fileInfo.exists()) {
                     fileInfo.delete();
                 }
 
                 throw new Exception("Image does not meet the validation.");
             }
-
-            File fileInfo = new File(absoluteServerPath);
+            
+            // 디렉토리 + 파일명
+            //File fileInfo = new File(absoluteServerPath);
+            fileInfo = new File(linkName);
 
             try (InputStream input = filePart.getInputStream()) {
                 Files.copy(input, fileInfo.toPath());
             } catch (Exception e) {
+                log.debug("<br/> ERROR: " + e);
                 writer.println("<br/> ERROR: " + e);
             }
 
@@ -133,11 +140,7 @@ public class UploadService {
         }
     }
 
-    private String settingFullFileName(String contentTypeInfo, String originalFileName) {
-        String type = contentTypeInfo;
-        String extension = type.substring(type.lastIndexOf("/") + 1);
-        extension = !StringUtils.isEmpty(extension) ? "." + extension : extension;
-
-        return UUID.randomUUID().toString() + "_" + originalFileName + extension;
+    private String settingFullFileName(String originalFileName) {
+        return UUID.randomUUID().toString() + "_" + originalFileName;
     }
 }
