@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/manager/user/duplicate-info-check",
 						"/manager/user/edit",
 						"/manager/user/login",
-						"/uploader**"
+						"/uploader/**"
 				).permitAll()
 				.antMatchers("/manager/**").hasAnyRole("ADMIN", "SUPERVISOR")
 				.and()

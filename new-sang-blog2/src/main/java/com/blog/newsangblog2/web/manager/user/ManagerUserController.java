@@ -64,8 +64,9 @@ public class ManagerUserController {
 		model.addAttribute("managerInfo", new ManagerDto());
 		return "manager/user/form";
 	}
-	
-	@PostMapping("/create")
+
+	// TODO:::::::::::::::::::::
+	/*@PostMapping("/create")
 	public String createManager(@Valid ManagerDto managerDto, BindingResult bindingResult) throws IOException {
 		if (!bindingResult.hasErrors()) {
 			String imgPath = s3Uploader.upload(managerDto.getFile());
@@ -74,7 +75,7 @@ public class ManagerUserController {
 		}
 
 		return "redirect:manager/user/login";
-	}
+	}*/
 
 	@GetMapping("/edit")
 	public String editManager(Model model) {

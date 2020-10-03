@@ -33,7 +33,6 @@ import java.util.UUID;
 import org.apache.commons.io.FilenameUtils;
 
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UploadService {
@@ -48,7 +47,7 @@ public class UploadService {
 
 
     public Map<Object, Object> settingFroalaImageResponse(MultipartFile file, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-        File uploadImage = settingtFileDir();
+        //File uploadImage = settingtFileDir();
         Map<Object, Object> responseData = settingResponseData(file, response, request);
 
         return responseData;
@@ -68,34 +67,36 @@ public class UploadService {
         int newOrdering = portfolioMaxOrdering == null ? 1 : portfolioMaxOrdering + 1;
 
         // 포트폴리오 저장 경로: portfolio/loginId/MaxOrdering/파일이름
-        String fileDir = FileRoute.PORTFOLIO + File.separator + loginId + File.separator + newOrdering + File.separator;
+        //String fileDir = FileRoute.PORTFOLIO + File.separator + loginId + File.separator + newOrdering + File.separator;
+        String fileDir = FileRoute.PORTFOLIO + "/" + loginId + "/" + newOrdering + "/";
         return new File(fileDir);
     }
 
     private Map<Object, Object> settingResponseData(MultipartFile file, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+
         Map<Object, Object> responseData = new HashMap<>();;
         File uploadImageSrc = settingtFileDir();
-
         Part filePart = request.getPart("file");
         String linkName = null;
-        String fileName = null;
+        String fileName = settingFullFileName(file.getOriginalFilename());
         final PrintWriter writer = response.getWriter();
 
         try {
             String contentTypeInfo = request.getContentType();
             nullCheckContentType(contentTypeInfo, "multipart/form-data");
-            String absoluteServerPath = uploadImageSrc + settingFullFileName(file.getOriginalFilename());
+            //String absoluteServerPath = uploadImageSrc + File.separator + settingFullFileName(file.getOriginalFilename());
+            //String absoluteServerPath = uploadImageSrc + "/" + fileName;
 
             /*String path = request.getHeader("referer");
             linkName = path + ""*/
-            linkName = s3Uploader.getS3FileUrl(absoluteServerPath);
+            String s3uploadUrl = uploadImageSrc.toPath().toString();
+            linkName = s3Uploader.getS3FileUrl(s3uploadUrl);
 
-            File fileInfo = new File(linkName);
-            if (!ArrayUtils.contains(FileUtils.ALLOWED_EXTS, FilenameUtils.getExtension(absoluteServerPath))
+            File fileInfo = new File(linkName, fileName);
+            if (!ArrayUtils.contains(FileUtils.ALLOWED_EXTS, FilenameUtils.getExtension(fileName))
             || !ArrayUtils.contains(FileUtils.ALLOWED_MIMETYPE, filePart.getContentType().toLowerCase())) {
 
                 /*File fileInfo = new File(absoluteServerPath);*/
-                fileInfo = new File(linkName);
                 if (fileInfo.exists()) {
                     fileInfo.delete();
                 }
@@ -105,12 +106,12 @@ public class UploadService {
             
             // 디렉토리 + 파일명
             //File fileInfo = new File(absoluteServerPath);
-            fileInfo = new File(linkName);
+            //linkName = linkName.replaceAll("%5C", "/");
+            s3Uploader.upload((MultipartFile) fileInfo, s3uploadUrl);
 
             try (InputStream input = filePart.getInputStream()) {
                 Files.copy(input, fileInfo.toPath());
             } catch (Exception e) {
-                log.debug("<br/> ERROR: " + e);
                 writer.println("<br/> ERROR: " + e);
             }
 

@@ -45,11 +45,11 @@ public class S3Uploader {
                 .build();
     }
 
-    public String upload(MultipartFile file) throws IOException {
-        String dirTest = "/sanghyun/test/directory/";
+    public String upload(MultipartFile file, String fileDir) throws IOException {
+        //String dirTest = "/sanghyun/test/directory/";
         String fileName = file.getOriginalFilename();
 
-        s3Client.putObject(new PutObjectRequest(bucket, dirTest + fileName, file.getInputStream(), null)
+        s3Client.putObject(new PutObjectRequest(bucket, fileDir + fileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead)
         );
 
