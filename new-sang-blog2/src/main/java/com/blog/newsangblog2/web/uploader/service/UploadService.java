@@ -11,7 +11,7 @@ import com.blog.newsangblog2.web.manager.user.service.ManagerUserService;
 import com.blog.newsangblog2.web.uploader.s3.S3Uploader;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.ArrayUtils;
@@ -29,8 +29,6 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import org.apache.commons.io.FilenameUtils;
 
 
 @RequiredArgsConstructor
@@ -107,9 +105,12 @@ public class UploadService {
             // 디렉토리 + 파일명
             //File fileInfo = new File(absoluteServerPath);
             //linkName = linkName.replaceAll("%5C", "/");
-            s3Uploader.upload((MultipartFile) fileInfo, s3uploadUrl);
 
             try (InputStream input = filePart.getInputStream()) {
+                // TODO:::
+                //MultipartFile mFile = FileUtils.convertFileToMultipartFile(fileInfo);
+                //s3Uploader.upload(mFile, s3uploadUrl);
+
                 Files.copy(input, fileInfo.toPath());
             } catch (Exception e) {
                 writer.println("<br/> ERROR: " + e);
@@ -117,10 +118,10 @@ public class UploadService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            writer.println("You either did not specify a file to upload or are " +
+            /*writer.println("You either did not specify a file to upload or are " +
                     "trying to upload a file to a protected or nonexistent " +
                     "location.");
-            writer.println("<br/> ERROR: " + e.getMessage());
+            writer.println("<br/> ERROR: " + e.getMessage());*/
             responseData.put("error", e.toString());
 
         } finally {

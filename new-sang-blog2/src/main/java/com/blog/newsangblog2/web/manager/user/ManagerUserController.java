@@ -4,6 +4,7 @@ import com.blog.newsangblog2.common.enumeration.CommonMessage;
 import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
+import com.blog.newsangblog2.common.utils.excel.ExcelDownload;
 import com.blog.newsangblog2.web.uploader.s3.S3Uploader;
 import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
@@ -23,9 +24,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +58,6 @@ public class ManagerUserController {
 		model.addAttribute("list", dtos);
 		return "manager/user/list";
 	}
-
 
 	// 회원 가입 페이지
 	@GetMapping("/create")
@@ -144,7 +146,30 @@ public class ManagerUserController {
 		}
 
 		return entity;
+	}
 
+
+	@GetMapping("/excel-down-test")
+	public ModelAndView testExcelDown(Model model) {
+		List<String> head = new ArrayList<>();
+		head.add("아이디");
+		head.add("비밀번호");
+		head.add("이메일");
+		head.add("이름");
+
+		List<ManagerDto> body = new ArrayList<>();
+/*
+		body.add(
+				new ManagerDto
+		);*/
+
+
+		ExcelDownload excelDownload = new ExcelDownload(head, body);
+
+		model.addAttribute("fileName", "test.xlsx");
+		model.addAttribute("workbook", excelDownload.getWb());
+
+		return new ModelAndView("excelDownload");
 	}
 
 }

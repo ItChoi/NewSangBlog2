@@ -1,14 +1,12 @@
 package com.blog.newsangblog2.web.manager.user.support;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ManagerDto {
 	private Long id;
 	private String loginId;
@@ -35,5 +33,14 @@ public class ManagerDto {
 			this.phoneNumber3 = number.substring(7, 11);
 		}
 	}
+
+	@Builder
+	public ManagerDto(String loginId, String password, String email, String name) {
+		this.loginId = loginId;
+		this.password = password;
+		this.email = email;
+		this.name = name;
+	}
+
 
 }
