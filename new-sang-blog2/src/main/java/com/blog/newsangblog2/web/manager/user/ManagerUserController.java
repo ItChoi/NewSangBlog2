@@ -5,6 +5,7 @@ import com.blog.newsangblog2.common.exception.DuplicationException;
 import com.blog.newsangblog2.common.exception.UserNotFoundException;
 import com.blog.newsangblog2.common.utils.UserUtils;
 import com.blog.newsangblog2.common.utils.excel.ExcelDownload;
+import com.blog.newsangblog2.common.utils.excel.enumeration.ExcelType;
 import com.blog.newsangblog2.web.uploader.s3.S3Uploader;
 import com.blog.newsangblog2.web.manager.menu.service.ManagerMenuService;
 import com.blog.newsangblog2.web.manager.user.domain.Manager;
@@ -152,19 +153,38 @@ public class ManagerUserController {
 	@GetMapping("/excel-down-test")
 	public ModelAndView testExcelDown(Model model) {
 		List<String> head = new ArrayList<>();
-		head.add("아이디");
+		head.add("로그인 아이디");
 		head.add("비밀번호");
 		head.add("이메일");
 		head.add("이름");
 
 		List<ManagerDto> body = new ArrayList<>();
-/*
 		body.add(
-				new ManagerDto
-		);*/
+				ManagerDto.builder()
+						.loginId("아이디1")
+						.password("비밀번호1")
+						.name("name1")
+						.email("email1")
+						.build()
+		);
+		body.add(
+				ManagerDto.builder()
+						.loginId("아이디2")
+						.password("비밀번호2")
+						.name("name2")
+						.email("email2")
+						.build()
+		);
+		body.add(
+				ManagerDto.builder()
+						.loginId("아이디3")
+						.password("비밀번호3")
+						.name("name3")
+						.email("email3")
+						.build()
+		);
 
-
-		ExcelDownload excelDownload = new ExcelDownload(head, body);
+		ExcelDownload excelDownload = new ExcelDownload(head, body, ExcelType.SELECTED_DOWNLOAD);
 
 		model.addAttribute("fileName", "test.xlsx");
 		model.addAttribute("workbook", excelDownload.getWb());

@@ -14,7 +14,11 @@ public class ExcelDownloadView extends AbstractView {
 
     @Override
     protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest req, HttpServletResponse res) throws Exception {
+        String filename = model.get("fileName").toString();
         XSSFWorkbook workbook = (XSSFWorkbook) model.get("workbook");
+
+        res.setContentType("ms-vnd/excel");
+        res.setHeader("Content-Disposition", "attachment;filename=" + filename);
 
         ServletOutputStream sos = res.getOutputStream();
         workbook.write(sos);

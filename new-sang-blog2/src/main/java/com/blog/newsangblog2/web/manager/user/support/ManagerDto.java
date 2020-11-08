@@ -35,11 +35,11 @@ public class ManagerDto {
 	}
 
 	@Builder
-	public ManagerDto(String loginId, String password, String email, String name) {
+	public ManagerDto(String loginId, String password, String name, String email) {
 		this.loginId = loginId;
 		this.password = password;
-		this.email = email;
 		this.name = name;
+		this.email = email;
 	}
 
 

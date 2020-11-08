@@ -1,6 +1,8 @@
 package com.blog.newsangblog2.common.utils.excel;
 
 
+import com.blog.newsangblog2.common.utils.excel.enumeration.ExcelDownloadSampleDto;
+import com.blog.newsangblog2.common.utils.excel.enumeration.ExcelType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.SpreadsheetVersion;
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class ExcelDownload<T> {
@@ -25,12 +28,19 @@ public class ExcelDownload<T> {
         return this.wb;
     }
 
-    public ExcelDownload(List<String> head, List<T> body) {
+    public ExcelDownload(List<String> head, List<T> body, ExcelType type) {
         excelValidator(body);
         this.wb = new XSSFWorkbook();
         sheet = this.wb.createSheet();
+        int bodyRowStartIndex = ROW_START_INDEX + 1;
         renderHead(head);
-        renderBody(body);
+        if (type.equals(ExcelType.ALL_DOWNLOAD)) {
+            renderBody(body, bodyRowStartIndex);
+        } else if (type.equals(ExcelType.SELECTED_DOWNLOAD)) {
+            renderSelectedBody(body, head, bodyRowStartIndex);
+        }
+
+
     }
 
     private void excelValidator(List<T> body) {
@@ -55,21 +65,42 @@ public class ExcelDownload<T> {
         }
     }
 
-    private void renderBody(List<T> body) {
-        int rowIndex = ROW_START_INDEX + 1;
-        int colIndex = COLUMN_START_INDEX;
+    private void renderBody(List<T> body, int rowIndex) {
+        for (Object rowData : body) {
+            Row row = sheet.createRow(rowIndex++);
+            int colIndex = COLUMN_START_INDEX;
+
+            for (Field field : rowData.getClass().getDeclaredFields()) {
+                try {
+                    // private 접근 제어자 접근 가능하도록 설정
+                    field.setAccessible(true);
+                    Cell cell = row.createCell(colIndex++);
+                    renderCellValue(cell, field.get(body));
+                } catch (Exception e) {
+                    log.error("ERROR: {}", e);
+                }
+
+            }
+        }
+    }
+
+    private void renderSelectedBody(List<T> body, List<String> head, int rowIndex) {
+        Map map = ExcelDownloadSampleDto.convertListToMap(head);
 
         for (Object rowData : body) {
             Row row = sheet.createRow(rowIndex++);
+            int colIndex = COLUMN_START_INDEX;
 
             for (Field field : rowData.getClass().getDeclaredFields()) {
-                // private 접근 제어자 접근 가능하도록 설정
-                try {
-                    field.setAccessible(true);
-                    Cell cell = row.createCell(colIndex++);
-                    renderCellValue(cell, field.get(rowData));
-                } catch (Exception e) {
-                    log.error("ERROR: {}", e);
+                if (map.containsKey(field.getName())) {
+                    try {
+                        // private 접근 제어자 접근 가능하도록 설정
+                        field.setAccessible(true);
+                        Cell cell = row.createCell(colIndex++);
+                        renderCellValue(cell, field.get(rowData));
+                    } catch (Exception e) {
+                        log.error("ERROR: {}", e);
+                    }
                 }
             }
         }
