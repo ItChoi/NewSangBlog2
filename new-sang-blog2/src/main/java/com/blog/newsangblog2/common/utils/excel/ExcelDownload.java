@@ -34,6 +34,7 @@ public class ExcelDownload<T> {
         sheet = this.wb.createSheet();
         int bodyRowStartIndex = ROW_START_INDEX + 1;
         renderHead(head);
+
         if (type.equals(ExcelType.ALL_DOWNLOAD)) {
             renderBody(body, bodyRowStartIndex);
         } else if (type.equals(ExcelType.SELECTED_DOWNLOAD)) {
@@ -75,7 +76,7 @@ public class ExcelDownload<T> {
                     // private 접근 제어자 접근 가능하도록 설정
                     field.setAccessible(true);
                     Cell cell = row.createCell(colIndex++);
-                    renderCellValue(cell, field.get(body));
+                    ExcelUtils.renderCellValue(cell, field.get(body));
                 } catch (Exception e) {
                     log.error("ERROR: {}", e);
                 }
@@ -85,35 +86,25 @@ public class ExcelDownload<T> {
     }
 
     private void renderSelectedBody(List<T> body, List<String> head, int rowIndex) {
-        Map map = ExcelDownloadSampleDto.convertListToMap(head);
+        Map headInfo = ExcelDownloadSampleDto.convertListToMap(head);
 
         for (Object rowData : body) {
             Row row = sheet.createRow(rowIndex++);
             int colIndex = COLUMN_START_INDEX;
 
             for (Field field : rowData.getClass().getDeclaredFields()) {
-                if (map.containsKey(field.getName())) {
+                if (headInfo.containsKey(field.getName())) {
                     try {
                         // private 접근 제어자 접근 가능하도록 설정
                         field.setAccessible(true);
                         Cell cell = row.createCell(colIndex++);
-                        renderCellValue(cell, field.get(rowData));
+                        ExcelUtils.renderCellValue(cell, field.get(rowData));
                     } catch (Exception e) {
                         log.error("ERROR: {}", e);
                     }
                 }
             }
         }
-    }
-
-    private void renderCellValue(Cell cell, Object cellValue) {
-        if (cellValue instanceof Number) {
-            Number numberValue = (Number) cellValue;
-            cell.setCellValue(numberValue.doubleValue());
-            return;
-        }
-
-        cell.setCellValue(cellValue == null ? "" : cellValue.toString());
     }
 
 }
